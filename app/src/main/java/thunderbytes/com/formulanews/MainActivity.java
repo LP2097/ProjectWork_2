@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        HttpGetTask httpTask = (HttpGetTask) new HttpGetTask().execute();
-        String response = httpTask.getResponse();
-
+        //HttpGetTask httpTask = (HttpGetTask) new HttpGetTask().execute();
+        //String response = httpTask.getResponse();
     }
 }
