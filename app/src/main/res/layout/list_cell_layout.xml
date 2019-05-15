@@ -11,7 +11,7 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/raceNameTxt"
+            android:id="@+id/textLeft"
             android:text="Nome corsa"
             android:maxLines="1"
             android:singleLine="true"
@@ -20,7 +20,7 @@
             android:layout_weight="2" />
 
         <TextView
-            android:id="@+id/dateRaceTxt"
+            android:id="@+id/textRight"
             android:text="17 Marzo, 06.10"
             android:maxLines="1"
             android:singleLine="true"
@@ -30,12 +30,13 @@
             android:textAlignment="viewEnd" />
 
         <ImageButton
-            android:id="@+id/getRaceInfoBtn"
+            android:id="@+id/infoBtn"
             android:maxLines="1"
             android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:paddingLeft="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/right_chevron_small" />
