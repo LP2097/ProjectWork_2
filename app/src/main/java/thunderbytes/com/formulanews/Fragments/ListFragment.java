@@ -13,45 +13,47 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import thunderbytes.com.formulanews.R;
 
-public class CalendarFragment extends Fragment {
+public class ListFragment extends Fragment {
     ListView listView;
-    TextView textView;
+    TextView titolo;
+    ImageButton infoBtn;
 
-    String fakeName[] = {"Gara uno", "Grand prix", "Grandissimo prix"};
-    String fakeRaceDate[] = {"21 marzo, 6:12", "21 liglio, 6:12", "31 marzo, 6:45"};
+    String fakeName[] = {"Valtteri Bottas", "Lewis Hamilton" , "Sebastian Vettel", "Max verstappen"};
+    String fakeScore[] = {"87", "86", "52", "51"};
 
-    public CalendarFragment() { }
+    public ListFragment() { }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vView = inflater.inflate(R.layout.list_layout, container, false);
-
-        textView = (TextView)vView.findViewById(R.id.fragmentTitle);
+        titolo = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
 
-        MyAdapter adapter = new MyAdapter(getContext(), fakeName, fakeRaceDate);
-        listView.setAdapter(adapter);
+        titolo.setText(getArguments().getString("title"));
 
+
+        MyAdapter adapter = new MyAdapter(getContext(), fakeName, fakeScore);
+        listView.setAdapter(adapter);
 
         return vView;
     }
 
-    class MyAdapter extends ArrayAdapter<String> {
 
+
+    class MyAdapter extends ArrayAdapter<String> {
         Context context;
         String rName[];
         String rDate[];
 
         MyAdapter(Context c, String name[], String date[]) {
             super(c, R.layout.list_cell_layout, R.id.textLeft, name);
-
             this.context = c;
             this.rName = name;
             this.rDate = date;
-
         }
 
         @NonNull
@@ -63,7 +65,9 @@ public class CalendarFragment extends Fragment {
 
             TextView mName = cell.findViewById(R.id.textLeft);
             TextView mDate = cell.findViewById(R.id.textRight);
+            ImageButton infoBtn = cell.findViewById(R.id.infoBtn);
 
+            infoBtn.setVisibility(View.INVISIBLE);
             mName.setText(rName[position]);
             mDate.setText(rDate[position]);
 
@@ -78,5 +82,4 @@ public class CalendarFragment extends Fragment {
             return cell;
         }
     }
-
 }

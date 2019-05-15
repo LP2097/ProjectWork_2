@@ -9,19 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import thunderbytes.com.formulanews.Fragments.CalendarFragment;
-import thunderbytes.com.formulanews.Fragments.PilotsRanking;
-
-import android.util.Log;
-import java.io.IOException;
-import thunderbytes.com.formulanews.Managers.HttpManager;
-import thunderbytes.com.formulanews.Tasks.HttpGetTask;
+import thunderbytes.com.formulanews.Fragments.ListFragment;
 
 
 public class MainActivity extends AppCompatActivity {
-
     Fragment fragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +23,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (savedInstanceState == null) {
-            fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new CalendarFragment());
-            fragmentTransaction.addToBackStack(null);
-
-            fragmentTransaction.commit();
-        }
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -45,21 +30,25 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle bundle = new Bundle();
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
-                        fragment = new CalendarFragment();
+                        bundle.putString("title", "Calendario");
+                        fragment = new ListFragment();
+                        fragment.setArguments(bundle);
                         break;
 
                     case R.id.action_favorites:
-                        //Classifica piloti
-                        fragment = new PilotsRanking();
+                        bundle.putString("title", "Classifica piloti");
+                        fragment = new ListFragment();
+                        fragment.setArguments(bundle);
                         break;
 
                     case R.id.action_nearby:
-                        //mettere collegamento fragment Costruttori
-                        //fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new BuildersRankingFragment());
-                        //fragmentTransaction.commit();
+                        bundle.putString("title", "Classifica costruttori");
+                        fragment = new ListFragment();
+                        fragment.setArguments(bundle);
                         break;
                 }
                 fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
