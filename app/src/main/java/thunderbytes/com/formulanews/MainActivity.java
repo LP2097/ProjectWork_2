@@ -2,10 +2,15 @@ package thunderbytes.com.formulanews;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import thunderbytes.com.formulanews.Fragments.PilotsRankingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,16 +23,25 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
                 switch (item.getItemId()) {
                     case R.id.action_recents:
-                        //mettere collegamento fragment Calendario
+                        //fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new CalendarFragment());
+                        //fragmentTransaction.commit();
                         break;
+
                     case R.id.action_favorites:
-                        
-                        //mettere collegamento fragment Piloti
+                        //Classifica piloti
+                        fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new PilotsRankingFragment());
+                        fragmentTransaction.commit();
                         break;
+
                     case R.id.action_nearby:
                         //mettere collegamento fragment Costruttori
+                        //fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new BuildersRankingFragment());
+                        //fragmentTransaction.commit();
                         break;
                 }
                 return true;
