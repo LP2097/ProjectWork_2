@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import thunderbytes.com.formulanews.Fragments.CalendarFragment;
 import thunderbytes.com.formulanews.Fragments.PilotsRanking;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
-                        //fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new CalendarFragment());
-                        //fragmentTransaction.commit();
+                        fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new CalendarFragment());
+                        fragmentTransaction.commit();
                         break;
 
                     case R.id.action_favorites:
