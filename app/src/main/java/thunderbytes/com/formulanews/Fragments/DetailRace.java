@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import thunderbytes.com.formulanews.R;
@@ -25,6 +26,8 @@ public class DetailRace extends Fragment {
         TextView vQualification = getView().findViewById(R.id.labelQualification);
         TextView vRace = getView().findViewById(R.id.labelRace);
         Button vNotification = getView().findViewById(R.id.buttonNotification);
+
+        ListView listView = getView().findViewById(R.id.listViewResult);
 
         vNotification.setOnClickListener(new View.OnClickListener() {
             @Override

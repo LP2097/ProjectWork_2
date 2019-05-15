@@ -146,6 +146,7 @@
             android:text="Risultati" />
 
         <ListView
+            android:id="@+id/listViewResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="500">
