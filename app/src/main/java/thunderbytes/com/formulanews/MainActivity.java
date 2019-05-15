@@ -2,15 +2,13 @@ package thunderbytes.com.formulanews;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import thunderbytes.com.formulanews.Fragments.PilotsRankingFragment;
+import thunderbytes.com.formulanews.Fragments.PilotsRanking;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.action_favorites:
                         //Classifica piloti
-                        fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new PilotsRankingFragment());
+                        fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new PilotsRanking());
                         fragmentTransaction.commit();
+
                         break;
 
                     case R.id.action_nearby:

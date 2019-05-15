@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import thunderbytes.com.formulanews.R;
 
-public class PilotsRankingFragment extends Fragment {
-    public PilotsRankingFragment() {
+public class PilotsRanking extends Fragment {
+    public PilotsRanking() {
         //Costruttore vuoto
     }
 
