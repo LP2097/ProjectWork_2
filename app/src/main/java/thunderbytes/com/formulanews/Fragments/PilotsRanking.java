@@ -19,7 +19,6 @@ import thunderbytes.com.formulanews.R;
 public class PilotsRanking extends Fragment {
     ListView listView;
     TextView title;
-    ImageButton infoBtn;
 
     String fakeName[] = {"Valtteri Bottas", "Lewis Hamilton" , "Sebastian Vettel", "Max verstappen"};
     String fakeScore[] = {"87", "86", "52", "51"};

@@ -1,5 +1,6 @@
 package thunderbytes.com.formulanews;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Fragments.CalendarFragment;
 import thunderbytes.com.formulanews.Fragments.PilotsRanking;
 
@@ -18,7 +20,7 @@ import thunderbytes.com.formulanews.Managers.HttpManager;
 import thunderbytes.com.formulanews.Tasks.HttpGetTask;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CalendarFragment.OnClicked{
 
     Fragment fragment;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
 
+=======
+>>>>>>> collegamento fragment Calendario con activity dettaglio
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -70,5 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
         //HttpGetTask httpTask = (HttpGetTask) new HttpGetTask().execute();
         //String response = httpTask.getResponse();
+    }
+
+    @Override
+    public void onValue(String rName) {
+        Intent vIntent = new Intent(this, DetailRace.class);
+        Bundle vBundle = new Bundle();
+        vBundle.putString("ITEM_NAME_RACE", rName);
+        vIntent.putExtras(vBundle);
+        startActivity(vIntent);
     }
 }

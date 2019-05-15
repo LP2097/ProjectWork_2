@@ -16,13 +16,18 @@ import android.widget.TextView;
 import thunderbytes.com.formulanews.R;
 
 public class CalendarFragment extends Fragment {
+
+    public interface OnClicked{
+        void onValue(String rName);
+    }
+
+    private OnClicked mListener;
+
     ListView listView;
     TextView textView;
 
     String fakeName[] = {"Gara uno", "Grand prix", "Grandissimo prix"};
     String fakeRaceDate[] = {"21 marzo, 6:12", "21 liglio, 6:12", "31 marzo, 6:45"};
-
-    public CalendarFragment() { }
 
 
     @Override
@@ -57,6 +62,7 @@ public class CalendarFragment extends Fragment {
         @NonNull
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
@@ -72,11 +78,27 @@ public class CalendarFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("API", rName[position]);
+
+                    mListener.onValue(rName[position]);
                 }
             });
 
             return cell;
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnClicked) {
+            mListener = (OnClicked)context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
 }
