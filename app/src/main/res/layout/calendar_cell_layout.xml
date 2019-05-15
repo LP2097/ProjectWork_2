@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,12 +12,14 @@
 
         <TextView
             android:id="@+id/raceNameTxt"
+            android:text="Nome corsa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2" />
 
         <TextView
             android:id="@+id/dateRaceTxt"
+            android:text="17 Marzo, 06.10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -31,7 +33,5 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/right_chevron_small" />
-
     </LinearLayout>
-
 </LinearLayout>
