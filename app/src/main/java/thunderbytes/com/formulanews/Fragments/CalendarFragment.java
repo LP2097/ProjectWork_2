@@ -31,7 +31,7 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vView = inflater.inflate(R.layout.list_layout, container, false);
 
-        textView = (TextView)vView.findViewById(R.id.calendarioTxt);
+        textView = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
 
         MyAdapter adapter = new MyAdapter(getContext(), fakeName, fakeRaceDate);
