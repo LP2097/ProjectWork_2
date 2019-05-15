@@ -17,8 +17,6 @@ package="thunderbytes.com.formulanews">
         </intent-filter>
     </activity>
 
-    <activity android:name=".Activities.CalendarActivity" />
-
     <activity android:name=".MainActivity" />
 </application>
 

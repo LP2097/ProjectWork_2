@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import thunderbytes.com.formulanews.R;
 
 public class CalendarFragment extends Fragment {
@@ -24,15 +23,13 @@ public class CalendarFragment extends Fragment {
     String fakeName[] = {"Gara uno", "Grand prix", "Grandissimo prix"};
     String fakeRaceDate[] = {"21 marzo, 6:12", "21 liglio, 6:12", "31 marzo, 6:45"};
 
-    public CalendarFragment() {
-
-    }
+    public CalendarFragment() { }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vView = inflater.inflate(R.layout.calendar_layout, container, false);
+        View vView = inflater.inflate(R.layout.list_layout, container, false);
 
         textView = (TextView)vView.findViewById(R.id.calendarioTxt);
         listView = (ListView)vView.findViewById(R.id.listView);
@@ -51,7 +48,7 @@ public class CalendarFragment extends Fragment {
         String rDate[];
 
         MyAdapter(Context c, String name[], String date[]) {
-            super(c, R.layout.calendar_cell_layout, R.id.raceNameTxt, name);
+            super(c, R.layout.list_cell_layout, R.id.raceNameTxt, name);
 
             this.context = c;
             this.rName = name;
@@ -64,7 +61,7 @@ public class CalendarFragment extends Fragment {
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
+            View cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
 
             TextView mName = cell.findViewById(R.id.raceNameTxt);
             TextView mDate = cell.findViewById(R.id.dateRaceTxt);
