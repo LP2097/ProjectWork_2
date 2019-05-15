@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.BottomNavigationView
+    <!--<android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,5 +13,5 @@
         app:itemBackground="@android:color/white"
         app:itemIconTint="@color/colorDark"
         app:itemTextColor="@color/colorDark"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu" /> -->
 </RelativeLayout>
