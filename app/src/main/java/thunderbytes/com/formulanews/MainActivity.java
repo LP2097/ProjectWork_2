@@ -11,12 +11,19 @@ import android.view.MenuItem;
 import thunderbytes.com.formulanews.Fragments.CalendarFragment;
 import thunderbytes.com.formulanews.Fragments.PilotsRanking;
 
+import android.util.Log;
+import java.io.IOException;
+import thunderbytes.com.formulanews.Managers.HttpManager;
+import thunderbytes.com.formulanews.Tasks.HttpGetTask;
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,5 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        HttpGetTask httpTask = (HttpGetTask) new HttpGetTask().execute();
+        String response = httpTask.getResponse();
+
     }
 }
