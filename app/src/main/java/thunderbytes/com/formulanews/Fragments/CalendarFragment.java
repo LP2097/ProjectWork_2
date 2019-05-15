@@ -16,7 +16,6 @@ import android.widget.TextView;
 import thunderbytes.com.formulanews.R;
 
 public class CalendarFragment extends Fragment {
-
     ListView listView;
     TextView textView;
 
@@ -27,8 +26,7 @@ public class CalendarFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vView = inflater.inflate(R.layout.list_layout, container, false);
 
         textView = (TextView)vView.findViewById(R.id.fragmentTitle);
