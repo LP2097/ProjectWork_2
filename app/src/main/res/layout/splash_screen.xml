@@ -14,5 +14,4 @@
             android:scaleType="fitCenter"
             android:layout_gravity="center"
             android:orientation="horizontal"/>
-
 </LinearLayout>

@@ -8,11 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp">
 
         <TextView
             android:id="@+id/textLeft"
             android:text="Nome corsa"
+            android:textSize="22sp"
             android:maxLines="1"
             android:singleLine="true"
             android:layout_width="wrap_content"
@@ -22,6 +24,7 @@
         <TextView
             android:id="@+id/textRight"
             android:text="17 Marzo, 06.10"
+            android:textSize="22sp"
             android:maxLines="1"
             android:singleLine="true"
             android:layout_width="wrap_content"
@@ -33,12 +36,13 @@
             android:id="@+id/infoBtn"
             android:maxLines="1"
             android:singleLine="true"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:paddingLeft="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:paddingLeft="10sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
             android:src="@drawable/right_chevron_small" />
     </LinearLayout>
 </LinearLayout>

@@ -48,7 +48,7 @@ public class CalendarFragment extends Fragment {
         String rDate[];
 
         MyAdapter(Context c, String name[], String date[]) {
-            super(c, R.layout.list_cell_layout, R.id.raceNameTxt, name);
+            super(c, R.layout.list_cell_layout, R.id.textLeft, name);
 
             this.context = c;
             this.rName = name;
@@ -63,13 +63,13 @@ public class CalendarFragment extends Fragment {
 
             View cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
 
-            TextView mName = cell.findViewById(R.id.raceNameTxt);
-            TextView mDate = cell.findViewById(R.id.dateRaceTxt);
+            TextView mName = cell.findViewById(R.id.textLeft);
+            TextView mDate = cell.findViewById(R.id.textRight);
 
             mName.setText(rName[position]);
             mDate.setText(rDate[position]);
 
-            ImageButton getRaceBtn = cell.findViewById(R.id.getRaceInfoBtn);
+            ImageButton getRaceBtn = cell.findViewById(R.id.infoBtn);
             getRaceBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
