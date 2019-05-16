@@ -17,6 +17,8 @@ import android.widget.TextView;
 import thunderbytes.com.formulanews.R;
 
 public class ListFragment extends Fragment {
+    public static final String ID = "id";
+    private int fragmentId;
     ListView listView;
     TextView title;
     ImageButton infoBtn;
@@ -33,11 +35,23 @@ public class ListFragment extends Fragment {
         title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
 
-        title.setText("Classifica piloti");
+        fragmentId = getArguments().getInt(ID);
+        switch (fragmentId) {
+            case 0:
+                title.setText("Calendario");
+                break;
+
+            case 1:
+                title.setText("Classifica piloti");
+                break;
+
+            case 2:
+                title.setText("Classifica costruttori");
+                break;
+        }
 
         MyAdapter adapter = new MyAdapter(getContext(), fakeName, fakeScore);
         listView.setAdapter(adapter);
-
         return vView;
     }
 
@@ -58,19 +72,28 @@ public class ListFragment extends Fragment {
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             View cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
-
             TextView mName = cell.findViewById(R.id.textLeft);
             TextView mDate = cell.findViewById(R.id.textRight);
             ImageButton infoBtn = cell.findViewById(R.id.infoBtn);
 
-            infoBtn.setVisibility(View.INVISIBLE);
+            switch (fragmentId) {
+                case 0:
+                    infoBtn.setVisibility(View.VISIBLE);
+                    break;
+
+                case 1:
+                    infoBtn.setVisibility(View.INVISIBLE);
+                    break;
+
+                case 2:
+                    infoBtn.setVisibility(View.INVISIBLE);
+                    break;
+            }
             mName.setText(rName[position]);
             mDate.setText(rDate[position]);
 
-            ImageButton getRaceBtn = cell.findViewById(R.id.infoBtn);
-            getRaceBtn.setOnClickListener(new View.OnClickListener() {
+            infoBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d("API", rName[position]);
