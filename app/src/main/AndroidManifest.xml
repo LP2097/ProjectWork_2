@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <receiver android:name=".Broadcast.NotificationPublisher"></receiver>
     </application>
 
 </manifest>

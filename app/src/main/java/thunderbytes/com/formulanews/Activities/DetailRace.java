@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
+import thunderbytes.com.formulanews.Managers.NotificationManager;
 import thunderbytes.com.formulanews.R;
 
 public class DetailRace extends AppCompatActivity {
@@ -40,6 +42,6 @@ public class DetailRace extends AppCompatActivity {
     }
 
     private void enableNotification(){
-
+        NotificationManager.setReminder(this, NotificationPublisher.class,DetailRace.class,2000);
     }
 }
