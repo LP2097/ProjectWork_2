@@ -19,57 +19,63 @@ import thunderbytes.com.formulanews.Tasks.HttpGetTask;
 
 
 public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked{
-    Fragment fragment;
 
+    Fragment fragment;
+    Bundle bundle = new Bundle();
+    thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if (savedInstanceState == null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragment = new ListFragment();
+
+            fragmentModel.fragmentId = 0;
+            setBundleId();
+
+            fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
+
+        }
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
-                Bundle bundle = new Bundle();
+                fragment = new ListFragment();
+
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
                         //Calendario
-                        fragment = new ListFragment();
                         fragmentModel.fragmentId = 0;
-                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
-                        fragment.setArguments(bundle);
+                        setBundleId();
                         break;
 
                     case R.id.action_favorites:
                         //Classifica piloti
-                        fragment = new ListFragment();
                         fragmentModel.fragmentId = 1;
-                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
-                        fragment.setArguments(bundle);
+                        setBundleId();
                         break;
 
                     case R.id.action_nearby:
                         //Classifica costruttori
-                        fragment = new ListFragment();
                         fragmentModel.fragmentId = 2;
-                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
-                        fragment.setArguments(bundle);
+                        setBundleId();
                         break;
 
                     default:
                         fragment = new ListFragment();
                         fragmentModel.fragmentId = 0;
-                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
-                        fragment.setArguments(bundle);
                         break;
                 }
                 fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
@@ -90,4 +96,12 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         vIntent.putExtras(vBundle);
         startActivity(vIntent);
     }
+
+    public void setBundleId() {
+
+        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
+        fragment.setArguments(bundle);
+
+    }
+
 }
