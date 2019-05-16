@@ -27,6 +27,12 @@ public class ListFragment extends Fragment {
 
     public ListFragment() { }
 
+    public interface OnItemClicked{
+        void onItemValue(String aCircuit);
+    }
+
+    private OnItemClicked mListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,10 +91,25 @@ public class ListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Log.d("API", rName[position]);
+                    mListener.onItemValue(rName[position]);
                 }
             });
 
             return cell;
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnItemClicked) {
+            mListener = (OnItemClicked)context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 }
