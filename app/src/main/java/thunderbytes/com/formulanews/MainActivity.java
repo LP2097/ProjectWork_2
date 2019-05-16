@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (savedInstanceState == null) {
-            fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new ListFragment());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        }
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -40,19 +34,39 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
+                Bundle bundle = new Bundle();
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
+                        //Calendario
                         fragment = new ListFragment();
+                        fragmentModel.fragmentId = 0;
+                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
+                        fragment.setArguments(bundle);
                         break;
 
                     case R.id.action_favorites:
                         //Classifica piloti
                         fragment = new ListFragment();
+                        fragmentModel.fragmentId = 1;
+                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
+                        fragment.setArguments(bundle);
                         break;
 
                     case R.id.action_nearby:
+                        //Classifica costruttori
                         fragment = new ListFragment();
+                        fragmentModel.fragmentId = 2;
+                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
+                        fragment.setArguments(bundle);
+                        break;
+
+                    default:
+                        fragment = new ListFragment();
+                        fragmentModel.fragmentId = 0;
+                        bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
+                        fragment.setArguments(bundle);
                         break;
                 }
                 fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();

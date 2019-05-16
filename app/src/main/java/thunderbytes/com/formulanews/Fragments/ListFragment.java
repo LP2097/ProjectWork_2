@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import thunderbytes.com.formulanews.R;
 
 public class ListFragment extends Fragment {
@@ -34,21 +33,7 @@ public class ListFragment extends Fragment {
         View vView = inflater.inflate(R.layout.list_layout, container, false);
         title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
-
         fragmentId = getArguments().getInt(ID);
-        switch (fragmentId) {
-            case 0:
-                title.setText("Calendario");
-                break;
-
-            case 1:
-                title.setText("Classifica piloti");
-                break;
-
-            case 2:
-                title.setText("Classifica costruttori");
-                break;
-        }
 
         MyAdapter adapter = new MyAdapter(getContext(), fakeName, fakeScore);
         listView.setAdapter(adapter);
@@ -73,25 +58,28 @@ public class ListFragment extends Fragment {
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
-            TextView mName = cell.findViewById(R.id.textLeft);
-            TextView mDate = cell.findViewById(R.id.textRight);
+            TextView textLeft = cell.findViewById(R.id.textLeft);
+            TextView textRight = cell.findViewById(R.id.textRight);
             ImageButton infoBtn = cell.findViewById(R.id.infoBtn);
 
             switch (fragmentId) {
                 case 0:
+                    title.setText("Calendario");
                     infoBtn.setVisibility(View.VISIBLE);
                     break;
 
                 case 1:
+                    title.setText("Classifica piloti");
                     infoBtn.setVisibility(View.INVISIBLE);
                     break;
 
                 case 2:
+                    title.setText("Classifica costruttori");
                     infoBtn.setVisibility(View.INVISIBLE);
                     break;
             }
-            mName.setText(rName[position]);
-            mDate.setText(rDate[position]);
+            textLeft.setText(rName[position]);
+            textRight.setText(rDate[position]);
 
             infoBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
