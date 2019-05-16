@@ -8,12 +8,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import thunderbytes.com.formulanews.Fragments.ListFragment;
+import android.util.Log;
+import java.io.IOException;
+import thunderbytes.com.formulanews.Managers.HttpManager;
+import thunderbytes.com.formulanews.Tasks.HttpGetTask;
 
 
 public class MainActivity extends AppCompatActivity {
     Fragment fragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+        if (savedInstanceState == null) {
+            fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, new ListFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -30,25 +40,19 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Bundle bundle = new Bundle();
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
-                        bundle.putString("title", "Calendario");
                         fragment = new ListFragment();
-                        fragment.setArguments(bundle);
                         break;
 
                     case R.id.action_favorites:
-                        bundle.putString("title", "Classifica piloti");
+                        //Classifica piloti
                         fragment = new ListFragment();
-                        fragment.setArguments(bundle);
                         break;
 
                     case R.id.action_nearby:
-                        bundle.putString("title", "Classifica costruttori");
                         fragment = new ListFragment();
-                        fragment.setArguments(bundle);
                         break;
                 }
                 fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();

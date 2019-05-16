@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.5.0'
     implementation 'com.squareup.okio:okio:2.2.2'
-    implementation (
+    implementation(
             [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.8'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8']

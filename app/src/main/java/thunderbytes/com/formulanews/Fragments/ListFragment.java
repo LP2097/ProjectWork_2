@@ -18,7 +18,7 @@ import thunderbytes.com.formulanews.R;
 
 public class ListFragment extends Fragment {
     ListView listView;
-    TextView titolo;
+    TextView title;
     ImageButton infoBtn;
 
     String fakeName[] = {"Valtteri Bottas", "Lewis Hamilton" , "Sebastian Vettel", "Max verstappen"};
@@ -30,18 +30,16 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View vView = inflater.inflate(R.layout.list_layout, container, false);
-        titolo = (TextView)vView.findViewById(R.id.fragmentTitle);
+        title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
 
-        titolo.setText(getArguments().getString("title"));
-
+        title.setText("Classifica piloti");
 
         MyAdapter adapter = new MyAdapter(getContext(), fakeName, fakeScore);
         listView.setAdapter(adapter);
 
         return vView;
     }
-
 
 
     class MyAdapter extends ArrayAdapter<String> {
