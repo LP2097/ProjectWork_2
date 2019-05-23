@@ -1,10 +1,13 @@
 package thunderbytes.com.formulanews.Models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 public class Circuit {
     private String circuitId;
     private String url;
     private String circuitName;
-    public Location Location;
+    public Location location;
 
     public String getCircuitId() {
         return circuitId;
@@ -30,12 +33,15 @@ public class Circuit {
         this.circuitName = circuitName;
     }
 
+    @JsonGetter("Location")
     public Location getLocation() {
-        return Location;
+        return location;
     }
 
+
+    @JsonSetter("Location")
     public void setLocation(Location location) {
-        this.Location = location;
+        this.location = location;
     }
 
     @Override

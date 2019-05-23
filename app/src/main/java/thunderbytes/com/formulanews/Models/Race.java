@@ -1,5 +1,8 @@
 package thunderbytes.com.formulanews.Models;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.sql.Time;
 import java.util.Date;
 
@@ -8,7 +11,7 @@ public class Race {
     private int round;
     private String url;
     private String raceName;
-    public Circuit Circuit;
+    public Circuit circuit;
     private Date date;
     private String time;
 
@@ -44,12 +47,14 @@ public class Race {
         this.raceName = raceName;
     }
 
+    @JsonGetter("Circuit")
     public Circuit getCircuit() {
-        return Circuit;
+        return circuit;
     }
 
+    @JsonSetter("Circuit")
     public void setCircuit(Circuit circuit) {
-        this.Circuit = circuit;
+        this.circuit = circuit;
     }
 
     public Date getDate() {
