@@ -71,32 +71,48 @@ public class ListFragment extends Fragment {
         @Override
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
-            TextView Position = cell.findViewById(R.id.position);
-            TextView UpText = cell.findViewById(R.id.upText);
-            TextView DownText = cell.findViewById(R.id.downText);
-            TextView Points = cell.findViewById(R.id.points);
+            View cell = null;
+            TextView textPosition = null;
+            TextView textUpText = null;
+            TextView textDownText = null;
+            TextView textPoints = null;
 
             switch (fragmentId) {
                 case 0:
                     title.setText("Calendario");
+                    cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
                     //infoBtn.setVisibility(View.VISIBLE);
                     break;
 
                 case 1:
                     title.setText("Classifica piloti");
+                    cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
+                    textPosition = cell.findViewById(R.id.position);
+                    textUpText = cell.findViewById(R.id.upText);
+                    textDownText = cell.findViewById(R.id.downText);
+                    textPoints = cell.findViewById(R.id.points);
+                    textPosition.setText(rankPosition[position]);
+                    textUpText.setText(upText[position]);
+                    textDownText.setText(downText[position]);
+                    textPoints.setText(points[position]);
                     //infoBtn.setVisibility(View.INVISIBLE);
                     break;
 
                 case 2:
                     title.setText("Classifica costruttori");
+                    cell = layoutInflater.inflate(R.layout.list_cell_layout, parent, false);
+                    textPosition = cell.findViewById(R.id.position);
+                    textUpText = cell.findViewById(R.id.upText);
+                    textDownText = cell.findViewById(R.id.downText);
+                    textPoints = cell.findViewById(R.id.points);
+                    textPosition.setText(rankPosition[position]);
+                    textUpText.setText(upText[position]);
+                    textDownText.setText(downText[position]);
+                    textPoints.setText(points[position]);
+
                     //infoBtn.setVisibility(View.INVISIBLE);
                     break;
             }
-            Position.setText(rankPosition[position]);
-            UpText.setText(upText[position]);
-            DownText.setText(downText[position]);
-            Points.setText(points[position]);
 
             //infoBtn.setOnClickListener(new View.OnClickListener() {
             //    @Override
