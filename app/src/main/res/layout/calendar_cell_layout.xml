@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@drawable/background_cell_layout"
+        android:paddingTop="10sp"
+        android:paddingRight="10sp"
+        android:paddingBottom="10sp"
+        android:layout_marginBottom="10sp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10sp"
+            android:paddingLeft="10sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textLeft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="07 - 09"
+                android:textAlignment="center"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textLeft2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="JAN"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="5sp"
+            android:layout_height="59sp"
+            android:background="@drawable/dashed_vertical_line"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5sp"
+            android:paddingLeft="10sp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Canada"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textRight2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="Formula 1 ecc"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/infoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:background="@null"
+            android:maxLines="1"
+            android:paddingLeft="10sp"
+            android:singleLine="true"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+             />
+    </LinearLayout>
+
+</LinearLayout>
