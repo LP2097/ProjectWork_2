@@ -2,23 +2,25 @@ package thunderbytes.com.formulanews;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
-import android.util.Log;
-import java.io.IOException;
-import thunderbytes.com.formulanews.Managers.HttpManager;
+import thunderbytes.com.formulanews.Managers.SeasonManager;
+import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Tasks.HttpGetTask;
+import thunderbytes.com.formulanews.Wrappers.RaceMRDataWrapper;
 
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked{
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched {
 
     Fragment fragment;
     Bundle bundle = new Bundle();
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new SeasonManager(2018,this);
 
         if (savedInstanceState == null) {
 
@@ -83,9 +86,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
             }
 
         });
-
-        //HttpGetTask httpTask = (HttpGetTask) new HttpGetTask().execute();
-        //String response = httpTask.getResponse();
     }
 
     @Override
@@ -104,4 +104,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
     }
 
+    @Override
+    public void onSeasonRetrievedSuccessfully(Season season) {
+        Log.d("Race", season.getRaces().get(0).getRaceName());
+    }
 }
