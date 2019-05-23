@@ -12,12 +12,14 @@
         android:paddingTop="10sp"
         android:paddingRight="10sp"
         android:paddingBottom="10sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
         android:layout_marginBottom="10sp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="10sp"
+            android:paddingRight="20sp"
             android:paddingLeft="10sp"
             android:orientation="vertical">
 
@@ -29,6 +31,7 @@
                 android:singleLine="true"
                 android:text="07 - 09"
                 android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
                 android:textSize="22sp" />
 
             <TextView
@@ -38,6 +41,8 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="JAN"
+                android:background="@drawable/text_background"
+                android:textColor="@android:color/background_dark"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textSize="22sp" />
@@ -66,6 +71,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="Canada"
+                android:textColor="@android:color/background_dark"
                 android:textSize="22sp" />
 
             <TextView
@@ -76,6 +82,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:text="Formula 1 ecc"
+                android:textColor="@android:color/background_dark"
                 android:textSize="12sp" />
 
         </LinearLayout>
