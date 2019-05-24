@@ -14,10 +14,8 @@ import android.view.MenuItem;
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
-import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Models.Season;
-import thunderbytes.com.formulanews.Tasks.HttpGetTask;
-import thunderbytes.com.formulanews.Wrappers.RaceMRDataWrapper;
+
 
 
 public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched {
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new SeasonManager(2018,this);
+        new SeasonManager(2018, this);
 
         if (savedInstanceState == null) {
 
@@ -106,6 +104,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
-        Log.d("Race", season.getRaces().get(0).getRaceName());
+        Log.d("IHUBDWIDGHUIUGW", season.getRaces().get(0).getRaceName());
     }
 }

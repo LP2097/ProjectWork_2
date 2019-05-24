@@ -34,6 +34,7 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
     }*/
 
     protected String doInBackground(String... urls) {
+        Log.d("Prova", "Do in background");
         String url = urls[0]+".json";
         String response = null;
         try {
@@ -45,12 +46,12 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
     }
 
     protected void onPostExecute(String response){
+        Log.d("Prova", "Reached on post execute");
         if(response != null) {
             byte[] jsonData = response.getBytes();
 
             ObjectMapper objectMapper = new ObjectMapper();
             IDataWrapper jsonObject;
-            //Log.d("CLASS",castClass.toString());
 
             try {
                 jsonObject = objectMapper.readValue(jsonData, wrapper.getClass());
@@ -60,7 +61,10 @@ public class HttpGetTask extends AsyncTask<String, Void, String> {
             }
 
             listener.onHttpGetFinished(jsonObject);
+        }else{
+            listener.onHttpGetFinished(null);
         }
+
         listener = null;
     }
 }

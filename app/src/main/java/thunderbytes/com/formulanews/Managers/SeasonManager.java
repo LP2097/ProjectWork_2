@@ -1,7 +1,6 @@
 package thunderbytes.com.formulanews.Managers;
 
 import android.content.Context;
-import android.util.Log;
 
 import thunderbytes.com.formulanews.Helpers.Constants;
 import thunderbytes.com.formulanews.Interfaces.IDataWrapper;
@@ -31,11 +30,9 @@ public class SeasonManager implements HttpGetTask.OnPostExecution {
 
     @Override
     public void onHttpGetFinished(IDataWrapper jsonObject) {
-       // Log.d("PROVA", (SeasonMRDataWrapper)jsonObject.getMRData().toString());
         RaceMRDataWrapper data = ((RaceDataWrapper)jsonObject).getMRData();
         season.setRaces(data.getRaceTable().getRaces());
-        Log.d("Prova", season.getSeasonYear()+"");
-        //season.setRaces(jsonObject.getMRData().getRaceTable().getRaces());
+        listener.onSeasonRetrievedSuccessfully(season);
         listener = null;
     }
 }

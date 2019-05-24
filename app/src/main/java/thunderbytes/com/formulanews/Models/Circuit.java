@@ -38,7 +38,6 @@ public class Circuit {
         return location;
     }
 
-
     @JsonSetter("Location")
     public void setLocation(Location location) {
         this.location = location;
