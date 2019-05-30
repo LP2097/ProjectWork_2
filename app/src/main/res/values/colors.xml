@@ -5,6 +5,20 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorDark">#000</color>
 
+    <color name="white">#FFFFFF</color>
+    <color name="white_smoke">#F4F4F1</color>
+    <color name="grey_light">#EFF0F1</color>
     <color name="grey">#9C9C9C</color>
+    <color name="grey_darker">#13161E</color>
+    <color name="black">#000000</color>
     <color name="red">#CE2C1D</color>
+    <color name="mercedes">#5ECEBF</color>
+    <color name="ferrari">#CE2D1E</color>
+    <color name="redbull">#2640F6</color>
+    <color name="mclaren">#CE761E</color>
+    <color name="racingpoints">#E59BC6</color>
+    <color name="renault">#fbef62</color>
+    <color name="richenergy">#010101</color>
+    <color name="alfaromeo">#902c38</color>
+    <color name="rokit">#3b8ad3</color>
 </resources>

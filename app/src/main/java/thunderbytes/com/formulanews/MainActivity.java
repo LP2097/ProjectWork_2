@@ -10,16 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-
+import android.widget.LinearLayout;
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Models.Season;
 
 
-
 public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched {
-
     Fragment fragment;
     Bundle bundle = new Bundle();
     thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
@@ -32,28 +30,21 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         new SeasonManager(2018, this);
 
         if (savedInstanceState == null) {
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragment = new ListFragment();
-
             fragmentModel.fragmentId = 0;
             setBundleId();
-
             fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
-
         }
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragment = new ListFragment();
-
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
@@ -82,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                 fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
                 return true;
             }
-
         });
     }
 
@@ -96,10 +86,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     }
 
     public void setBundleId() {
-
         bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
         fragment.setArguments(bundle);
-
     }
 
     @Override

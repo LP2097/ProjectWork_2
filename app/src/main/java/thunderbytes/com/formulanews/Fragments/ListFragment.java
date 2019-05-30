@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import thunderbytes.com.formulanews.Models.Race;
@@ -44,8 +45,22 @@ public class ListFragment extends Fragment {
         title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
         fragmentId = getArguments().getInt(ID);
-
         MyAdapter adapter = new MyAdapter(getContext(), fakePosition, fakeFirstName, fakeLastName, fakePoints);
+
+        switch (fragmentId){
+            case 0:
+                vView.setBackgroundColor(getResources().getColor(R.color.white_smoke));
+                break;
+
+            case 1:
+                vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
+                break;
+
+            case 2:
+                vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
+                break;
+        }
+
         listView.setAdapter(adapter);
         return vView;
     }
