@@ -40,6 +40,8 @@ public class StandingManager implements HttpGetTask.OnPostExecution {
             StandingsMRDataWrapper data = ((StandingsDataWrapper)jsonObject).getMRData();
             standings = data.getStandingsTable().getStandingsLists();
             //season.setRaces(data.getRaceTable().getRaces());
+        }else{
+            standings = new ArrayList<>();
         }
         listener.onStandingsRetrievedSuccessfully(standings);
         listener = null;

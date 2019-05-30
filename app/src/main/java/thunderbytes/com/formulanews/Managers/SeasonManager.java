@@ -47,6 +47,8 @@ public class SeasonManager implements HttpGetTask.OnPostExecution {
         if(jsonObject != null){
             RaceMRDataWrapper data = ((RaceDataWrapper)jsonObject).getMRData();
             season.setRaces(data.getRaceTable().getRaces());
+        }else{
+            season = new Season();
         }
         listener.onSeasonRetrievedSuccessfully(season);
         listener = null;
