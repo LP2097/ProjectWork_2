@@ -59,28 +59,26 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                     setTitleBottomMenuColor(lastSelected, Color.BLACK);
                 }
                 lastSelected = item;
+                setTitleBottomMenuColor(item, Color.RED);
+
 
                 switch (item.getItemId()) {
                     case R.id.action_recents:
                         //Calendario
                         fragmentModel.fragmentId = 0;
                         setBundleId();
-                        setTitleBottomMenuColor(item, Color.RED);
                         break;
 
                     case R.id.action_favorites:
                         //Classifica piloti
                         fragmentModel.fragmentId = 1;
                         setBundleId();
-                        setTitleBottomMenuColor(item, Color.RED);
                         break;
 
                     case R.id.action_nearby:
                         //Classifica costruttori
                         fragmentModel.fragmentId = 2;
                         setBundleId();
-                        setTitleBottomMenuColor(item, Color.RED);
-
                         break;
 
                     default:

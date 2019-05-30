@@ -24,21 +24,8 @@ public class DetailRace extends AppCompatActivity {
 
         TextView vTitle = findViewById(R.id.title_detailActivity);
         ImageView vCircuit = findViewById(R.id.circuitRace);
-        TextView vFP1 = findViewById(R.id.labelFP1);
-        TextView vFP2 = findViewById(R.id.labelFP2);
-        TextView vFP3 = findViewById(R.id.labelFP3);
-        TextView vQualification = findViewById(R.id.labelQualification);
-        TextView vRace = findViewById(R.id.labelRace);
-        Button vNotification = findViewById(R.id.buttonNotification);
 
         listView = findViewById(R.id.listViewResult);
-
-        vNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enableNotification();
-            }
-        });
     }
 
     private void enableNotification(){
