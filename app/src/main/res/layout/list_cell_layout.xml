@@ -76,7 +76,9 @@
             android:text="120 PTS"
             android:gravity="center|right"
             android:textColor="@android:color/background_dark"
-            android:background="@color/grey_light"
+            android:background="@drawable/background_cell_layout"
+            android:padding="10sp"
+            android:backgroundTint="@color/grey_light"
             android:layout_marginRight="20sp"
             android:textSize="18sp" />
     </LinearLayout>

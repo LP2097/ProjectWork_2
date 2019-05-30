@@ -1,8 +1,10 @@
 package thunderbytes.com.formulanews.Models;
 
 import java.util.Date;
-public class Pilot {
+public class Driver {
 
+    public String code;
+    public int permanentNumber;
     public String driverId;
     public String url;
     public String givenName;
@@ -58,8 +60,24 @@ public class Pilot {
         this.nationality = nationality;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getPermanentNumber() {
+        return permanentNumber;
+    }
+
+    public void setPermanentNumber(int permanentNumber) {
+        this.permanentNumber = permanentNumber;
+    }
+
     @Override
     public String toString() {
-        return "Pilot{}";
+        return "Driver{}";
     }
 }

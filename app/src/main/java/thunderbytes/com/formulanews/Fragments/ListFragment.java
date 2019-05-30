@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,12 +18,12 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
 
 public class ListFragment extends Fragment {
+    LinearLayout detailRace;
     public static final String ID = "id";
     private int fragmentId;
     private Race race;
     ListView listView;
     TextView title;
-    ImageButton infoBtn;
 
     String fakePosition[] = {"1", "2" , "3", "4","5"};
     String fakeFirstName[] = {"Lewis", "Valteri", "Max", "Sebastian","Charles"};
@@ -74,7 +74,7 @@ public class ListFragment extends Fragment {
         String points[];
 
         MyAdapter(Context c, String rankPosition[], String upName[], String downName[], String points[]) {
-            super(c, R.layout.list_cell_layout, R.id.position, rankPosition);
+            super(c, R.layout.calendar_cell_layout, R.id.position, rankPosition);
             this.context = c;
             this.rankPosition = rankPosition;
             this.upText = upName;
@@ -96,7 +96,14 @@ public class ListFragment extends Fragment {
                 case 0:
                     title.setText("Calendario");
                     cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
-                    //infoBtn.setVisibility(View.VISIBLE);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //mListener.onItemValue();
+                            Log.d("TEST", "Click");
+                        }
+                    });
                     break;
 
                 case 1:
@@ -110,7 +117,6 @@ public class ListFragment extends Fragment {
                     textUpText.setText(upText[position]);
                     textDownText.setText(downText[position]);
                     textPoints.setText(points[position]);
-                    //infoBtn.setVisibility(View.INVISIBLE);
                     break;
 
                 case 2:
@@ -124,17 +130,8 @@ public class ListFragment extends Fragment {
                     textUpText.setText(upText[position]);
                     textDownText.setText(downText[position]);
                     textPoints.setText(points[position]);
-
-                    //infoBtn.setVisibility(View.INVISIBLE);
                     break;
             }
-
-            //infoBtn.setOnClickListener(new View.OnClickListener() {
-            //    @Override
-            //    public void onClick(View v) {
-            //    }
-            //});
-
             return cell;
         }
     }

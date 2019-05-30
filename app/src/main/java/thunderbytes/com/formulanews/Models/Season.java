@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Season {
     private int seasonYear;
-    private ArrayList<Race> races;
+    public ArrayList<Race> races;
 
     public int getSeasonYear() {
         return seasonYear;
