@@ -8,7 +8,7 @@ public class DriverStanding {
     private int points;
     private int wins;
     private Driver driver;
-    private ArrayList<Constructor> Constructors;
+    public ArrayList<Constructor> Constructors;
 
     public int getPosition() {
         return position;

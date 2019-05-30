@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Standings {
     private int season;
     private int round;
-    private ArrayList<DriverStanding> DriverStandings;
-    private ArrayList<ConstructorStanding> ConstructorStandings;
+    public ArrayList<DriverStanding> DriverStandings;
+    public ArrayList<ConstructorStanding> ConstructorStandings;
 
     public int getSeason() {
         return season;

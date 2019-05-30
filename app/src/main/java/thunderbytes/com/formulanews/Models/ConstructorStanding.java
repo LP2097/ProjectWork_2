@@ -5,7 +5,7 @@ public class ConstructorStanding {
     private String positionText;
     private int points;
     private int wins;
-    private Constructor Constructor;
+    public Constructor Constructor;
 
     public int getPosition() {
         return position;
