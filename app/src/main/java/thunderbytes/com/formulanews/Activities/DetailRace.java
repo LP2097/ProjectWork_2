@@ -22,7 +22,7 @@ public class DetailRace extends AppCompatActivity {
         setContentView(R.layout.activity_detail_race);
 
 
-        TextView vTitle = findViewById(R.id.title);
+        TextView vTitle = findViewById(R.id.title_detailActivity);
         ImageView vCircuit = findViewById(R.id.circuitRace);
         TextView vFP1 = findViewById(R.id.labelFP1);
         TextView vFP2 = findViewById(R.id.labelFP2);
