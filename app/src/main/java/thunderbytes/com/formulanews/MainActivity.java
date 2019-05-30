@@ -11,14 +11,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
+import thunderbytes.com.formulanews.Managers.StandingManager;
+import thunderbytes.com.formulanews.Managers.StandingManager.StandingType;
 import thunderbytes.com.formulanews.Models.Season;
+import thunderbytes.com.formulanews.Models.Standings;
 
 
-
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched {
 
     Fragment fragment;
     Bundle bundle = new Bundle();
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         setContentView(R.layout.activity_main);
 
         new SeasonManager(2018, this);
+        new StandingManager(2018, StandingType.constructorStandings, this);
 
         if (savedInstanceState == null) {
 
@@ -96,14 +101,17 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     }
 
     public void setBundleId() {
-
         bundle.putInt(ListFragment.ID, fragmentModel.fragmentId);
         fragment.setArguments(bundle);
-
     }
 
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
         Log.d("IHUBDWIDGHUIUGW", season.getRaces().get(0).getRaceName());
+    }
+
+    @Override
+    public void onStandingsRetrievedSuccessfully(ArrayList<Standings> standings) {
+        Log.d("IHUBDWIDGHUIUGW", ""+standings.get(0).getConstructorStandings().get(0).getPosition());
     }
 }

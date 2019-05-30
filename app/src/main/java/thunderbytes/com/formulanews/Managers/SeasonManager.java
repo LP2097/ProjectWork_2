@@ -12,6 +12,12 @@ import thunderbytes.com.formulanews.Wrappers.RaceMRDataWrapper;
 
 public class SeasonManager implements HttpGetTask.OnPostExecution {
 
+    public enum RaceType{
+        qualifying,
+        race,
+        results
+    }
+
     public interface OnSeasonFetched{
         void onSeasonRetrievedSuccessfully(Season season);
     }
@@ -28,10 +34,20 @@ public class SeasonManager implements HttpGetTask.OnPostExecution {
         }
     }
 
+    public SeasonManager(int year, int race, RaceType type, Context context){
+        if (context instanceof OnSeasonFetched) {
+            listener = (OnSeasonFetched) context;
+            season.setSeasonYear(year);
+            HttpGetTask http = (HttpGetTask) new HttpGetTask(this, new RaceDataWrapper()).execute(Constants.baseUrl + year + "/"+race+"/"+type);
+        }
+    }
+
     @Override
     public void onHttpGetFinished(IDataWrapper jsonObject) {
-        RaceMRDataWrapper data = ((RaceDataWrapper)jsonObject).getMRData();
-        season.setRaces(data.getRaceTable().getRaces());
+        if(jsonObject != null){
+            RaceMRDataWrapper data = ((RaceDataWrapper)jsonObject).getMRData();
+            season.setRaces(data.getRaceTable().getRaces());
+        }
         listener.onSeasonRetrievedSuccessfully(season);
         listener = null;
     }
