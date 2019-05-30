@@ -14,28 +14,26 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.util.ArrayList;
+import thunderbytes.com.formulanews.Models.DriverStanding;
 import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Models.Standings;
 import thunderbytes.com.formulanews.R;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment{
     LinearLayout detailRace;
     public static final String ID = "id";
     private int fragmentId;
     private Race race;
     ListView listView;
-    TextView title;
-
-    String fakePosition[] = {"1", "2" , "3", "4","5"};
-    String fakeFirstName[] = {"Lewis", "Valteri", "Max", "Sebastian","Charles"};
-    String fakeLastName[] = {"Hamilton", "Bottas", "Verstappen", "Vettel", "Leclerc"};
-    String fakePoints[] = {"112 PTS", "105 PTS", "66 PTS", "66 PTS", "66 PTS"};
-
+    TextView title,textPosition,textUpText,textDownText,textPoints;
+    MyAdapter adapter;
     public ListFragment() { }
+
 
     public interface OnItemClicked{
         void onItemValue(String aCircuit);
     }
-
     private OnItemClicked mListener;
 
 
@@ -45,7 +43,6 @@ public class ListFragment extends Fragment {
         title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
         fragmentId = getArguments().getInt(ID);
-        MyAdapter adapter = new MyAdapter(getContext(), fakePosition, fakeFirstName, fakeLastName, fakePoints);
 
         switch (fragmentId){
             case 0:
@@ -60,26 +57,19 @@ public class ListFragment extends Fragment {
                 vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
                 break;
         }
-
-        listView.setAdapter(adapter);
         return vView;
     }
 
 
     class MyAdapter extends ArrayAdapter<String> {
         Context context;
-        String rankPosition[];
-        String upText[];
-        String downText[];
-        String points[];
+        ArrayList<Standings> arrayRankList;
 
-        MyAdapter(Context c, String rankPosition[], String upName[], String downName[], String points[]) {
-            super(c, R.layout.calendar_cell_layout, R.id.position, rankPosition);
+        MyAdapter(Context c, ArrayList<Standings> arrayRankList) {
+            super(c, R.layout.calendar_cell_layout, R.id.position);
             this.context = c;
-            this.rankPosition = rankPosition;
-            this.upText = upName;
-            this.downText = downName;
-            this.points = points;
+            this.arrayRankList = arrayRankList;
+            ArrayList<DriverStanding> driverRankList = arrayRankList.get(0).getDriverStandings();
         }
 
         @NonNull
@@ -87,10 +77,10 @@ public class ListFragment extends Fragment {
         public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View cell = null;
-            TextView textPosition = null;
-            TextView textUpText = null;
-            TextView textDownText = null;
-            TextView textPoints = null;
+            textPosition = null;
+            textUpText = null;
+            textDownText = null;
+            textPoints = null;
 
             switch (fragmentId) {
                 case 0:
@@ -113,10 +103,6 @@ public class ListFragment extends Fragment {
                     textUpText = cell.findViewById(R.id.upText);
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
-                    textPosition.setText(rankPosition[position]);
-                    textUpText.setText(upText[position]);
-                    textDownText.setText(downText[position]);
-                    textPoints.setText(points[position]);
                     break;
 
                 case 2:
@@ -126,15 +112,12 @@ public class ListFragment extends Fragment {
                     textUpText = cell.findViewById(R.id.upText);
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
-                    textPosition.setText(rankPosition[position]);
-                    textUpText.setText(upText[position]);
-                    textDownText.setText(downText[position]);
-                    textPoints.setText(points[position]);
                     break;
             }
             return cell;
         }
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -143,6 +126,7 @@ public class ListFragment extends Fragment {
             mListener = (OnItemClicked)context;
         }
     }
+
 
     @Override
     public void onDetach() {

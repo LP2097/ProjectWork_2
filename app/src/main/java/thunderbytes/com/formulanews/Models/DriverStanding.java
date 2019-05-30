@@ -7,7 +7,7 @@ public class DriverStanding {
     private String positionText;
     private int points;
     private int wins;
-    private Driver driver;
+    public Driver Driver;
     public ArrayList<Constructor> Constructors;
 
     public int getPosition() {
@@ -43,11 +43,11 @@ public class DriverStanding {
     }
 
     public Driver getDriver() {
-        return driver;
+        return Driver;
     }
 
     public void setDriver(Driver driver) {
-        this.driver = driver;
+        this.Driver = driver;
     }
 
     public ArrayList<Constructor> getConstructors() {

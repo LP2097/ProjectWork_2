@@ -13,20 +13,11 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.MenuItem;
-
-import java.time.format.TextStyle;
-import java.util.ArrayList;
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
-import thunderbytes.com.formulanews.Managers.SeasonManager;
-import thunderbytes.com.formulanews.Managers.StandingManager;
-import thunderbytes.com.formulanews.Managers.StandingManager.StandingType;
-import thunderbytes.com.formulanews.Models.Season;
-import thunderbytes.com.formulanews.Models.Standings;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked {
     Fragment fragment;
     Bundle bundle = new Bundle();
     thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
@@ -36,8 +27,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new SeasonManager(2018, this);
-        new StandingManager(2018, StandingType.constructorStandings, this);
 
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -106,15 +95,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         fragment.setArguments(bundle);
     }
 
-    @Override
-    public void onSeasonRetrievedSuccessfully(Season season) {
-        Log.d("IHUBDWIDGHUIUGW", season.getRaces().get(0).getRaceName());
-    }
-
-    @Override
-    public void onStandingsRetrievedSuccessfully(ArrayList<Standings> standings) {
-        Log.d("IHUBDWIDGHUIUGW", ""+standings.get(0).getConstructorStandings().get(0).getPosition());
-    }
 
     private void setTitleBottomMenuColor(MenuItem item, int color){
         SpannableString text = new SpannableString(item.getTitle().toString());

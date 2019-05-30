@@ -1,5 +1,5 @@
 package thunderbytes.com.formulanews.Helpers;
 
 public class Constants {
-    public static final String baseUrl = "http://ergast.com/api/f1/";
+    public static final String baseUrl = "https://ergast.com/api/f1/";
 }

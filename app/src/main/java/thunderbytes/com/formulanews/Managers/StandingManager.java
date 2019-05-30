@@ -27,9 +27,9 @@ public class StandingManager implements HttpGetTask.OnPostExecution {
 
     private ArrayList<Standings> standings = new ArrayList<>();
 
-    public StandingManager(int year, StandingType type, Context context) {
-        if (context instanceof OnStandingsFetched) {
-            listener = (OnStandingsFetched) context;
+    public StandingManager(int year, StandingType type, OnStandingsFetched listener) {
+        if (listener != null) {
+            this.listener = listener;
             HttpGetTask http = (HttpGetTask) new HttpGetTask(this, new StandingsDataWrapper()).execute(Constants.baseUrl+year+"/"+type);
         }
     }
