@@ -19,26 +19,46 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
+
+import thunderbytes.com.formulanews.CacheManager.CacheManager;
+import thunderbytes.com.formulanews.Managers.SeasonManager;
+import thunderbytes.com.formulanews.Managers.StandingManager;
+import thunderbytes.com.formulanews.Models.ConstructorStanding;
 import thunderbytes.com.formulanews.Models.DriverStanding;
 import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Models.Standings;
 import thunderbytes.com.formulanews.R;
 
-public class ListFragment extends Fragment{
+public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched{
     LinearLayout detailRace;
     public static final String ID = "id";
+    public static final String ITEM = "item";
     private int fragmentId;
     private Race race;
     ListView listView;
-    TextView title,textPosition,textUpText,textDownText,textPoints;
-    MyAdapter adapter;
+    TextView title,textPosition,textUpText,textDownText,textPoints, textRaceName, textRacePlace;
+    private ArrayList<ConstructorStanding> vConstructor;
     public ListFragment() { }
+    MyAdapter adapter;
+
+
+    @Override
+    public void onSeasonRetrievedSuccessfully(Season season) {
+            Logger.d(season.getRaces());
+    }
+
+    @Override
+    public void onStandingsRetrievedSuccessfully(ArrayList<Standings> standings) {
+
+    }
 
 
     public interface OnItemClicked{
         void onItemValue(String aCircuit);
     }
     private OnItemClicked mListener;
+
 
 
     @Override
@@ -48,48 +68,91 @@ public class ListFragment extends Fragment{
         listView = (ListView)vView.findViewById(R.id.listView);
         fragmentId = getArguments().getInt(ID);
 
+
         switch (fragmentId){
             case 0:
+                ArrayList<Race> races = (ArrayList<Race>) getArguments().getSerializable(ITEM);
+                adapter = new MyAdapter(getContext(), races, null,null);
                 vView.setBackgroundColor(getResources().getColor(R.color.white_smoke));
                 break;
 
             case 1:
+                ArrayList<DriverStanding> drivers = (ArrayList<DriverStanding>) getArguments().getSerializable(ITEM);
+                adapter = new MyAdapter(getContext(), null, drivers,null);
                 vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
                 break;
 
             case 2:
+
+                ArrayList<ConstructorStanding> constructors = (ArrayList<ConstructorStanding>) getArguments().getSerializable(ITEM);
+                adapter = new MyAdapter(getContext(), null,null,constructors);
                 vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
                 break;
         }
+
+        listView.setAdapter(adapter);
         return vView;
     }
 
 
+
     class MyAdapter extends ArrayAdapter<String> {
         Context context;
-        ArrayList<Standings> arrayRankList;
+        ArrayList<Race> arrayRace;
+        ArrayList<DriverStanding> driverStandings;
+        ArrayList<ConstructorStanding> constructorStandings;
 
-        MyAdapter(Context c, ArrayList<Standings> arrayRankList) {
+
+        MyAdapter(Context c,  ArrayList<Race> races, ArrayList<DriverStanding> drivers, ArrayList<ConstructorStanding> constructors) {
             super(c, R.layout.calendar_cell_layout, R.id.position);
             this.context = c;
-            this.arrayRankList = arrayRankList;
-            ArrayList<DriverStanding> driverRankList = arrayRankList.get(0).getDriverStandings();
+            arrayRace = races;
+            driverStandings = drivers;
+            constructorStandings = constructors;
         }
+
+
+        @Override
+        public int getCount() {
+            Logger.d("quantita");
+            switch (fragmentId) {
+
+                case 0:
+                    return arrayRace.size();
+
+                case 1:
+                    return driverStandings.size();
+
+                case 2:
+                    return constructorStandings.size();
+
+                default:
+                    return 0;
+            }
+        }
+
 
         @NonNull
         @Override
-        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View cell = null;
+        public View getView(int position, @Nullable View convertView,  @NonNull ViewGroup parent) {
+
+           LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View cell = convertView;
             textPosition = null;
             textUpText = null;
             textDownText = null;
             textPoints = null;
 
+
             switch (fragmentId) {
                 case 0:
+                    Logger.d("corse: "+arrayRace);
                     title.setText("Calendario");
                     cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
+                    textRaceName = cell.findViewById(R.id.textRight);
+   //               textRacePlace = cell.findViewById(R.id.textRight2);
+
+                    textRaceName.setText(arrayRace.get(position).getRaceName());
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -107,6 +170,11 @@ public class ListFragment extends Fragment{
                     textUpText = cell.findViewById(R.id.upText);
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
+
+
+                    textUpText.setText(""+ driverStandings.get(position).Driver.givenName);
+
+
                     break;
 
                 case 2:
@@ -116,16 +184,24 @@ public class ListFragment extends Fragment{
                     textUpText = cell.findViewById(R.id.upText);
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
+
+                    textUpText.setText(""+ constructorStandings.get(position).getConstructor().getName());
+
+
+
                     break;
             }
             return cell;
         }
+
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+      //  new SeasonManager(2018, context);
+
         if (context instanceof OnItemClicked) {
             mListener = (OnItemClicked)context;
         }
