@@ -14,6 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import thunderbytes.com.formulanews.Models.DriverStanding;
 import thunderbytes.com.formulanews.Models.Race;
@@ -125,6 +129,13 @@ public class ListFragment extends Fragment{
         if (context instanceof OnItemClicked) {
             mListener = (OnItemClicked)context;
         }
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        Logger.d("creazione Fragment");
     }
 
 
