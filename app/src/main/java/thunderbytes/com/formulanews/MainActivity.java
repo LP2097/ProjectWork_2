@@ -66,6 +66,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
             fragmentModel.fragmentId = 0;
             setBundleId();
         }
+        else
+        {
+            pgsBar.setVisibility(View.GONE);
+            textLoading.setVisibility(View.GONE);
+        }
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -153,13 +158,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         });
     }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Logger.d("onPostResume");
-        pgsBar.setVisibility(View.GONE);
-        textLoading.setVisibility(View.GONE);
-    }
+
+
 
 
 
