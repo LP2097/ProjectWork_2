@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                             //2.1) passo nel bundle i dati presenti gia nella cache senza dover fare altre chiamate
                             bundle.putSerializable(ListFragment.ITEM, mChache.getRaces());
                             setFragmentTransaction();
+
                         }
                         else {
                             //2.2) non ci sono dati presenti, faccio la chiamata asincrona per ricevere i dati
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                         if(mChache.getConstructors() != null) {
                             bundle.putSerializable(ListFragment.ITEM, mChache.getConstructors());
                             setFragmentTransaction();
+
                         }
                         else {
                             new StandingManager(2018, StandingManager.StandingType.constructorStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
@@ -133,14 +135,33 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                         break;
 
                     default:
-                        fragment = new ListFragment();
-                        fragmentModel.fragmentId = 0;
+                        if(mChache.getRaces() != null) {
+                            //2.1) passo nel bundle i dati presenti gia nella cache senza dover fare altre chiamate
+                            bundle.putSerializable(ListFragment.ITEM, mChache.getRaces());
+                            setFragmentTransaction();
+
+                        }
+                        else {
+                            //2.2) non ci sono dati presenti, faccio la chiamata asincrona per ricevere i dati
+                            new SeasonManager(2018, MainActivity.this);
+                        }
+                        setBundleId();
                         break;
                 }
                 return true;
             }
         });
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        Logger.d("onPostResume");
+        pgsBar.setVisibility(View.GONE);
+        textLoading.setVisibility(View.GONE);
+    }
+
+
 
     /*@Override
     public void onItemValue(String aCircuit) {
@@ -153,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
     //INTERFACCIA PER IL CLICK DEL SINGOLO ITEM - ListFragment
     @Override
-    public void onItemValue(){
+    public void onItemValue(Race race){
         //1) richiamo l'activity detailRace
         Intent vIntent = new Intent(this, DetailRace.class);
         //2) aggiungo un bundle per passare il valore della gara selezionata

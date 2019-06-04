@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <FrameLayout
         android:id="@+id/dynamicFragmentFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@android:color/white"
-        app:itemIconTint="@color/colorDark"
-        app:itemTextColor="@color/colorDark"
-        app:menu="@menu/bottom_nav_menu" >
-
-    </android.support.design.widget.BottomNavigationView>
-
-    <ProgressBar
-        android:id="@+id/pBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="114dp"
-        android:layout_height="84dp"
-        android:layout_above="@+id/bottom_navigation"
-        android:layout_alignStart="@+id/dynamicFragmentFrameLayout"
-        android:layout_alignTop="@+id/dynamicFragmentFrameLayout"
-        android:layout_alignEnd="@+id/dynamicFragmentFrameLayout"
-        android:layout_centerHorizontal="true"
-        android:indeterminateDrawable="@drawable/loader_custom"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="200dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
-        />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="40dp"
         android:fontFamily="@font/formula1_regular_web_0"
-        android:text="Caricamento..." />
+        android:gravity="center"
+        android:paddingBottom="40dp"
+        android:text="Caricamento..."
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/pBar" />
 
-</RelativeLayout>
+    <ProgressBar
+        android:id="@+id/pBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:indeterminateDrawable="@drawable/loader_custom"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:itemBackground="@android:color/white"
+        app:itemIconTint="@color/colorDark"
+        app:itemTextColor="@color/colorDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu">
+
+    </android.support.design.widget.BottomNavigationView>
+
+</android.support.constraint.ConstraintLayout>
+
+
