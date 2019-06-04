@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
+import thunderbytes.com.formulanews.Managers.NotificationManager;
+import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
 
 public class DetailRace extends AppCompatActivity {
@@ -22,7 +25,7 @@ public class DetailRace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_layout);
 
-        /*TextView mTitle = findViewById(R.id.title_detailActivity);
+        TextView mTitle = findViewById(R.id.title_detailActivity);
         ImageView mCircuit = findViewById(R.id.circuitRace);
         Button mFP1 = findViewById(R.id.btn_fp1);
         Button mFP2 = findViewById(R.id.btn_fp2);
@@ -34,10 +37,9 @@ public class DetailRace extends AppCompatActivity {
 
         Bundle vBundle =  getIntent().getExtras();
         if (vBundle != null){
-            ArrayList<Race> vRace = (ArrayList<Race>) vBundle.getSerializable("ITEM_RACE");
-            int vPosition = vBundle.getInt("ITEM_POSITION");
+            Race vRace = (Race) vBundle.getSerializable("ITEM_RACE");
             mTitle.setText(vRace.getRaceName());
-            int id = getResources().getIdentifier("thunderbytes.com.formulanews:drawable/" + vCircuit, null, null);
+            int id = getResources().getIdentifier("thunderbytes.com.formulanews:drawable/" + vRace.getCircuit().getLocation().getCountry().toString().toLowerCase(), null, null);
             mCircuit.setImageResource(id);
         }
 
@@ -69,33 +71,33 @@ public class DetailRace extends AppCompatActivity {
             }
         });
 
-        mRace.setOnClickListener(new View.OnClickListener() {
+        /*mRace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*int id = 0;
+                int id = 0;
                 String Name = "Sebastian Vettel";
                 String Time = "1.11.143";
                 String Parting = "--";
 
                 launchDetailFragment(id, Name, Time, Parting);
             }
-        });
+        });*/
 
-        launchDetailFragment();
+        //launchDetailFragment();
 
         mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enableNotification();
             }
-        });*/
+        });
     }
 
-    /*private void enableNotification(){
+    private void enableNotification(){
         NotificationManager.setReminder(this, NotificationPublisher.class,DetailRace.class,2000);
     }
 
-    private void launchDetailFragment(){
+    /*private void launchDetailFragment(){
         FragmentTransaction vFT = getFragmentManager().beginTransaction();
         DetailFragment vDetailFragment = DetailFragment.newIstance();
         vFT.add(R.id.fragmentItem, vDetailFragment, FRAGMENT_TAG);
