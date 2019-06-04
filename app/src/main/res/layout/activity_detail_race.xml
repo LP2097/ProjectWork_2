@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/italy" />
+            app:srcCompat="@drawable/monza" />
 
         <TextView
             android:id="@+id/textView5"

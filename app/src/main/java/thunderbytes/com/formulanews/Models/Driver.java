@@ -1,7 +1,8 @@
 package thunderbytes.com.formulanews.Models;
 
+import java.io.Serializable;
 import java.util.Date;
-public class Driver {
+public class Driver implements Serializable {
 
     public String code;
     public int permanentNumber;

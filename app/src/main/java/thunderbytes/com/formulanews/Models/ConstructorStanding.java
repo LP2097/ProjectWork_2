@@ -1,6 +1,8 @@
 package thunderbytes.com.formulanews.Models;
 
-public class ConstructorStanding {
+import java.io.Serializable;
+
+public class ConstructorStanding implements Serializable {
     private int position;
     private String positionText;
     private int points;

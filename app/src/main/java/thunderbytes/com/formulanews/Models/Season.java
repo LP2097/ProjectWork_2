@@ -1,8 +1,9 @@
 package thunderbytes.com.formulanews.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Season {
+public class Season implements Serializable {
     private int seasonYear;
     public ArrayList<Race> races;
 

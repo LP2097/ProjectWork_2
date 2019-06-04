@@ -3,10 +3,10 @@ package thunderbytes.com.formulanews.Models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-import java.sql.Time;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Race {
+public class Race implements Serializable {
     private int season;
     private int round;
     private String url;

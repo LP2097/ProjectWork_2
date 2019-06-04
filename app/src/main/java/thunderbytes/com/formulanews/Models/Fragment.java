@@ -1,6 +1,8 @@
 package thunderbytes.com.formulanews.Models;
 
-public class Fragment {
+import java.io.Serializable;
+
+public class Fragment implements Serializable {
     public int fragmentId;
     public String fragmentTitle;
 }

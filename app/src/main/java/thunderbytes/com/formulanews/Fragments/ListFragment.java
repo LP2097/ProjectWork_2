@@ -2,10 +2,7 @@ package thunderbytes.com.formulanews.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +42,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
-            Logger.d(season.getRaces());
+        Logger.d(season.getRaces());
     }
 
     @Override
@@ -55,10 +52,10 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
 
     public interface OnItemClicked{
-        void onItemValue(String aCircuit);
+        void onItemValue(Race aRace);
     }
-    private OnItemClicked mListener;
 
+    private OnItemClicked mListener;
 
 
     @Override
@@ -67,7 +64,6 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
         fragmentId = getArguments().getInt(ID);
-
 
         switch (fragmentId){
             case 0:
@@ -132,9 +128,8 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         }
 
 
-        @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView,  @NonNull ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
 
            LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View cell = convertView;
@@ -150,15 +145,13 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     title.setText("Calendario");
                     cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
                     textRaceName = cell.findViewById(R.id.textRight);
-   //               textRacePlace = cell.findViewById(R.id.textRight2);
 
                     textRaceName.setText(arrayRace.get(position).getRaceName());
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //mListener.onItemValue();
-                            Log.d("TEST", "Click");
+                            mListener.onItemValue(arrayRace.get(position));
                         }
                     });
                     break;
@@ -208,7 +201,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.addLogAdapter(new AndroidLogAdapter());
         Logger.d("creazione Fragment");

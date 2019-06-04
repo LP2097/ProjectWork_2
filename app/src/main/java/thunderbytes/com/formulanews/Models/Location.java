@@ -3,7 +3,9 @@ package thunderbytes.com.formulanews.Models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
 
     private Double latitude;
     private Double longitude;

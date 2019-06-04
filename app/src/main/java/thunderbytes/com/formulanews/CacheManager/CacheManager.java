@@ -28,10 +28,7 @@ public class CacheManager{
     private ArrayList<DriverStanding> drivers;
 
 
-    public CacheManager()
-    {
-
-    }
+    public CacheManager() { }
 
     public void setRaces(ArrayList<Race> races) {
         this.races = races;

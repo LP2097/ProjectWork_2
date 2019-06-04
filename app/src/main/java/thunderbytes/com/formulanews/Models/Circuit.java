@@ -3,7 +3,9 @@ package thunderbytes.com.formulanews.Models;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class Circuit {
+import java.io.Serializable;
+
+public class Circuit implements Serializable {
     private String circuitId;
     private String url;
     private String circuitName;

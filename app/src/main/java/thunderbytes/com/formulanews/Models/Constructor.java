@@ -1,6 +1,8 @@
 package thunderbytes.com.formulanews.Models;
 
-public class Constructor {
+import java.io.Serializable;
+
+public class Constructor implements Serializable {
     private String constructorId;
     private String url;
     private String name;

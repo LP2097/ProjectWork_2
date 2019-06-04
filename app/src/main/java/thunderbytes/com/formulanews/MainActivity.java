@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.*;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Activities.DetailRace;
@@ -30,6 +32,7 @@ import thunderbytes.com.formulanews.CacheManager.CacheManager;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
+import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Models.Standings;
 
@@ -139,12 +142,26 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         });
     }
 
-    @Override
+    /*@Override
     public void onItemValue(String aCircuit) {
         Intent vIntent = new Intent(this, DetailRace.class);
         Bundle vBundle = new Bundle();
         vBundle.putString("ITEM_NAME_CIRCUIT", aCircuit);
         vIntent.putExtras(vBundle);
+        startActivity(vIntent);
+    }*/
+
+    //INTERFACCIA PER IL CLICK DEL SINGOLO ITEM - ListFragment
+    @Override
+    public void onItemValue(){
+        //1) richiamo l'activity detailRace
+        Intent vIntent = new Intent(this, DetailRace.class);
+        //2) aggiungo un bundle per passare il valore della gara selezionata
+        //Bundle vBundle = new Bundle();
+        //vBundle.putSerializable("ITEM_RACE", mChache.getRaces());
+        //vBundle.putInt("ITEM_POSITION", 1);
+        //vIntent.putExtras(vBundle);
+        //3) faccio partire l'activity
         startActivity(vIntent);
     }
 
@@ -211,4 +228,5 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
     }
+
 }

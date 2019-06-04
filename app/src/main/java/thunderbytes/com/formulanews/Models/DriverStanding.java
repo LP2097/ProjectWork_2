@@ -1,8 +1,9 @@
 package thunderbytes.com.formulanews.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DriverStanding {
+public class DriverStanding implements Serializable {
     private int position;
     private String positionText;
     private int points;
