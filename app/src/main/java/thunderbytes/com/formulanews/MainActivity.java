@@ -158,30 +158,15 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         });
     }
 
-
-
-
-
-
-    /*@Override
-    public void onItemValue(String aCircuit) {
-        Intent vIntent = new Intent(this, DetailRace.class);
-        Bundle vBundle = new Bundle();
-        vBundle.putString("ITEM_NAME_CIRCUIT", aCircuit);
-        vIntent.putExtras(vBundle);
-        startActivity(vIntent);
-    }*/
-
     //INTERFACCIA PER IL CLICK DEL SINGOLO ITEM - ListFragment
     @Override
-    public void onItemValue(Race race){
+    public void onItemValue(Race aRace){
         //1) richiamo l'activity detailRace
         Intent vIntent = new Intent(this, DetailRace.class);
         //2) aggiungo un bundle per passare il valore della gara selezionata
-        //Bundle vBundle = new Bundle();
-        //vBundle.putSerializable("ITEM_RACE", mChache.getRaces());
-        //vBundle.putInt("ITEM_POSITION", 1);
-        //vIntent.putExtras(vBundle);
+        Bundle vBundle = new Bundle();
+        vBundle.putSerializable("ITEM_RACE", aRace);
+        vIntent.putExtras(vBundle);
         //3) faccio partire l'activity
         startActivity(vIntent);
     }

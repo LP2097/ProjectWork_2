@@ -1,5 +1,6 @@
 package thunderbytes.com.formulanews.Activities;
 
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,14 +12,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
+import thunderbytes.com.formulanews.Fragments.DetailFragment;
 import thunderbytes.com.formulanews.Managers.NotificationManager;
 import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
 
 public class DetailRace extends AppCompatActivity {
 
-    //private static final String FRAGMENT_TAG = "tag fragment";
-    //ListView listView;
+    private static final String FRAGMENT_TAG = "tag fragment";
+    ListView listView;
+    private Race vRace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class DetailRace extends AppCompatActivity {
 
         Bundle vBundle =  getIntent().getExtras();
         if (vBundle != null){
-            Race vRace = (Race) vBundle.getSerializable("ITEM_RACE");
+            vRace = (Race) vBundle.getSerializable("ITEM_RACE");
             mTitle.setText(vRace.getRaceName());
             int id = getResources().getIdentifier("thunderbytes.com.formulanews:drawable/" + vRace.getCircuit().getLocation().getCountry().toString().toLowerCase(), null, null);
             mCircuit.setImageResource(id);
@@ -71,7 +74,7 @@ public class DetailRace extends AppCompatActivity {
             }
         });
 
-        /*mRace.setOnClickListener(new View.OnClickListener() {
+        mRace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = 0;
@@ -79,11 +82,11 @@ public class DetailRace extends AppCompatActivity {
                 String Time = "1.11.143";
                 String Parting = "--";
 
-                launchDetailFragment(id, Name, Time, Parting);
+                //launchDetailFragment(id, Name, Time, Parting);
             }
-        });*/
+        });
 
-        //launchDetailFragment();
+        launchDetailFragment();
 
         mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,12 +100,12 @@ public class DetailRace extends AppCompatActivity {
         NotificationManager.setReminder(this, NotificationPublisher.class,DetailRace.class,2000);
     }
 
-    /*private void launchDetailFragment(){
+    private void launchDetailFragment(){
         FragmentTransaction vFT = getFragmentManager().beginTransaction();
         DetailFragment vDetailFragment = DetailFragment.newIstance();
         vFT.add(R.id.fragmentItem, vDetailFragment, FRAGMENT_TAG);
 
         vFT.commit();
-    }*/
+    }
 }
 

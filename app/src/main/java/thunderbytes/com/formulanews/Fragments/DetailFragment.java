@@ -24,7 +24,7 @@ public class DetailFragment extends Fragment {
 
         ListView listView = vView.findViewById(R.id.listViewResult);
 
-        //DetailAdapter adapter = new DetailAdapter(/*TODO aggiungere valori che arrivano dal listfragment*/);
+        //DetailAdapter adapter = new DetailAdapter();
 
         //listView.setAdapter(adapter);
 
