@@ -16,7 +16,7 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/btn_style1"
             tools:srcCompat="@drawable/back" />
 
@@ -24,20 +24,20 @@
             android:id="@+id/title_detailActivity"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:background="@color/red"
             android:fontFamily="@font/formula1_regular_web_0"
             android:gravity="center"
             android:text="Monza"
             android:textColor="@color/cardview_light_background"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textStyle="normal|bold" />
 
         <ImageButton
             android:id="@+id/buttonNotification"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/btn_style1"
             android:src="@drawable/bell" />
 

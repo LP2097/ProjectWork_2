@@ -14,6 +14,8 @@ public class Race implements Serializable {
     public Circuit circuit;
     private Date date;
     private String time;
+    private int Id;
+    private boolean notify = false;
 
     public int getSeason() {
         return season;
@@ -73,8 +75,26 @@ public class Race implements Serializable {
         this.time = time;
     }
 
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public boolean isNotify() {
+        return notify;
+    }
+
+    public void setNotify(boolean notify) {
+        this.notify = notify;
+    }
+
+
     @Override
     public String toString() {
         return "Race{}";
     }
+
 }

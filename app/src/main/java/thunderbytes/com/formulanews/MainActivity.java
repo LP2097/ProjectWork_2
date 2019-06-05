@@ -25,6 +25,7 @@ import com.orhanobut.logger.Logger;
 
 
 import java.io.Serializable;
+import java.security.Provider;
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Activities.DetailRace;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     CacheManager mChache;
     private ProgressBar pgsBar;
     TextView textLoading;
+    Race race;
 
 
     @Override
@@ -60,11 +62,13 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         // trovandosi nel main persistera per tutta la durata del ciclo di vita dell'activity
         mChache = new CacheManager();
 
+
         if (savedInstanceState == null) {
             fragment = new ListFragment();
             new SeasonManager(2018, MainActivity.this);
             fragmentModel.fragmentId = 0;
             setBundleId();
+
         }
         else
         {
@@ -156,6 +160,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                 return true;
             }
         });
+
+
+
     }
 
     //INTERFACCIA PER IL CLICK DEL SINGOLO ITEM - ListFragment
@@ -191,6 +198,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         //1) inserisco nel bundle che passero nel listfragment l'array di corse ricevute dalla chiamata
         bundle.putSerializable(ListFragment.ITEM, season.getRaces());
         Logger.d(season.getRaces());
+        for (int i = 0; i<season.getRaces().size(); i++)
+        {
+            season.getRaces().get(i).setId(i);
+        }
         //2) salvo nella chache l'array, utile poi
         // nell onNavigationItemSelected dove controllero se la cache ha dati salvati o meno
         mChache.setRaces(season.getRaces());
@@ -198,6 +209,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         pgsBar.setVisibility(View.GONE);
         textLoading.setVisibility(View.GONE);
         setFragmentTransaction();
+
+        //4) controllo che l'app non sia stata aperta da notifica
+        checkNotification();
 
     }
 
@@ -234,5 +248,27 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
     }
+
+    private void checkNotification()
+    {
+        //controllo se l'app e stata aperta da notifica
+        try {
+            race = (Race) getIntent().getExtras().getSerializable("RACE");
+            //constorllo se ci al bundle notification è stata aggiunta una gara
+            if(race != null ) {
+                //rimuovo gli extra di notifica
+                getIntent().getExtras().clear();
+                getIntent().removeExtra("RACE");
+                onItemValue(race);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.d("Errore: "+ e);
+        }
+    }
+
+
+
 
 }

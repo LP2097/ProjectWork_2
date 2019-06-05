@@ -110,7 +110,6 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
         @Override
         public int getCount() {
-            Logger.d("quantita");
             switch (fragmentId) {
 
                 case 0:
@@ -141,7 +140,6 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
             switch (fragmentId) {
                 case 0:
-                    Logger.d("corse: "+arrayRace);
                     title.setText("Calendario");
                     cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
                     textRaceName = cell.findViewById(R.id.textRight);

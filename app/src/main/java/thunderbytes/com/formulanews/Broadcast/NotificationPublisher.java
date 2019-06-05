@@ -8,9 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-public class NotificationPublisher extends BroadcastReceiver {public static String NOTIFICATION_ID = "notification-id1";
+import thunderbytes.com.formulanews.MainActivity;
 
-public static String NOTIFICATION = "notification1";
+public class NotificationPublisher extends BroadcastReceiver {
+    public static String NOTIFICATION_ID = "notification-id1";
+
+    public static String NOTIFICATION = "notification1";
     public static String CHANNEL_ID = "channel_id";
 
 
