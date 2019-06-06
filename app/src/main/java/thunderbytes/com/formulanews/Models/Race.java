@@ -15,6 +15,7 @@ public class Race implements Serializable {
     private Date date;
     private String time;
     private int Id;
+    public Results results;
     private boolean notify = false;
 
     public int getSeason() {
