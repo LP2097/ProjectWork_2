@@ -8,7 +8,6 @@
         android:name="preloaded_fonts"
         android:resource="@array/preloaded_fonts" />
 
-
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application

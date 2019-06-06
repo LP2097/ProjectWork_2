@@ -11,12 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
-
 import thunderbytes.com.formulanews.CacheManager.CacheManager;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
