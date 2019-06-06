@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
+import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Models.Race;
@@ -31,9 +32,9 @@ public class NotificationManager {
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
 
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, DetailRace.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("RACE", race);
+        intent.putExtra("ITEM_RACE", race);
 
         PendingIntent pendingIntentOpenClass = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 

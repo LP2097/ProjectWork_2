@@ -2,6 +2,7 @@ package thunderbytes.com.formulanews.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import java.lang.reflect.Array;
 
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.Fragments.DetailFragment;
+import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Managers.NotificationManager;
 import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
@@ -149,5 +151,17 @@ public class DetailRace extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        Log.d("BACKSTACK","stack: "+backStackEntryCount);
+        if (isTaskRoot()) {
+            Intent vIntent = new Intent(this, MainActivity.class);
+            startActivity(vIntent);   // write your code to switch between fragments.
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
 
