@@ -3,8 +3,6 @@ package thunderbytes.com.formulanews;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.design.widget.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +12,6 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -23,9 +20,6 @@ import android.widget.TextView;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
-
-import java.io.Serializable;
-import java.security.Provider;
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Activities.DetailRace;
@@ -79,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected( MenuItem item) {
                 fragment = new ListFragment();
                 if(lastSelected != null){
                     setTitleBottomMenuColor(lastSelected, Color.BLACK);
@@ -163,19 +157,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
 
 
-    }
-
-    //INTERFACCIA PER IL CLICK DEL SINGOLO ITEM - ListFragment
-    @Override
-    public void onItemValue(Race aRace){
-        //1) richiamo l'activity detailRace
-        Intent vIntent = new Intent(this, DetailRace.class);
-        //2) aggiungo un bundle per passare il valore della gara selezionata
-        Bundle vBundle = new Bundle();
-        vBundle.putSerializable("ITEM_RACE", aRace);
-        vIntent.putExtras(vBundle);
-        //3) faccio partire l'activity
-        startActivity(vIntent);
     }
 
     public void setBundleId() {

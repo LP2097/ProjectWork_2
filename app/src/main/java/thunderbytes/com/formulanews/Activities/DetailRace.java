@@ -46,8 +46,6 @@ public class DetailRace extends AppCompatActivity {
         Button mRace = findViewById(R.id.btn_race);
         ImageButton mNotification = findViewById(R.id.buttonNotification);
 
-        Log.d("CACHE", ""+vCache.getRaces());
-
 
 
         Bundle vBundle =  getIntent().getExtras();
