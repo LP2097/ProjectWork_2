@@ -11,9 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
+import thunderbytes.com.formulanews.CacheManager.CacheManager;
 import thunderbytes.com.formulanews.Fragments.DetailFragment;
 import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Managers.NotificationManager;
@@ -22,10 +24,13 @@ import thunderbytes.com.formulanews.R;
 
 public class DetailRace extends AppCompatActivity {
 
+
     private static final String FRAGMENT_TAG = "tag fragment";
     ListView listView;
     private Race vRace;
     private int vRaceNumber;
+
+    CacheManager vCache = new CacheManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,9 @@ public class DetailRace extends AppCompatActivity {
         Button mQualification = findViewById(R.id.btn_qualif);
         Button mRace = findViewById(R.id.btn_race);
         ImageButton mNotification = findViewById(R.id.buttonNotification);
+
+        Log.d("CACHE", ""+vCache.getRaces());
+
 
 
         Bundle vBundle =  getIntent().getExtras();
@@ -106,14 +114,16 @@ public class DetailRace extends AppCompatActivity {
         mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enableNotification();
+
                 if(!vRace.isNotify())
                 {
                     vRace.setNotify(true);
+                    enableNotification();
                     mNotification.setImageResource(R.drawable.bell_select);
                 }
                 else {
                     vRace.setNotify(false);
+                    disableNotification();
                     mNotification.setImageResource(R.drawable.bell);
                 }
 
@@ -123,6 +133,12 @@ public class DetailRace extends AppCompatActivity {
 
     private void enableNotification(){
         NotificationManager.setReminder(this, NotificationPublisher.class,DetailRace.class,vRace);
+        Toast.makeText(this, "Notifica Attivata", Toast.LENGTH_SHORT).show();
+    }
+
+    private void disableNotification(){
+        NotificationManager.cancelReminder(this,NotificationPublisher.class);
+        Toast.makeText(this, "Notifica Disattivata", Toast.LENGTH_SHORT).show();
     }
 
     private void launchResultFragment(Race aRace, String aTypeRace, int aRaceNumber){

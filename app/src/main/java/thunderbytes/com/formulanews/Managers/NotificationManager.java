@@ -46,7 +46,8 @@ public class NotificationManager {
         builder.setContentIntent(pendingIntentOpenClass);
         builder.setAutoCancel(true);
         builder.setColor(Color.RED);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.ic_stat_name);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             builder.setChannelId(NotificationPublisher.CHANNEL_ID);
@@ -62,10 +63,10 @@ public class NotificationManager {
         Log.d("TIME","Time: "+race.getDate().getTime());
 
         if(race.getRaceName() == "Australian Grand Prix") {
-             futureInMillis = SystemClock.elapsedRealtime() + (race.getDate().getTime() - 1521935999000L);
+             futureInMillis = SystemClock.elapsedRealtime() + 2000;
         }else
         {
-             futureInMillis = SystemClock.elapsedRealtime() + (race.getDate().getTime() - 1523145599000L);
+             futureInMillis = SystemClock.elapsedRealtime() + 2000;
         }
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
