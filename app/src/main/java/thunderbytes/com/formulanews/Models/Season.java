@@ -22,4 +22,5 @@ public class Season implements Serializable {
     public void setRaces(ArrayList<Race> races) {
         this.races = races;
     }
+
 }

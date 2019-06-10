@@ -1,18 +1,9 @@
 package thunderbytes.com.formulanews.CacheManager;
 
-import android.content.Context;
-
 import java.util.ArrayList;
-
-import thunderbytes.com.formulanews.Managers.SeasonManager;
-import thunderbytes.com.formulanews.Managers.StandingManager;
-import thunderbytes.com.formulanews.Models.Constructor;
 import thunderbytes.com.formulanews.Models.ConstructorStanding;
-import thunderbytes.com.formulanews.Models.Driver;
 import thunderbytes.com.formulanews.Models.DriverStanding;
 import thunderbytes.com.formulanews.Models.Race;
-import thunderbytes.com.formulanews.Models.Season;
-import thunderbytes.com.formulanews.Models.Standings;
 
 public class CacheManager{
 

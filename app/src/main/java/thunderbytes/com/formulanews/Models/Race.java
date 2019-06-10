@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Race implements Serializable {
@@ -15,8 +16,26 @@ public class Race implements Serializable {
     private Date date;
     private String time;
     private int Id;
-    public Results results;
+    public ArrayList<Results> Results;
+    public ArrayList<Qualifying> QualifyingResults;
+
+    public ArrayList<Qualifying> getQualifyingResults() {
+        return QualifyingResults;
+    }
+
+    public void setQualifyingResults(ArrayList<Qualifying> qualifyingResults) {
+        QualifyingResults = qualifyingResults;
+    }
+
     private boolean notify = false;
+
+    public ArrayList<Results> getResults() {
+        return Results;
+    }
+
+    public void setResults(ArrayList<Results> results) {
+        Results = results;
+    }
 
     public int getSeason() {
         return season;

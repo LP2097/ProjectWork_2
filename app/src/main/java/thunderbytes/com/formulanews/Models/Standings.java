@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Standings implements Serializable {
     private int season;
-    private int round;
+    public int round;
     public ArrayList<DriverStanding> DriverStandings;
     public ArrayList<ConstructorStanding> ConstructorStandings;
 

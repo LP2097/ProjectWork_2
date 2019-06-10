@@ -6,6 +6,16 @@ import thunderbytes.com.formulanews.Models.Race;
 
 public class RaceTable {
     private String season;
+    private int round;
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
     public ArrayList<Race> Races;
 
     public String getSeason() {

@@ -3,8 +3,8 @@ package thunderbytes.com.formulanews.Models;
 public class FastestLap {
     private int rank;
     private int lap;
-    public Time time;
-    public AverageSpeed averageSpeed;
+    public Time Time;
+    public AverageSpeed AverageSpeed;
 
     public int getRank() {
         return rank;
@@ -23,18 +23,18 @@ public class FastestLap {
     }
 
     public Time getTime() {
-        return time;
+        return Time;
     }
 
     public void setTime(Time time) {
-        this.time = time;
+        Time = time;
     }
 
     public AverageSpeed getAverageSpeed() {
-        return averageSpeed;
+        return AverageSpeed;
     }
 
     public void setAverageSpeed(AverageSpeed averageSpeed) {
-        this.averageSpeed = averageSpeed;
+        AverageSpeed = averageSpeed;
     }
 }

@@ -3,6 +3,15 @@ package thunderbytes.com.formulanews.Models;
 public class Results {
     private int number;
     private int position;
+    private String positionText;
+    private int points;
+    public Driver Driver;
+    public Constructor Constructor;
+    private int grid;
+    private int laps;
+    private String status;
+    public Time Time;
+    public FastestLap FastestLap;
 
     public int getNumber() {
         return number;
@@ -37,19 +46,19 @@ public class Results {
     }
 
     public Driver getDriver() {
-        return driver;
+        return Driver;
     }
 
     public void setDriver(Driver driver) {
-        this.driver = driver;
+        this.Driver = driver;
     }
 
     public Constructor getConstructor() {
-        return constructor;
+        return Constructor;
     }
 
     public void setConstructor(Constructor constructor) {
-        this.constructor = constructor;
+        this.Constructor = constructor;
     }
 
     public int getGrid() {
@@ -77,29 +86,18 @@ public class Results {
     }
 
     public Time getTime() {
-        return time;
+        return Time;
     }
 
     public void setTime(Time time) {
-        this.time = time;
+        this.Time = time;
     }
 
     public FastestLap getFastestLap() {
-        return fastestLap;
+        return FastestLap;
     }
 
     public void setFastestLap(FastestLap fastestLap) {
-        this.fastestLap = fastestLap;
+        this.FastestLap = fastestLap;
     }
-
-    private String positionText;
-    private int points;
-    public Driver driver;
-    public Constructor constructor;
-    private int grid;
-    private int laps;
-    private String status;
-    public Time time;
-    public FastestLap fastestLap;
-
 }

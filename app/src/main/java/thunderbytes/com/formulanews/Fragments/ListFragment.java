@@ -49,7 +49,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
 
     public interface OnItemClicked{
-        void onItemValue(Race aRace);
+        void onItemValue(Race aRace, int position);
     }
 
     private OnItemClicked mListener;
@@ -76,7 +76,6 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                 break;
 
             case 2:
-
                 ArrayList<ConstructorStanding> constructors = (ArrayList<ConstructorStanding>) getArguments().getSerializable(ITEM);
                 adapter = new MyAdapter(getContext(), null,null,constructors);
                 vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
@@ -146,7 +145,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            mListener.onItemValue(arrayRace.get(position));
+                            mListener.onItemValue(arrayRace.get(position), position);
                         }
                     });
                     break;
@@ -159,10 +158,10 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
 
-
-                    textUpText.setText(""+ driverStandings.get(position).Driver.givenName);
-
-
+                    textPosition.setText("" + (position+1));
+                    textUpText.setText("" + driverStandings.get(position).Driver.givenName);
+                    textDownText.setText("" + driverStandings.get(position).Driver.familyName);
+                    textPoints.setText("" + driverStandings.get(position).getPoints());
                     break;
 
                 case 2:
@@ -173,10 +172,10 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
 
+                    textPosition.setText("" + (position+1));
                     textUpText.setText(""+ constructorStandings.get(position).getConstructor().getName());
-
-
-
+                    textDownText.setText("" + constructorStandings.get(position).getConstructor().getNationality());
+                    textPoints.setText("" + constructorStandings.get(position).getPoints());
                     break;
             }
             return cell;

@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews.Managers;
 import android.content.Context;
 import android.util.Log;
 
+import thunderbytes.com.formulanews.Fragments.DetailFragment;
 import thunderbytes.com.formulanews.Helpers.Constants;
 import thunderbytes.com.formulanews.Interfaces.IDataWrapper;
 import thunderbytes.com.formulanews.Models.Season;
@@ -35,7 +36,7 @@ public class SeasonManager implements HttpGetTask.OnPostExecution {
         }
     }
 
-    public SeasonManager(int year, int race, RaceType type, Context context){
+    public SeasonManager(int year, int race, RaceType type, DetailFragment context){
         if (context instanceof OnSeasonFetched) {
             listener = (OnSeasonFetched) context;
             season.setSeasonYear(year);

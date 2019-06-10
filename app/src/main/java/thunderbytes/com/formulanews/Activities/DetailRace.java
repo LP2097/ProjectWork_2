@@ -1,12 +1,10 @@
 package thunderbytes.com.formulanews.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.Fragments.DetailFragment;
@@ -28,6 +25,7 @@ public class DetailRace extends AppCompatActivity {
     private static final String FRAGMENT_TAG = "tag fragment";
     ListView listView;
     private Race vRace;
+    private int vRaceNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +45,8 @@ public class DetailRace extends AppCompatActivity {
         Bundle vBundle =  getIntent().getExtras();
         if (vBundle != null){
             vRace = (Race) vBundle.getSerializable("ITEM_RACE");
+            vRaceNumber = vBundle.getInt("RACE_NUMBER");
+
             mTitle.setText(vRace.getRaceName());
             int id = getResources().getIdentifier("thunderbytes.com.formulanews:drawable/" + vRace.getCircuit().getLocation().getCountry().toString().toLowerCase(), null, null);
             mCircuit.setImageResource(id);
@@ -85,26 +85,23 @@ public class DetailRace extends AppCompatActivity {
                 btnSelected(mQualification);
                 Button[] arrayBtn = new Button[]{mFP1,mFP2,mFP3,mRace};
                 setBtnsNotSelect(arrayBtn);
+
+                launchResultFragment(vRace, "qualifying", vRaceNumber);
             }
         });
 
         mRace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = 0;
-                String Name = "Sebastian Vettel";
-                String Time = "1.11.143";
-                String Parting = "--";
 
                 btnSelected(mRace);
                 Button[] arrayBtn = new Button[]{mFP1,mFP2,mFP3,mQualification};
                 setBtnsNotSelect(arrayBtn);
 
-                //launchDetailFragment(id, Name, Time, Parting);
+                launchResultFragment(vRace, "race", vRaceNumber);
             }
         });
 
-        launchDetailFragment();
 
         mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,9 +125,14 @@ public class DetailRace extends AppCompatActivity {
         NotificationManager.setReminder(this, NotificationPublisher.class,DetailRace.class,vRace);
     }
 
-    private void launchDetailFragment(){
+    private void launchResultFragment(Race aRace, String aTypeRace, int aRaceNumber){
         FragmentTransaction vFT = getFragmentManager().beginTransaction();
         DetailFragment vDetailFragment = DetailFragment.newIstance();
+        Bundle vBundle = new Bundle();
+        vBundle.putSerializable("ITEM_RACE_FRAGMENT", aRace);
+        vBundle.putString("ITEM_TYPE_RACE", aTypeRace);
+        vBundle.putInt("ITEM_RACE_NUMBER", aRaceNumber);
+        vDetailFragment.setArguments(vBundle);
         vFT.add(R.id.fragmentItem, vDetailFragment, FRAGMENT_TAG);
 
         vFT.commit();
