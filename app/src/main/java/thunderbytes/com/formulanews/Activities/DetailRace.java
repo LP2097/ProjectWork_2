@@ -157,7 +157,6 @@ public class DetailRace extends AppCompatActivity {
     public void onBackPressed() {
 
         int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-        Log.d("BACKSTACK","stack: "+backStackEntryCount);
         if (isTaskRoot()) {
             Intent vIntent = new Intent(this, MainActivity.class);
             startActivity(vIntent);   // write your code to switch between fragments.
