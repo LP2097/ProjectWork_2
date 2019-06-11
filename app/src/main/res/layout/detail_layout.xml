@@ -52,20 +52,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="0.2"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView2"
+        <Button
+            android:id="@+id/btn_clock"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/cardview_light_background"
-            android:fontFamily="@font/titillium_web_light"
-            android:gravity="center"
+            android:background="@drawable/btn_style1"
+            android:fontFamily="@font/formula1_regular_web_0"
+            android:text="Orari"
+            android:textColor="@color/cardview_light_background" />
+
+        <Button
+            android:id="@+id/btn_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style1"
+            android:fontFamily="@font/formula1_regular_web_0"
             android:text="Risultati"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@color/cardview_light_background" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -77,52 +86,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_fp1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/cardview_light_background"
-                android:textColor="@color/colorDark"
-                android:text="FP1" />
-
-            <Button
-                android:id="@+id/btn_fp2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/btn_style1"
-                android:textColor="@color/cardview_light_background"
-                android:text="FP2" />
-
-            <Button
-                android:id="@+id/btn_fp3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_style1"
-                android:textColor="@color/cardview_light_background"
-                android:layout_weight="1"
-                android:text="FP3" />
 
             <Button
                 android:id="@+id/btn_qualif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_style1"
-                android:textColor="@color/cardview_light_background"
                 android:layout_weight="1"
-                android:text="Qualif." />
+                android:background="@drawable/btn_style1"
+                android:fontFamily="@font/formula1_regular_web_0"
+                android:text="Qualifiche"
+                android:textColor="@color/cardview_light_background" />
 
             <Button
                 android:id="@+id/btn_race"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_style1"
-                android:textColor="@color/cardview_light_background"
                 android:layout_weight="1"
-                android:text="GARA" />
+                android:background="@drawable/btn_style1"
+                android:fontFamily="@font/formula1_regular_web_0"
+                android:text="GARA"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
 
         <FrameLayout

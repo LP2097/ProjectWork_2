@@ -6,49 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txt_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/cardview_light_background"
-        android:gravity="center"
-        android:text="22 Maggio 15:00"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/list_table"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/list_table"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="@color/cardview_light_background"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/listViewResult"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_date">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorDark"
+            android:background="@color/grey"
             android:text="POS"
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="75sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorDark"
+            android:background="@color/grey"
             android:text="PILOTA"
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -56,10 +45,11 @@
             android:layout_width="75sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorDark"
+            android:background="@color/grey"
             android:text="TEMPO"
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -67,10 +57,11 @@
             android:layout_width="75sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorDark"
+            android:background="@color/grey"
             android:text="GAP"
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -78,10 +69,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorDark"
+            android:background="@color/grey"
             android:text="PTS"
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -99,9 +91,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="#00F80303"
         android:fontFamily="@font/formula1_regular_web_0"
         android:gravity="center"
@@ -109,10 +100,9 @@
         android:text="Caricamento..."
         android:textColor="@color/red"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/listViewResult" />
 
     <ProgressBar
         android:id="@+id/pBar2"

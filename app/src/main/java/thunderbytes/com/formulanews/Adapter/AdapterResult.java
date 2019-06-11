@@ -1,6 +1,5 @@
 package thunderbytes.com.formulanews.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,7 @@ public class AdapterResult extends BaseAdapter {
         ViewHolder vHolder = (ViewHolder)cellView.getTag();
 
         vHolder.txt_id.setText(""+getItem(position).getPositionText());
-        vHolder.txt_name.setText(getItem(position).Driver.givenName + " " + getItem(position).Driver.familyName);
+        vHolder.txt_name.setText(getItem(position).Driver.familyName);
 
         if(getItem(position).getPositionText().equals("R")){
             vHolder.txt_time.setText("");

@@ -8,38 +8,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="@font/formula1_regular_web_0"
         android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/labelNamePilot"
-        android:layout_width="75sp"
+        android:layout_width="90sp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:fontFamily="@font/formula1_regular_web_0"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/labelTime"
         android:layout_width="75sp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="@font/titillium_web_light"
         android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/labelGap"
         android:layout_width="50sp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="@font/titillium_web_light"
         android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/labelPts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:fontFamily="@font/formula1_regular_web_0"
         android:textAlignment="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 </LinearLayout>
