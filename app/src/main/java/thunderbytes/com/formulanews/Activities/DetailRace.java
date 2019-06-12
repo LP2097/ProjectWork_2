@@ -4,7 +4,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
-import thunderbytes.com.formulanews.Fragments.DetailFragmentFP;
+import thunderbytes.com.formulanews.Fragments.DetailFragmentDate;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentRasult;
 import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Managers.NotificationManager;
@@ -148,7 +146,7 @@ public class DetailRace extends AppCompatActivity {
         FragmentManager manager = getFragmentManager();
         FragmentTransaction vFT = getFragmentManager().beginTransaction();
 
-        DetailFragmentFP vDetailFragmentRasult = DetailFragmentFP.newIstance();
+        DetailFragmentDate vDetailFragmentRasult = DetailFragmentDate.newIstance();
         Bundle vBundle = new Bundle();
         vBundle.putSerializable("ITEM_RACE", aRace);
         vDetailFragmentRasult.setArguments(vBundle);
@@ -198,18 +196,6 @@ public class DetailRace extends AppCompatActivity {
         {
             vBtn[i].setBackgroundColor(getResources().getColor(R.color.red));
             vBtn[i].setTextColor(Color.WHITE);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
-        if (isTaskRoot()) {
-            Intent vIntent = new Intent(this, MainActivity.class);
-            startActivity(vIntent);   // write your code to switch between fragments.
-        } else {
-            super.onBackPressed();
         }
     }
 }

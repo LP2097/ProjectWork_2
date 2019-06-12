@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
-import thunderbytes.com.formulanews.CacheManager.CacheManager;
+import java.util.Calendar;
+
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
 import thunderbytes.com.formulanews.Models.ConstructorStanding;
@@ -31,8 +32,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     private int fragmentId;
     private Race race;
     ListView listView;
-    TextView title,textPosition,textUpText,textDownText,textPoints, textRaceName, textRacePlace;
-    private ArrayList<ConstructorStanding> vConstructor;
+    TextView title,textPosition,textUpText,textDownText,textPoints, textRaceName, textDate, textMonth;
     public ListFragment() { }
     MyAdapter adapter;
 
@@ -139,8 +139,16 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     title.setText("Calendario");
                     cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
                     textRaceName = cell.findViewById(R.id.textRight);
+                    textDate = cell.findViewById(R.id.textDate);
+                    textMonth = cell.findViewById(R.id.textMonth);
+
+                    Calendar mCalendar = Calendar.getInstance();
+                    mCalendar.setTime(arrayRace.get(position).getDate());
+                    mCalendar.add(Calendar.DATE, -2);
 
                     textRaceName.setText(arrayRace.get(position).getRaceName());
+                    textDate.setText(android.text.format.DateFormat.format("dd", arrayRace.get(position).getDate()) + " - " + android.text.format.DateFormat.format("dd", mCalendar.getTime()));
+                    textMonth.setText(android.text.format.DateFormat.format("MMM", arrayRace.get(position).getDate()));
 
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -183,11 +191,9 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-      //  new SeasonManager(2018, context);
 
         if (context instanceof OnItemClicked) {
             mListener = (OnItemClicked)context;

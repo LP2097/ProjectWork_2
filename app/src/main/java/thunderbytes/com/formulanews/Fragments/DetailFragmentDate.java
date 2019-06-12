@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -19,10 +18,10 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
 
 
-public class DetailFragmentFP extends Fragment {
+public class DetailFragmentDate extends Fragment {
 
-    public static DetailFragmentFP newIstance(){
-        return new DetailFragmentFP();
+    public static DetailFragmentDate newIstance(){
+        return new DetailFragmentDate();
     }
 
     private Race vRace;
@@ -35,7 +34,7 @@ public class DetailFragmentFP extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View vView = inflater.inflate(R.layout.fragment_fp_layout, container, false);
+        View vView = inflater.inflate(R.layout.fragment_clock_layout, container, false);
 
         mDateFP1 = vView.findViewById(R.id.txt_FP1);
         mDateFP2 = vView.findViewById(R.id.txt_FP2);
@@ -68,7 +67,7 @@ public class DetailFragmentFP extends Fragment {
     public String calculateTime(String string) {
         SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.ITALIAN);
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Date date = null;
+        Date date;
         String formattedDate = "";
 
         try {

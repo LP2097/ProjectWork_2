@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import thunderbytes.com.formulanews.Adapter.AdapterQualifying;
 import thunderbytes.com.formulanews.Adapter.AdapterResult;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Models.Race;
@@ -26,6 +27,7 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
         return new DetailFragmentRasult();
     }
     private Race vRace;
+    private String mTypeRace;
 
     private ListView listView;
     private ProgressBar pgsBar;
@@ -57,7 +59,7 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
 
         Bundle vBundle =  getArguments();
         if (vBundle != null){
-            String mTypeRace = vBundle.getString("ITEM_TYPE_RACE");
+            mTypeRace = vBundle.getString("ITEM_TYPE_RACE");
             int mRaceNumber = vBundle.getInt("ITEM_RACE_NUMBER");
 
 
@@ -91,24 +93,25 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
     public void onSeasonRetrievedSuccessfully(Season season) {
 
         try {
+
             pgsBar.setVisibility(View.GONE);
             loading.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             mSuperTable.setVisibility(View.VISIBLE);
 
-            AdapterResult adapter = new AdapterResult(season.getRaces().get(0).Results);
+            if(mTypeRace == "race"){
+                AdapterResult adapter = new AdapterResult(season.getRaces().get(0).Results);
 
-            listView.setAdapter(adapter);
+                listView.setAdapter(adapter);
+            }else{
+                AdapterQualifying adapter = new AdapterQualifying(season.getRaces().get(0).QualifyingResults);
+
+                listView.setAdapter(adapter);
+            }
+
         } catch (Exception e) {
             Log.e("ERROR","Error " + e.getMessage());
             Toast.makeText(getActivity(), "Si è verificato un errore", Toast.LENGTH_LONG).show();
         }
-
-
-        // OR
-
-        //AdapterQualifying adapter = new AdapterQualifying(season.getRaces().get(0).Results);
-
-        //listView.setAdapter(adapter);
     }
 }

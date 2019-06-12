@@ -19,21 +19,23 @@
 
         <TextView
             android:id="@+id/position"
-            android:text="1"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="20sp"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="1"
+            android:textAlignment="center"
             android:textColor="@android:color/background_dark"
-            android:layout_marginLeft="20sp"/>
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
         <FrameLayout
+            android:id="@+id/identifyConstructor"
             android:layout_width="7sp"
             android:layout_height="match_parent"
-            android:background="@color/colorDark"/>
+            android:layout_marginLeft="40sp"
+            android:background="@color/colorDark" />
 
         <LinearLayout
             android:layout_width="wrap_content"

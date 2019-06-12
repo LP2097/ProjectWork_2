@@ -5,32 +5,32 @@ public class Qualifying {
     public Constructor Constructor;
     private int number;
     private int position;
-    private String q1;
-    private String q2;
-    private String q3;
+    public String Q1;
+    public String Q2;
+    public String Q3;
 
     public String getQ1() {
-        return q1;
+        return Q1;
     }
 
     public void setQ1(String q1) {
-        this.q1 = q1;
+        Q1 = q1;
     }
 
     public String getQ2() {
-        return q2;
+        return Q2;
     }
 
     public void setQ2(String q2) {
-        this.q2 = q2;
+        Q2 = q2;
     }
 
     public String getQ3() {
-        return q3;
+        return Q3;
     }
 
     public void setQ3(String q3) {
-        this.q3 = q3;
+        Q3 = q3;
     }
 
     public int getNumber() {
