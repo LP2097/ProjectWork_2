@@ -18,8 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.DetailRace"></activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Activities.FirebaseRegister"></activity>
         <activity
-            android:name=".MainActivity">
+            android:name=".Activities.FirebaseLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,5 +30,6 @@
         </activity>
         <receiver android:name=".Broadcast.NotificationPublisher"></receiver>
     </application>
+
 
 </manifest>
