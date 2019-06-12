@@ -13,6 +13,9 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.MainActivity;
@@ -62,6 +65,18 @@ public class NotificationManager {
 
         Log.d("TIME","Time: "+race.getDate().getTime());
 
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.MINUTE, 1 );
+        calendar.add(Calendar.MINUTE, 1 );
+        calendar.add(Calendar.MINUTE, 1 );
+        //calendar.add(Calendar.SECOND, 10);
+
+        Date date = calendar.getTime();
+
+
         if(race.getRaceName() == "Australian Grand Prix") {
              futureInMillis = SystemClock.elapsedRealtime() + 2000;
         }else
@@ -69,7 +84,7 @@ public class NotificationManager {
              futureInMillis = SystemClock.elapsedRealtime() + 2000;
         }
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, date.getTime(), pendingIntent);
 
     }
 
