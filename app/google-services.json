@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "45272773089",
+    "firebase_url": "https://formulanews-61512.firebaseio.com",
+    "project_id": "formulanews-61512",
+    "storage_bucket": "formulanews-61512.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45272773089:android:3be822096174973b",
+        "android_client_info": {
+          "package_name": "thunderbytes.com.formulanews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45272773089-6ssj81jlmqjuumoq4jpcha1g7p53oif7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwpV0SWPtMsYCAAsCZOibwnN_UGfB-kYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45272773089-6ssj81jlmqjuumoq4jpcha1g7p53oif7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
