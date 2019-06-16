@@ -64,7 +64,7 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
 
 
             if (mTypeRace == "race"){
-                new SeasonManager(2018, mRaceNumber, SeasonManager.RaceType.results, DetailFragmentRasult.this);
+                new SeasonManager(2019, mRaceNumber, SeasonManager.RaceType.results, DetailFragmentRasult.this);
 
                 //mDate.setText(android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate()) + ", 15.10");
 
@@ -72,7 +72,7 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
                 cell_four.setText("GAP");
                 cell_five.setText("PTS");
             }else{
-                new SeasonManager(2018, mRaceNumber, SeasonManager.RaceType.qualifying, DetailFragmentRasult.this);
+                new SeasonManager(2019, mRaceNumber, SeasonManager.RaceType.qualifying, DetailFragmentRasult.this);
 
                 /*Calendar mCalendar = Calendar.getInstance();
                 mCalendar.setTime(vRace.getDate());

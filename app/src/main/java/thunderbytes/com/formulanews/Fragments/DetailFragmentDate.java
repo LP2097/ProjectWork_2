@@ -2,6 +2,7 @@ package thunderbytes.com.formulanews.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,16 +65,22 @@ public class DetailFragmentDate extends Fragment {
         return mCalendar.getTime();
     }
 
-    public String calculateTime(String string) {
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.ITALIAN);
-        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+    //GIAPPONE - RUSSIA - SINGAPORE - ITALIA - BELGIO - UNGHERIA - GERMANIA - GRAN BRETAGNA
+    
+    public String calculateTime(String time) {
+        SimpleDateFormat vInputDateFormat = new SimpleDateFormat("HH:mm:ss'Z'");
+        vInputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date date;
         String formattedDate = "";
 
         try {
-            date = df.parse(string);
-            df.setTimeZone(TimeZone.getDefault());
-            formattedDate = df.format(date);
+            Log.d("TEST", time);
+            date = vInputDateFormat.parse(time);
+            vInputDateFormat.setTimeZone(TimeZone.getDefault());
+            SimpleDateFormat vDateFormat = new SimpleDateFormat("HH:mm");
+            Log.d("TEST", vDateFormat.format(date));
+            formattedDate = vDateFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

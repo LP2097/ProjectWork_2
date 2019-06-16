@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
         if (savedInstanceState == null) {
             fragment = new ListFragment();
-            new SeasonManager(2018, MainActivity.this);
+            new SeasonManager(2019, MainActivity.this);
             fragmentModel.fragmentId = 0;
             setBundleId();
 
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                         }
                         else {
                             //2.2) non ci sono dati presenti, faccio la chiamata asincrona per ricevere i dati
-                            new SeasonManager(2018, MainActivity.this);
+                            new SeasonManager(2019, MainActivity.this);
                         }
 
                         setBundleId();
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                         }
                         else {
                             //2.2) non ci sono dati presenti, faccio la chiamata asincrona per ricevere i dati
-                            new SeasonManager(2018, MainActivity.this);
+                            new SeasonManager(2019, MainActivity.this);
                         }
                         setBundleId();
                         break;
