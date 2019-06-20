@@ -192,7 +192,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         setFragmentTransaction();
 
         //4) controllo che l'app non sia stata aperta da notifica
-        checkNotification();
 
     }
 
@@ -230,24 +229,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
     }
 
-    private void checkNotification()
-    {
-        //controllo se l'app e stata aperta da notifica
-        try {
-            race = (Race) getIntent().getExtras().getSerializable("RACE");
-            //constorllo se ci al bundle notification è stata aggiunta una gara
-            if(race != null ) {
-                //rimuovo gli extra di notifica
-                getIntent().getExtras().clear();
-                getIntent().removeExtra("RACE");
-                //onItemValue(race);
-            }
-        }
-        catch (Exception e)
-        {
-            Logger.d("Errore: "+ e);
-        }
-    }
+
 
     @Override
     public void onItemValue(Race aRace, int position) {

@@ -198,5 +198,15 @@ public class DetailRace extends AppCompatActivity {
             vBtn[i].setTextColor(Color.WHITE);
         }
     }
+
+    public void onBackPressed() {
+        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        if (isTaskRoot()) {
+           Intent vIntent = new Intent(this, MainActivity.class);   // write your code to switch between fragments.
+            startActivity(vIntent);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
 

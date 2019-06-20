@@ -169,7 +169,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     textPosition.setText("" + (position+1));
                     textUpText.setText("" + driverStandings.get(position).Driver.givenName);
                     textDownText.setText("" + driverStandings.get(position).Driver.familyName);
-                    textPoints.setText("" + driverStandings.get(position).getPoints());
+                    textPoints.setText("" + driverStandings.get(position).getPoints() + " PTS");
                     break;
 
                 case 2:
@@ -183,7 +183,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     textPosition.setText("" + (position+1));
                     textUpText.setText(""+ constructorStandings.get(position).getConstructor().getName());
                     textDownText.setText("" + constructorStandings.get(position).getConstructor().getNationality());
-                    textPoints.setText("" + constructorStandings.get(position).getPoints());
+                    textPoints.setText("" + constructorStandings.get(position).getPoints()  + " PTS");
                     break;
             }
             return cell;

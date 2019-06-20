@@ -13,8 +13,11 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
@@ -25,8 +28,7 @@ import thunderbytes.com.formulanews.R;
 public class NotificationManager {
 
 
-    public static void setReminder(Context context, Class<?> cls, Class<?> openClass, Race race)
-    {
+    public static void setReminder(Context context, Class<?> cls, Class<?> openClass, Race race) {
 
         long futureInMillis;
         ComponentName receiver = new ComponentName(context, cls);
@@ -63,28 +65,21 @@ public class NotificationManager {
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Log.d("TIME","Time: "+race.getDate().getTime());
 
-
+        Date dateFormat = calculateTime(race);
+        Log.d("TIME","calendar  FORMATTATO: "+ dateFormat);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.MINUTE, 1 );
-        calendar.add(Calendar.MINUTE, 1 );
-        calendar.add(Calendar.MINUTE, 1 );
-        //calendar.add(Calendar.SECOND, 10);
+       // calendar.setTime(dateFormat);
 
-        Date date = calendar.getTime();
+       // calendar.set(calendar.MINUTE, calendar.get(Calendar.MINUTE)-10 );
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)+1 );
+
+        Log.d("TIME","calendar  houar finale non formattato: "+ calendar.getTime());
 
 
-        if(race.getRaceName() == "Australian Grand Prix") {
-             futureInMillis = SystemClock.elapsedRealtime() + 2000;
-        }else
-        {
-             futureInMillis = SystemClock.elapsedRealtime() + 2000;
-        }
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, date.getTime(), pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(), pendingIntent);
 
     }
 
@@ -105,5 +100,47 @@ public class NotificationManager {
         alarmManager.cancel(pendingIntent);
         pendingIntent.cancel();
     }
+
+    public static Date calculateTime(String time) {
+        SimpleDateFormat vInputDateFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss'Z'");
+        vInputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date date = null;
+
+        try {
+            Log.d("TEST", time);
+            date = vInputDateFormat.parse(time);
+            vInputDateFormat.setTimeZone(TimeZone.getDefault());
+            SimpleDateFormat vDateFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm");
+            Log.d("TEST", vDateFormat.format(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+    public static Date calculateTime(Race vRace) {
+        SimpleDateFormat vInputDateFormat = new SimpleDateFormat("HH:mm:ss'Z'");
+        vInputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date date;
+        Date formattedDate = null;
+
+        try {
+            date = vInputDateFormat.parse(vRace.getTime());
+            vInputDateFormat.setTimeZone(TimeZone.getDefault());
+            SimpleDateFormat vDateFormat = new SimpleDateFormat("HH:mm");
+            String test = android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate())  + " " + vDateFormat.format(date);
+
+            SimpleDateFormat vFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+            formattedDate = vFormat.parse(test);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return formattedDate;
+    }
+
 
 }
