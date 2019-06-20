@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Activities.FirebaseLogin;
 import thunderbytes.com.formulanews.CacheManager.CacheManager;
+import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     CacheManager mChache;
     private ProgressBar pgsBar;
     TextView textLoading, loadingView;
-    TextView textLoading;
     BottomNavigationView bottomNavigationView;
     Race race;
     private static final String FRAGMENT = "fragment";
