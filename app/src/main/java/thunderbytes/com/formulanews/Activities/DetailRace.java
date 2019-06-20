@@ -59,6 +59,7 @@ public class DetailRace extends AppCompatActivity {
         }
 
 
+
         mClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +130,19 @@ public class DetailRace extends AppCompatActivity {
 
             }
         });
+
+
+
+        //faccio visualizzare di default il bottone dell'orario premuto
+        btnSelected(mClock);
+        Button[] arrayBtn = new Button[]{mResult};
+        setBtnsNotSelect(arrayBtn);
+
+        mQualification.setVisibility(View.GONE);
+        mRace.setVisibility(View.GONE);
+
+        launchClockFragment(vRace);
+
     }
 
     private void enableNotification(){

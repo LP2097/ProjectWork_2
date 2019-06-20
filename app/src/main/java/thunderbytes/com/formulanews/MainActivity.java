@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     MenuItem lastSelected;
     CacheManager mChache;
     private ProgressBar pgsBar;
-    TextView textLoading;
+    TextView textLoading, loadingView;
     Race race;
+    private static final String FRAGMENT = "fragment";
 
 
     @Override
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
         pgsBar = (ProgressBar) findViewById(R.id.pBar);
         textLoading = findViewById(R.id.loading);
+        loadingView = findViewById(R.id.btn_loadingView);
 
 
         //0) istanzio la chace dove salvero le gare, i piloti e i costruttori,
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         }
         else
         {
+            loadingView.setVisibility(View.GONE);
             pgsBar.setVisibility(View.GONE);
             textLoading.setVisibility(View.GONE);
         }
@@ -81,11 +84,12 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                 lastSelected = item;
                 setTitleBottomMenuColor(item, Color.RED);
 
-                //FragmentManager fragmentManager = getSupportFragmentManager();
+
                // FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 switch (item.getItemId())
                 {
+
                     case R.id.action_recents:
 
                         //Calendario
@@ -114,6 +118,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                             setFragmentTransaction();
                         }
                         else {
+                            loadingView.setVisibility(View.VISIBLE);
+                            pgsBar.setVisibility(View.VISIBLE);
+                            textLoading.setVisibility(View.VISIBLE);
                             new StandingManager(2018, StandingManager.StandingType.driverStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
                         }
 
@@ -130,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
                         }
                         else {
+                            loadingView.setVisibility(View.VISIBLE);
+                            pgsBar.setVisibility(View.VISIBLE);
+                            textLoading.setVisibility(View.VISIBLE);
                             new StandingManager(2018, StandingManager.StandingType.constructorStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
                         }
 
@@ -187,8 +197,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         // nell onNavigationItemSelected dove controllero se la cache ha dati salvati o meno
         mChache.setRaces(season.getRaces());
         //3) carico il fragment di mio interesse
-        pgsBar.setVisibility(View.GONE);
-        textLoading.setVisibility(View.GONE);
         setFragmentTransaction();
 
         //4) controllo che l'app non sia stata aperta da notifica
@@ -226,10 +234,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         //assegno al mio fragment il bundle che conterra l'id della view
         // che vorro caricare e l'array di elementi che mi interessa
         fragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment).commit();
+        fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment, FRAGMENT).commit();
     }
-
-
 
     @Override
     public void onItemValue(Race aRace, int position) {
@@ -243,4 +249,13 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         //3) faccio partire l'activity
         startActivity(vIntent);
     }
+
+    //espongo l'intefacci del fragment che al caricamento della sua activity con rispettivo layout faccio sparire il loading
+    @Override
+    public void loadFragmentActivity() {
+        loadingView.setVisibility(View.GONE);
+        pgsBar.setVisibility(View.GONE);
+        textLoading.setVisibility(View.GONE);
+    }
+
 }

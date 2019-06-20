@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -20,6 +19,16 @@
         app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/btn_loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="@+id/dynamicFragmentFrameLayout"
+        app:layout_constraintStart_toStartOf="@+id/dynamicFragmentFrameLayout"
+        app:layout_constraintTop_toTopOf="@+id/dynamicFragmentFrameLayout" />
 
     <TextView
         android:id="@+id/loading"

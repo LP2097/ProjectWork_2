@@ -1,5 +1,6 @@
 package thunderbytes.com.formulanews.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
     public interface OnItemClicked{
         void onItemValue(Race aRace, int position);
+        void loadFragmentActivity();
     }
 
     private OnItemClicked mListener;
@@ -83,8 +85,10 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         }
 
         listView.setAdapter(adapter);
+        mListener.loadFragmentActivity();
         return vView;
     }
+
 
 
 
@@ -199,6 +203,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
             mListener = (OnItemClicked)context;
         }
     }
+
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
