@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -17,13 +18,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Activities.DetailRace;
+import thunderbytes.com.formulanews.Activities.FirebaseLogin;
 import thunderbytes.com.formulanews.CacheManager.CacheManager;
+import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
@@ -31,7 +35,7 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Models.Standings;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched, LogoutDialogue.OnLogoutDialogueListener {
     Fragment fragment;
     Bundle bundle = new Bundle();
     thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
@@ -258,4 +262,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         textLoading.setVisibility(View.GONE);
     }
 
+    @Override
+    public void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivity.this, FirebaseLogin.class);
+
+        startActivity(intent);
+    }
 }

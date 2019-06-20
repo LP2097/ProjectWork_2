@@ -106,9 +106,9 @@ public class FirebaseLogin extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        /*if (currentUser!=null){
+        if (currentUser!=null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }*/
+        }
     }
 
 

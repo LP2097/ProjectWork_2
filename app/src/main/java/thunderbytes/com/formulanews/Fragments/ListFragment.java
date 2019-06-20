@@ -2,21 +2,29 @@ package thunderbytes.com.formulanews.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import thunderbytes.com.formulanews.Activities.FirebaseLogin;
+import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
 import thunderbytes.com.formulanews.Models.ConstructorStanding;
@@ -36,7 +44,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     TextView title,textPosition,textUpText,textDownText,textPoints, textRaceName, textDate, textMonth;
     public ListFragment() { }
     MyAdapter adapter;
-
+    ImageView logoutView;
 
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
@@ -63,6 +71,16 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         title = (TextView)vView.findViewById(R.id.fragmentTitle);
         listView = (ListView)vView.findViewById(R.id.listView);
         fragmentId = getArguments().getInt(ID);
+        logoutView = vView.findViewById(R.id.logoutView);
+
+
+        logoutView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogoutDialogue();
+
+            }
+        });
 
         switch (fragmentId){
             case 0:
@@ -89,6 +107,11 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         return vView;
     }
 
+
+    public void openLogoutDialogue(){
+        LogoutDialogue logoutDialogue = new LogoutDialogue();
+        logoutDialogue.show(getFragmentManager(), "Logout dialogue");
+    }
 
 
 
