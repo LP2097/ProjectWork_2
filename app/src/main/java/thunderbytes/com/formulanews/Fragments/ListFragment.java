@@ -1,5 +1,7 @@
 package thunderbytes.com.formulanews.Fragments;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,22 +11,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.willowtreeapps.spruce.Spruce;
+import com.willowtreeapps.spruce.animation.DefaultAnimations;
+import com.willowtreeapps.spruce.sort.DefaultSort;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
-
-import thunderbytes.com.formulanews.Activities.FirebaseLogin;
 import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
@@ -47,6 +48,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     public ListFragment() { }
     MyAdapter adapter;
     ImageView logoutView;
+    private Animator spruceAnimator;
 
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
@@ -77,6 +79,12 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         fragmentId = getArguments().getInt(ID);
         logoutView = vView.findViewById(R.id.logoutView);
 
+        listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                initSpruce();
+            }
+        });
 
         logoutView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +114,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
         }
 
         listView.setAdapter(adapter);
+
         mListener.loadFragmentActivity();
         return vView;
     }
@@ -257,6 +266,15 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (spruceAnimator != null) {
+            spruceAnimator.start();
+        }
+    }
+
+
+    @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.addLogAdapter(new AndroidLogAdapter());
@@ -268,5 +286,14 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+
+    private void initSpruce() {
+        spruceAnimator = new Spruce.SpruceBuilder(listView)
+                .sortWith(new DefaultSort(100))
+                .animateWith(DefaultAnimations.fadeInAnimator(listView, 800),
+                        ObjectAnimator.ofFloat(listView, "translationY", +listView.getWidth(), 0f).setDuration(800))
+                .start();
     }
 }
