@@ -266,15 +266,6 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (spruceAnimator != null) {
-            spruceAnimator.start();
-        }
-    }
-
-
-    @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.addLogAdapter(new AndroidLogAdapter());
