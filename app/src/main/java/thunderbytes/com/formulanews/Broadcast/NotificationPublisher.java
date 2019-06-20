@@ -29,7 +29,7 @@ public class NotificationPublisher extends BroadcastReceiver {
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "Formula1", importance);
             notificationManager.createNotificationChannel(mChannel);
         }
-        notificationManager.notify(id, notification);
+        notificationManager.notify(0, notification);
     }
 
 
