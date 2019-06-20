@@ -273,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     public void logout() {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(MainActivity.this, FirebaseLogin.class);
-
         startActivity(intent);
     }
 }
