@@ -9,16 +9,16 @@ import java.io.Serializable;
 @Entity
 public class Constructor implements Serializable {
     @PrimaryKey @NonNull
-    private String constructorId;
+    public String constructorId;
 
     @ColumnInfo
-    private String url;
+    public String url;
 
     @ColumnInfo
-    private String name;
+    public String name;
 
     @ColumnInfo
-    private String nationality;
+    public String nationality;
 
     public String getConstructorId() {
         return constructorId;

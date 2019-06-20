@@ -22,6 +22,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 
 import thunderbytes.com.formulanews.Activities.FirebaseLogin;
 import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
@@ -42,6 +43,7 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     private Race race;
     ListView listView;
     TextView title,textPosition,textUpText,textDownText,textPoints, textRaceName, textDate, textMonth;
+    View ColorTeam;
     public ListFragment() { }
     MyAdapter adapter;
     ImageView logoutView;
@@ -55,6 +57,8 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
     public void onStandingsRetrievedSuccessfully(ArrayList<Standings> standings) {
 
     }
+
+    private LinkedHashMap<String, Integer> colorTeams = new LinkedHashMap<>();
 
 
     public interface OnItemClicked{
@@ -82,23 +86,22 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
             }
         });
 
+        setColorTeam();
+
         switch (fragmentId){
             case 0:
                 ArrayList<Race> races = (ArrayList<Race>) getArguments().getSerializable(ITEM);
                 adapter = new MyAdapter(getContext(), races, null,null);
-                vView.setBackgroundColor(getResources().getColor(R.color.white_smoke));
                 break;
 
             case 1:
                 ArrayList<DriverStanding> drivers = (ArrayList<DriverStanding>) getArguments().getSerializable(ITEM);
                 adapter = new MyAdapter(getContext(), null, drivers,null);
-                vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
                 break;
 
             case 2:
                 ArrayList<ConstructorStanding> constructors = (ArrayList<ConstructorStanding>) getArguments().getSerializable(ITEM);
                 adapter = new MyAdapter(getContext(), null,null,constructors);
-                vView.setBackgroundColor(getResources().getColor(R.color.grey_darker));
                 break;
         }
 
@@ -161,10 +164,12 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
             textPoints = null;
 
 
+
             switch (fragmentId) {
                 case 0:
                     title.setText("Calendario");
                     cell = layoutInflater.inflate(R.layout.calendar_cell_layout, parent, false);
+
                     textRaceName = cell.findViewById(R.id.textRight);
                     textDate = cell.findViewById(R.id.textDate);
                     textMonth = cell.findViewById(R.id.textMonth);
@@ -192,11 +197,15 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     textUpText = cell.findViewById(R.id.upText);
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
+                    ColorTeam = cell.findViewById(R.id.identifyConstructor);
 
                     textPosition.setText("" + (position+1));
                     textUpText.setText("" + driverStandings.get(position).Driver.givenName);
                     textDownText.setText("" + driverStandings.get(position).Driver.familyName);
                     textPoints.setText("" + driverStandings.get(position).getPoints() + " PTS");
+
+                    ColorTeam.setBackgroundColor(colorTeams.get(driverStandings.get(position).Constructors.get(0).name));
+
                     break;
 
                 case 2:
@@ -206,17 +215,36 @@ public class ListFragment extends Fragment implements SeasonManager.OnSeasonFetc
                     textUpText = cell.findViewById(R.id.upText);
                     textDownText = cell.findViewById(R.id.downText);
                     textPoints = cell.findViewById(R.id.points);
+                    ColorTeam = cell.findViewById(R.id.identifyConstructor);
 
                     textPosition.setText("" + (position+1));
                     textUpText.setText(""+ constructorStandings.get(position).getConstructor().getName());
                     textDownText.setText("" + constructorStandings.get(position).getConstructor().getNationality());
                     textPoints.setText("" + constructorStandings.get(position).getPoints()  + " PTS");
+
+                    ColorTeam.setBackgroundColor(colorTeams.get(constructorStandings.get(position).getConstructor().getName()));
+
                     break;
             }
             return cell;
         }
 
     }
+
+    private void setColorTeam(){
+        colorTeams.put("Mercedes", this.getResources().getColor(R.color.mercedes));
+        colorTeams.put("Red Bull", this.getResources().getColor(R.color.redbull));
+        colorTeams.put("Ferrari", this.getResources().getColor(R.color.ferrari));
+        colorTeams.put("Haas F1 Team", this.getResources().getColor(R.color.richenergy));
+        colorTeams.put("Renault", this.getResources().getColor(R.color.renault));
+        colorTeams.put("Alfa Romeo", this.getResources().getColor(R.color.alfaromeo));
+        colorTeams.put("Racing Point", this.getResources().getColor(R.color.racingpoints));
+        colorTeams.put("Toro Rosso", this.getResources().getColor(R.color.rokit));
+        colorTeams.put("McLaren", this.getResources().getColor(R.color.mclaren));
+        colorTeams.put("Williams", this.getResources().getColor(R.color.williams));
+    }
+
+
 
     @Override
     public void onAttach(Context context) {

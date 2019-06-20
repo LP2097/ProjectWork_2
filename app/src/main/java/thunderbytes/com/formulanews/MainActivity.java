@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Activities.FirebaseLogin;
 import thunderbytes.com.formulanews.CacheManager.CacheManager;
-import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Managers.StandingManager;
@@ -43,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     CacheManager mChache;
     private ProgressBar pgsBar;
     TextView textLoading, loadingView;
+    TextView textLoading;
+    BottomNavigationView bottomNavigationView;
     Race race;
     private static final String FRAGMENT = "fragment";
 
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         pgsBar = (ProgressBar) findViewById(R.id.pBar);
         textLoading = findViewById(R.id.loading);
         loadingView = findViewById(R.id.btn_loadingView);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
 
         //0) istanzio la chace dove salvero le gare, i piloti e i costruttori,
@@ -68,15 +69,17 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
             new SeasonManager(2019, MainActivity.this);
             fragmentModel.fragmentId = 0;
             setBundleId();
-
+            bottomNavigationView.setVisibility(View.GONE);
         }
         else
         {
             loadingView.setVisibility(View.GONE);
             pgsBar.setVisibility(View.GONE);
             textLoading.setVisibility(View.GONE);
+            bottomNavigationView.setVisibility(View.VISIBLE);
         }
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -93,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
                 switch (item.getItemId())
                 {
-
                     case R.id.action_recents:
 
                         //Calendario
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                             loadingView.setVisibility(View.VISIBLE);
                             pgsBar.setVisibility(View.VISIBLE);
                             textLoading.setVisibility(View.VISIBLE);
-                            new StandingManager(2018, StandingManager.StandingType.driverStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
+                            new StandingManager(2019, StandingManager.StandingType.driverStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
                         }
 
                         fragmentModel.fragmentId = 1;
@@ -141,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
                         }
                         else {
+                            new StandingManager(2019, StandingManager.StandingType.constructorStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
                             loadingView.setVisibility(View.VISIBLE);
                             pgsBar.setVisibility(View.VISIBLE);
                             textLoading.setVisibility(View.VISIBLE);
-                            new StandingManager(2018, StandingManager.StandingType.constructorStandings, (StandingManager.OnStandingsFetched) MainActivity.this);
                         }
 
                         fragmentModel.fragmentId = 2;
@@ -201,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         // nell onNavigationItemSelected dove controllero se la cache ha dati salvati o meno
         mChache.setRaces(season.getRaces());
         //3) carico il fragment di mio interesse
+        pgsBar.setVisibility(View.GONE);
+        textLoading.setVisibility(View.GONE);
+        bottomNavigationView.setVisibility(View.VISIBLE);
         setFragmentTransaction();
 
         //4) controllo che l'app non sia stata aperta da notifica
@@ -240,6 +245,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.dynamicFragmentFrameLayout, fragment, FRAGMENT).commit();
     }
+
+
 
     @Override
     public void onItemValue(Race aRace, int position) {
