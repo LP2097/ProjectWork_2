@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews.Activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +26,12 @@ public class DetailRace extends AppCompatActivity {
 
 
     private static final String FRAGMENT_TAG = "FRAGMENT_INFO";
+    private static final String SHARED_PREF_NOTIFICATION = "notification";
+    private String KEY_NOTIFICATION;
     private Race vRace;
     private int vRaceNumber;
+    private boolean notify = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,7 @@ public class DetailRace extends AppCompatActivity {
             mCircuit.setImageResource(id);
         }
 
-
+        KEY_NOTIFICATION = vRace.getRaceName();
 
         mClock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +136,12 @@ public class DetailRace extends AppCompatActivity {
             }
         });
 
+        vRace.setNotify(getNotification());
+        if(vRace.isNotify())
+        {
+            mNotification.setImageResource(R.drawable.bell_select);
+
+        }
 
 
         //faccio visualizzare di default il bottone dell'orario premuto
@@ -215,6 +226,14 @@ public class DetailRace extends AppCompatActivity {
 
     public void onBackPressed() {
         int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        if(vRace.isNotify())
+        {
+            saveNotification();
+        }
+        else {
+            removeNotification();
+        }
+
         if (isTaskRoot()) {
            Intent vIntent = new Intent(this, MainActivity.class);   // write your code to switch between fragments.
             startActivity(vIntent);
@@ -222,5 +241,37 @@ public class DetailRace extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
+    private boolean getNotification() {
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NOTIFICATION, MODE_PRIVATE);
+        boolean notify = sp.getBoolean(KEY_NOTIFICATION, false);
+
+        if (notify) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void saveNotification() {
+
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NOTIFICATION, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putBoolean(KEY_NOTIFICATION, true);
+
+        editor.apply();
+
+    }
+
+    private void removeNotification()
+    {
+        SharedPreferences sp = getSharedPreferences(SHARED_PREF_NOTIFICATION, MODE_PRIVATE);
+        sp.edit().remove(KEY_NOTIFICATION).commit();
+
+    }
+
+
 }
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:minHeight="50dp"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/labelPosition"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:fontFamily="@font/formula1_regular_web_0"
         android:textAlignment="center"
@@ -15,38 +16,38 @@
 
     <TextView
         android:id="@+id/labelNamePilot"
-        android:layout_width="90sp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
         android:fontFamily="@font/formula1_regular_web_0"
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/labelTime"
-        android:layout_width="75sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:fontFamily="@font/titillium_web_light"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/labelGap"
-        android:layout_width="50sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:fontFamily="@font/titillium_web_light"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="18sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/labelPts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:fontFamily="@font/formula1_regular_web_0"
         android:textAlignment="center"

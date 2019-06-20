@@ -275,4 +275,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         Intent intent = new Intent(MainActivity.this, FirebaseLogin.class);
         startActivity(intent);
     }
+
+
 }
