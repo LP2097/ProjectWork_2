@@ -66,6 +66,7 @@ public class DetailFragmentDate extends Fragment {
     }
 
 
+    //stati che non hanno l'orario corretto
     //GIAPPONE - RUSSIA - SINGAPORE - ITALIA - BELGIO - UNGHERIA - GERMANIA - GRAN BRETAGNA
     
     public String calculateTime(String time) {
@@ -75,12 +76,12 @@ public class DetailFragmentDate extends Fragment {
         String formattedDate = "";
 
         try {
-            Log.d("TEST", time);
             date = vInputDateFormat.parse(time);
             vInputDateFormat.setTimeZone(TimeZone.getDefault());
             SimpleDateFormat vDateFormat = new SimpleDateFormat("HH:mm");
-            Log.d("TEST", vDateFormat.format(date));
+
             formattedDate = vDateFormat.format(date);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
