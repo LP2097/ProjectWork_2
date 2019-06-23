@@ -12,10 +12,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Models.Time;
 import thunderbytes.com.formulanews.R;
 
 
@@ -66,21 +66,28 @@ public class DetailFragmentDate extends Fragment {
     }
 
 
-    //stati che non hanno l'orario corretto
-    //GIAPPONE - RUSSIA - SINGAPORE - ITALIA - BELGIO - UNGHERIA - GERMANIA - GRAN BRETAGNA
     
-    public String calculateTime(String time) {
+    public String calculateTime(String timeRace) {
         SimpleDateFormat vInputDateFormat = new SimpleDateFormat("HH:mm:ss'Z'");
         vInputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date date;
         String formattedDate = "";
 
         try {
-            date = vInputDateFormat.parse(time);
+            Date date = vInputDateFormat.parse(timeRace);
             vInputDateFormat.setTimeZone(TimeZone.getDefault());
             SimpleDateFormat vDateFormat = new SimpleDateFormat("HH:mm");
 
-            formattedDate = vDateFormat.format(date);
+            if(TimeZone.getDefault().inDaylightTime(calculateDate(0))){
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                cal.add(Calendar.HOUR_OF_DAY, 1);
+
+                formattedDate = vDateFormat.format(cal.getTime());
+            }else{
+
+                formattedDate = vDateFormat.format(date);
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();

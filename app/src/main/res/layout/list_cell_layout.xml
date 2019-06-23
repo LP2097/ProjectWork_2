@@ -90,4 +90,5 @@
             android:textColor="@android:color/background_dark"
             android:textSize="18sp" />
     </LinearLayout>
+
 </LinearLayout>

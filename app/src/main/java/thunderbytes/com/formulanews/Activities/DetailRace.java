@@ -63,6 +63,9 @@ public class DetailRace extends AppCompatActivity {
             mCircuit.setImageResource(id);
         }
 
+        //controllare se la data è già passata o meno, se è già passata disattivare il click
+        //della notifica
+
         KEY_NOTIFICATION = vRace.getRaceName();
 
         mClock.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +78,7 @@ public class DetailRace extends AppCompatActivity {
                 mQualification.setVisibility(View.GONE);
                 mRace.setVisibility(View.GONE);
 
-                launchClockFragment(vRace);
+                launchClockFragment();
             }
         });
 
@@ -152,7 +155,7 @@ public class DetailRace extends AppCompatActivity {
         mQualification.setVisibility(View.GONE);
         mRace.setVisibility(View.GONE);
 
-        launchClockFragment(vRace);
+        launchClockFragment();
 
     }
 
@@ -166,14 +169,14 @@ public class DetailRace extends AppCompatActivity {
         Toast.makeText(this, "Notifica Disattivata", Toast.LENGTH_SHORT).show();
     }
 
-    private void launchClockFragment(Race aRace){
+    private void launchClockFragment(){
 
         FragmentManager manager = getFragmentManager();
         FragmentTransaction vFT = getFragmentManager().beginTransaction();
 
         DetailFragmentDate vDetailFragmentRasult = DetailFragmentDate.newIstance();
         Bundle vBundle = new Bundle();
-        vBundle.putSerializable("ITEM_RACE", aRace);
+        vBundle.putSerializable("ITEM_RACE", vRace);
         vDetailFragmentRasult.setArguments(vBundle);
 
         // Se il fragmnet non esiste lo crea e basta, se invece esiste già un fragment lo rimpiazza

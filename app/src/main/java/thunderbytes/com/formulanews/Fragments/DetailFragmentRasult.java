@@ -12,8 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 import thunderbytes.com.formulanews.Adapter.AdapterQualifying;
 import thunderbytes.com.formulanews.Adapter.AdapterResult;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
@@ -26,7 +24,6 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
     public static DetailFragmentRasult newIstance(){
         return new DetailFragmentRasult();
     }
-    private Race vRace;
     private String mTypeRace;
 
     private ListView listView;
@@ -64,21 +61,13 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
 
 
             if (mTypeRace == "race"){
-                new SeasonManager(2019, mRaceNumber, SeasonManager.RaceType.results, DetailFragmentRasult.this);
-
-                //mDate.setText(android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate()) + ", 15.10");
+                new SeasonManager(2019, mRaceNumber+1, SeasonManager.RaceType.results, DetailFragmentRasult.this);
 
                 cell_three.setText("TEMPO");
                 cell_four.setText("GAP");
                 cell_five.setText("PTS");
             }else{
-                new SeasonManager(2019, mRaceNumber, SeasonManager.RaceType.qualifying, DetailFragmentRasult.this);
-
-                /*Calendar mCalendar = Calendar.getInstance();
-                mCalendar.setTime(vRace.getDate());
-                mCalendar.add(Calendar.DATE, -1);
-
-                mDate.setText(android.text.format.DateFormat.format("dd.MM.yyyy", mCalendar.getTime()) + ", 15.10");*/
+                new SeasonManager(2019, mRaceNumber+1, SeasonManager.RaceType.qualifying, DetailFragmentRasult.this);
 
                 cell_three.setText("Q1");
                 cell_four.setText("Q2");
@@ -93,20 +82,24 @@ public class DetailFragmentRasult extends Fragment implements SeasonManager.OnSe
     public void onSeasonRetrievedSuccessfully(Season season) {
 
         try {
-
             pgsBar.setVisibility(View.GONE);
             loading.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             mSuperTable.setVisibility(View.VISIBLE);
 
-            if(mTypeRace == "race"){
-                AdapterResult adapter = new AdapterResult(season.getRaces().get(0).Results);
+            if(season.races.isEmpty()){
+                Toast.makeText(getActivity(), "Non ci sono dati", Toast.LENGTH_LONG).show();
+            }else {
 
-                listView.setAdapter(adapter);
-            }else{
-                AdapterQualifying adapter = new AdapterQualifying(season.getRaces().get(0).QualifyingResults);
+                if (mTypeRace == "race") {
+                    AdapterResult adapter = new AdapterResult(season.getRaces().get(0).Results);
 
-                listView.setAdapter(adapter);
+                    listView.setAdapter(adapter);
+                } else {
+                    AdapterQualifying adapter = new AdapterQualifying(season.getRaces().get(0).QualifyingResults);
+
+                    listView.setAdapter(adapter);
+                }
             }
 
         } catch (Exception e) {

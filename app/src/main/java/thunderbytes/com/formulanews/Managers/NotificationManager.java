@@ -70,10 +70,10 @@ public class NotificationManager {
         Log.d("TIME","calendar  FORMATTATO: "+ dateFormat);
 
         Calendar calendar = Calendar.getInstance();
-       // calendar.setTime(dateFormat);
+        calendar.setTime(dateFormat);
 
-       // calendar.set(calendar.MINUTE, calendar.get(Calendar.MINUTE)-10 );
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)+1 );
+        calendar.set(calendar.MINUTE, calendar.get(Calendar.MINUTE)-10 );
+        //calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE)+1 );
 
         Log.d("TIME","calendar  houar finale non formattato: "+ calendar.getTime());
 
@@ -101,45 +101,49 @@ public class NotificationManager {
         pendingIntent.cancel();
     }
 
-    public static Date calculateTime(String time) {
-        SimpleDateFormat vInputDateFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss'Z'");
-        vInputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date date = null;
-
-        try {
-            Log.d("TEST", time);
-            date = vInputDateFormat.parse(time);
-            vInputDateFormat.setTimeZone(TimeZone.getDefault());
-            SimpleDateFormat vDateFormat = new SimpleDateFormat("dd-mm-yyyy HH:mm");
-            Log.d("TEST", vDateFormat.format(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return date;
-    }
-
     public static Date calculateTime(Race vRace) {
         SimpleDateFormat vInputDateFormat = new SimpleDateFormat("HH:mm:ss'Z'");
         vInputDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date date;
         Date formattedDate = null;
 
         try {
-            date = vInputDateFormat.parse(vRace.getTime());
+            Date date = vInputDateFormat.parse(vRace.getTime());
             vInputDateFormat.setTimeZone(TimeZone.getDefault());
             SimpleDateFormat vDateFormat = new SimpleDateFormat("HH:mm");
-            String test = android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate())  + " " + vDateFormat.format(date);
 
-            SimpleDateFormat vFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            if(TimeZone.getDefault().inDaylightTime(calculateDate(0, vRace))){
 
-            formattedDate = vFormat.parse(test);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                cal.add(Calendar.HOUR_OF_DAY, 1);
+
+                String test = android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate())  + " " + vDateFormat.format(cal.getTime());
+
+                SimpleDateFormat vFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+                formattedDate = vFormat.parse(test);
+            }else{
+
+                String test = android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate())  + " " + vDateFormat.format(date);
+
+                SimpleDateFormat vFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
+                formattedDate = vFormat.parse(test);
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return formattedDate;
+    }
+
+    public static Date calculateDate(int amount, Race vRace){
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.setTime(vRace.getDate());
+        mCalendar.add(Calendar.DATE, amount);
+
+        return mCalendar.getTime();
     }
 
 
