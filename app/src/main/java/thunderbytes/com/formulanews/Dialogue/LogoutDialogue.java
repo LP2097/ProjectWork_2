@@ -11,6 +11,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 
 public class LogoutDialogue extends DialogFragment {
@@ -40,7 +41,7 @@ public class LogoutDialogue extends DialogFragment {
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mListener.logout();
+                        mListener.signOut();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -53,6 +54,6 @@ public class LogoutDialogue extends DialogFragment {
         return vBuilder.create();
     }
     public interface OnLogoutDialogueListener{
-        void logout();
+        void signOut();
     }
 }

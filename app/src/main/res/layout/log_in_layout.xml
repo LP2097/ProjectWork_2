@@ -57,4 +57,13 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:background="@color/colorPrimary"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleSignInBtn"
+        android:layout_width="163sp"
+        android:layout_height="60sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp" />
+
+
 </LinearLayout>

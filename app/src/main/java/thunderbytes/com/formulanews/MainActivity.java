@@ -17,6 +17,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     TextView textLoading, loadingView;
     BottomNavigationView bottomNavigationView;
     Race race;
+    GoogleSignInClient mGoogleSignInClient;
+
     private static final String FRAGMENT = "fragment";
 
 
@@ -57,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         textLoading = findViewById(R.id.loading);
         loadingView = findViewById(R.id.btn_loadingView);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient= GoogleSignIn.getClient(this, gso);
 
 
         //0) istanzio la chace dove salvero le gare, i piloti e i costruttori,
@@ -270,7 +281,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     }
 
     @Override
-    public void logout() {
+    public void signOut() {
+        mGoogleSignInClient.signOut();
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(MainActivity.this, FirebaseLogin.class);
         startActivity(intent);

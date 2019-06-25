@@ -14,6 +14,12 @@ import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +42,8 @@ public class FirebaseLogin extends AppCompatActivity {
 
     EditText emailText, passwordText;
     GoogleApiClient mGoogleApiClient;
+    GoogleSignInClient mGoogleSignInClient;
+    SignInButton googleSignIn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,14 +107,36 @@ public class FirebaseLogin extends AppCompatActivity {
             }
         });
 
+        googleSignIn=findViewById(R.id.googleSignInBtn);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestServerAuthCode("45272773089-6ssj81jlmqjuumoq4jpcha1g7p53oif7.apps.googleusercontent.com")
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        googleSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleSignIn();
+            }
+        });
+
+    }
+
+    private void googleSignIn(){
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser!=null){
+        if (currentUser!=null || account!=null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
@@ -118,6 +148,9 @@ public class FirebaseLogin extends AppCompatActivity {
         //gestisco i risultati del tentativo di login
         if (requestCode==RC_SIGN_IN){
             IdpResponse response = IdpResponse.fromResultIntent(data);
+            //passo i dati che mi tornano alla funzione handle che gestisce il risultato ritornato e passa all'activity
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
 
             if (resultCode==RESULT_OK){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -127,4 +160,16 @@ public class FirebaseLogin extends AppCompatActivity {
 
         }
     }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask){
+
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            startActivity(new Intent(FirebaseLogin.this, MainActivity.class));
+        } catch (ApiException e) {
+            Log.d("GOOGLE", "Error during sign in "+e.getStatusCode());
+        }
+
+    }
+
 }
