@@ -1,5 +1,11 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
@@ -7,15 +13,38 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity(foreignKeys = {
+    @ForeignKey(entity = Circuit.class, parentColumns = "circuitId", childColumns = "circuitId", onDelete = CASCADE),
+    @ForeignKey(entity = Season.class, parentColumns = "seasonYear", childColumns = "season")
+})
 public class Race implements Serializable {
-    private int season;
-    private int round;
-    private String url;
-    private String raceName;
-    public Circuit circuit;
-    private Date date;
-    private String time;
+
+    @PrimaryKey
     private int Id;
+
+    @ColumnInfo
+    private int season;
+
+    @ColumnInfo
+    private int round;
+
+    @ColumnInfo
+    private String url;
+
+    @ColumnInfo
+    private String raceName;
+
+    @ColumnInfo
+    public String circuitId;
+
+    public Circuit circuit;
+
+    @ColumnInfo
+    private Date date;
+
+    @ColumnInfo
+    private String time;
+
     public ArrayList<Results> Results;
     public ArrayList<Qualifying> QualifyingResults;
 

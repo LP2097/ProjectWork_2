@@ -1,9 +1,31 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(foreignKeys = {
+    @ForeignKey(entity = Time.class, parentColumns = "timeId", childColumns = "timeId"),
+    @ForeignKey(entity = AverageSpeed.class, parentColumns = "averageSpeedId", childColumns = "averageSpeedId")
+})
 public class FastestLap {
+
+    @PrimaryKey(autoGenerate = true)
+    private int fastestLapId;
+
+    @ColumnInfo
     private int rank;
+
+    @ColumnInfo
     private int lap;
+
+    @ColumnInfo
+    public int timeId;
     public Time Time;
+
+    @ColumnInfo
+    public int averageSpeedId;
     public AverageSpeed AverageSpeed;
 
     public int getRank() {

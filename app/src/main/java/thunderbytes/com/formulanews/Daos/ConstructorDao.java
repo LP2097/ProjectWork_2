@@ -13,11 +13,11 @@ public interface ConstructorDao {
     List<Constructor> getAll();
 
 
-   @Query("SELECT * FROM Constructor WHERE constructorId = (:id)")
+   @Query("SELECT * FROM Constructor WHERE constructorId = :id")
     Constructor getById(String id);
 
    @Insert
-    void insertAll(Constructor...constructors);
+    void insertAll(Constructor ...constructors);
 
    @Insert
     void insert(Constructor constructor);

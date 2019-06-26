@@ -1,16 +1,38 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
+
+@Entity
 public class Driver implements Serializable {
 
-    public String code;
-    public int permanentNumber;
+    @PrimaryKey @NonNull
     public String driverId;
+
+    @ColumnInfo
+    public String code;
+
+    @ColumnInfo
+    public int permanentNumber;
+
+    @ColumnInfo
     public String url;
+
+    @ColumnInfo
     public String givenName;
+
+    @ColumnInfo
     public String familyName;
+
+    @ColumnInfo
     public Date dateOfBirth;
+
+    @ColumnInfo
     public String nationality;
 
     public String getDriverId() {

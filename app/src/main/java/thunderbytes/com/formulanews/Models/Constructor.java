@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 @Entity
 public class Constructor implements Serializable {
+    //Modificato
     @PrimaryKey @NonNull
     public String constructorId;
 

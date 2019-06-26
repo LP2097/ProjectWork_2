@@ -1,11 +1,24 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Entity
 public class Standings implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int standingId;
+
+    @ColumnInfo
     private int season;
+
+    @ColumnInfo
     public int round;
+
     public ArrayList<DriverStanding> DriverStandings;
     public ArrayList<ConstructorStanding> ConstructorStandings;
 

@@ -2,12 +2,43 @@ package thunderbytes.com.formulanews.Helpers;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
-import thunderbytes.com.formulanews.Daos.ConstructorDao;
-import thunderbytes.com.formulanews.Models.Constructor;
 
-@Database(entities = {Constructor.class}, version = 1)
+import thunderbytes.com.formulanews.Daos.AverageSpeedDao;
+import thunderbytes.com.formulanews.Daos.CircuitDao;
+import thunderbytes.com.formulanews.Daos.ConstructorDao;
+import thunderbytes.com.formulanews.Daos.ConstructorStandingDao;
+import thunderbytes.com.formulanews.Daos.DriverDao;
+import thunderbytes.com.formulanews.Daos.DriverStandingDao;
+import thunderbytes.com.formulanews.Daos.FastestLapDao;
+import thunderbytes.com.formulanews.Daos.LocationDao;
+import thunderbytes.com.formulanews.Daos.QualifyingDao;
+import thunderbytes.com.formulanews.Daos.RaceDao;
+import thunderbytes.com.formulanews.Daos.ResultsDao;
+import thunderbytes.com.formulanews.Daos.SeasonDao;
+import thunderbytes.com.formulanews.Daos.StandingsDao;
+import thunderbytes.com.formulanews.Daos.TimeDao;
+import thunderbytes.com.formulanews.Models.Constructor;
+import thunderbytes.com.formulanews.Models.Driver;
+
+
+
+@Database(entities = {Constructor.class, Driver.class}, version = 1)
 public abstract class FNdb extends RoomDatabase {
     public static final String DATABASE_NAME = "FNDB";
 
+    public abstract AverageSpeedDao averageSpeedDao();
+    public abstract CircuitDao circuitDao();
     public abstract ConstructorDao constructorDao();
+    public abstract ConstructorStandingDao constructorStandingDao();
+    public abstract DriverDao driverDao();
+    public abstract DriverStandingDao driverStandingDao();
+    public abstract FastestLapDao fastestLapDao();
+    public abstract LocationDao locationDao();
+    public abstract QualifyingDao qualifyingDao();
+    public abstract RaceDao raceDao();
+    public abstract ResultsDao resultsDao();
+    public abstract SeasonDao seasonDao();
+    public abstract StandingsDao standingsDao();
+    public abstract TimeDao timeDao();
+
 }

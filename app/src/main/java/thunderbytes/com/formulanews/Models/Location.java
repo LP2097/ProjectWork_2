@@ -1,15 +1,30 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.io.Serializable;
 
+@Entity
 public class Location implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    public int locationId;
+
+    @ColumnInfo
     private Double latitude;
+
+    @ColumnInfo
     private Double longitude;
+
+    @ColumnInfo
     private String locality;
+
+    @ColumnInfo
     private String country;
 
     @JsonGetter("lat")

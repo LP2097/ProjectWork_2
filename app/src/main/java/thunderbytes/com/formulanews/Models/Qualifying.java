@@ -1,12 +1,40 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Race.class, parentColumns = "Id", childColumns = "raceId"),
+        @ForeignKey(entity = Driver.class, parentColumns = "driverId", childColumns = "driverId"),
+        @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId")
+})
 public class Qualifying {
+    @PrimaryKey(autoGenerate = true)
+    public int qualifyingId;
+
+    @ColumnInfo
+    public String driverId;
     public Driver Driver;
+
+    @ColumnInfo
+    public String constructorId;
     public Constructor Constructor;
+
+    @ColumnInfo
     private int number;
+
+    @ColumnInfo
     private int position;
+
+    @ColumnInfo
     public String Q1;
+
+    @ColumnInfo
     public String Q2;
+
+    @ColumnInfo
     public String Q3;
 
     public String getQ1() {

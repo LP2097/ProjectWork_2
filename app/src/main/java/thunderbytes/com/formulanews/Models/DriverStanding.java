@@ -1,14 +1,38 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Entity(foreignKeys = {
+        @ForeignKey(entity = Standings.class, parentColumns = "standingId", childColumns = "standingId"),
+        @ForeignKey(entity = Driver.class, parentColumns = "driverId", childColumns = "driverId")
+})
 public class DriverStanding implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    public int driverStandingId;
+
+    @ColumnInfo
     private int position;
+
+    @ColumnInfo
     private String positionText;
+
+    @ColumnInfo
     private int points;
+
+    @ColumnInfo
     private int wins;
+
+    @ColumnInfo
+    public String driverId;
     public Driver Driver;
+
     public ArrayList<Constructor> Constructors;
 
     public int getPosition() {

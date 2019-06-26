@@ -1,16 +1,60 @@
 package thunderbytes.com.formulanews.Models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity(foreignKeys = {
+    @ForeignKey(entity = Race.class, parentColumns = "Id", childColumns = "raceId"),
+    @ForeignKey(entity = Driver.class, parentColumns = "driverId", childColumns = "driverId"),
+    @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId"),
+    @ForeignKey(entity = Time.class, parentColumns = "timeId", childColumns = "timeId"),
+    @ForeignKey(entity = FastestLap.class, parentColumns = "fastestLapId", childColumns = "fastestLapId")
+})
 public class Results {
+
+    @PrimaryKey(autoGenerate = true)
+    public int resultId;
+
+    @ColumnInfo
+    public int raceId;
+
+    @ColumnInfo
     private int number;
+
+    @ColumnInfo
     private int position;
+
+    @ColumnInfo
     private String positionText;
+
+    @ColumnInfo
     private int points;
+
+    @ColumnInfo
+    public String driverId;
     public Driver Driver;
+
+    @ColumnInfo
+    public String constructorId;
     public Constructor Constructor;
+
+    @ColumnInfo
     private int grid;
+
+    @ColumnInfo
     private int laps;
+
+    @ColumnInfo
     private String status;
+
+    @ColumnInfo
+    public int timeId;
     public Time Time;
+
+    @ColumnInfo
+    public int fastestLapId;
     public FastestLap FastestLap;
 
     public int getNumber() {
