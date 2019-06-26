@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <meta-data
         android:name="preloaded_fonts"
@@ -29,9 +30,12 @@
             </intent-filter>
         </activity>
         <receiver android:name=".Broadcast.NotificationPublisher">
-
+        </receiver>
+        <receiver android:name = ".Broadcast.InternetReceiver">
+            <intent-filter>
+                <action android:name = "android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name = "android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
         </receiver>
     </application>
-
-
 </manifest>

@@ -1,8 +1,11 @@
 package thunderbytes.com.formulanews;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.support.design.widget.*;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,18 +19,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-
 import java.util.ArrayList;
-
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Activities.FirebaseLogin;
+import thunderbytes.com.formulanews.Broadcast.InternetReceiver;
 import thunderbytes.com.formulanews.CacheManager.CacheManager;
 import thunderbytes.com.formulanews.Dialogue.LogoutDialogue;
 import thunderbytes.com.formulanews.Fragments.ListFragment;
@@ -48,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     BottomNavigationView bottomNavigationView;
     Race race;
     GoogleSignInClient mGoogleSignInClient;
-
     private static final String FRAGMENT = "fragment";
+    private BroadcastReceiver InternetReceiver = null;
 
 
     @Override
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Logger.addLogAdapter(new AndroidLogAdapter());
+
+        InternetReceiver = new InternetReceiver();
+        broadcastIntent();
 
         pgsBar = (ProgressBar) findViewById(R.id.pBar);
         textLoading = findViewById(R.id.loading);
@@ -181,9 +185,13 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
                 return true;
             }
         });
+    }
 
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(InternetReceiver);
     }
 
     public void setBundleId() {
@@ -202,48 +210,55 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     //GESTIONE RISPOSTE CHIAMATE ASINCRONE
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
+        try{
+            //1) inserisco nel bundle che passero nel listfragment l'array di corse ricevute dalla chiamata
+            bundle.putSerializable(ListFragment.ITEM, season.getRaces());
+            Logger.d(season.getRaces());
+            for (int i = 0; i<season.getRaces().size(); i++)
+            {
+                season.getRaces().get(i).setId(i);
+            }
+            //2) salvo nella chache l'array, utile poi
+            // nell onNavigationItemSelected dove controllero se la cache ha dati salvati o meno
+            mChache.setRaces(season.getRaces());
+            //3) carico il fragment di mio interesse
+            pgsBar.setVisibility(View.GONE);
+            textLoading.setVisibility(View.GONE);
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            setFragmentTransaction();
 
-        //1) inserisco nel bundle che passero nel listfragment l'array di corse ricevute dalla chiamata
-        bundle.putSerializable(ListFragment.ITEM, season.getRaces());
-        Logger.d(season.getRaces());
-        for (int i = 0; i<season.getRaces().size(); i++)
-        {
-            season.getRaces().get(i).setId(i);
+            //4) controllo che l'app non sia stata aperta da notifica
         }
-        //2) salvo nella chache l'array, utile poi
-        // nell onNavigationItemSelected dove controllero se la cache ha dati salvati o meno
-        mChache.setRaces(season.getRaces());
-        //3) carico il fragment di mio interesse
-        pgsBar.setVisibility(View.GONE);
-        textLoading.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        setFragmentTransaction();
+        catch (Exception ex)
+        {
 
-        //4) controllo che l'app non sia stata aperta da notifica
-
+        }
     }
 
     @Override
     public void onStandingsRetrievedSuccessfully(ArrayList<Standings> standings) {
+        try{
+            //1) PREMESSA, questo metodo gestisce sia l'array di costruttori che di piloti
 
-        //1) PREMESSA, questo metodo gestisce sia l'array di costruttori che di piloti
+            //2) devo verificare quale elementi mi ritorna la chiamata e assegnare gli elementi nel modo giusto
+            if (standings.get(0).ConstructorStandings != null) {
 
-        //2) devo verificare quale elementi mi ritorna la chiamata e assegnare gli elementi nel modo giusto
-        if (standings.get(0).ConstructorStandings != null) {
-
-            //3)  salvo nella chache l'array
-            mChache.setConstructors(standings.get(0).ConstructorStandings);
-            bundle.putSerializable(ListFragment.ITEM, standings.get(0).ConstructorStandings);
+                //3)  salvo nella chache l'array
+                mChache.setConstructors(standings.get(0).ConstructorStandings);
+                bundle.putSerializable(ListFragment.ITEM, standings.get(0).ConstructorStandings);
+            }
+            else if (standings.get(0).DriverStandings != null)
+            {
+                //3)  salvo nella chache l'array
+                mChache.setDrivers(standings.get(0).DriverStandings);
+                bundle.putSerializable(ListFragment.ITEM, standings.get(0).DriverStandings);
+            }
+            //4) carico il fragment di mio interesse
+            setFragmentTransaction();
         }
-        else if (standings.get(0).DriverStandings != null)
-        {
-            //3)  salvo nella chache l'array
-            mChache.setDrivers(standings.get(0).DriverStandings);
-            bundle.putSerializable(ListFragment.ITEM, standings.get(0).DriverStandings);
-        }
-        //4) carico il fragment di mio interesse
-        setFragmentTransaction();
+        catch (Exception ex){
 
+        }
     }
 
 
@@ -289,4 +304,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     }
 
 
+    public void broadcastIntent() {
+        registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
 }
