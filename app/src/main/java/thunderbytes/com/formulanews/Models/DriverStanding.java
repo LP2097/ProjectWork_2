@@ -18,7 +18,7 @@ public class DriverStanding implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int driverStandingId;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int standingId;
 
     @ColumnInfo
@@ -33,7 +33,7 @@ public class DriverStanding implements Serializable {
     @ColumnInfo
     private int wins;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String driverId;
 
     @Ignore

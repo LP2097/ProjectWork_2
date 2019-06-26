@@ -18,7 +18,7 @@ public class Results {
     @PrimaryKey(autoGenerate = true)
     public int resultId;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int raceId;
 
     @ColumnInfo
@@ -33,13 +33,13 @@ public class Results {
     @ColumnInfo
     private int points;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String driverId;
 
     @Ignore
     public Driver Driver;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String constructorId;
 
     @Ignore
@@ -54,13 +54,13 @@ public class Results {
     @ColumnInfo
     private String status;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int timeId;
 
     @Ignore
     public Time Time;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int fastestLapId;
 
     @Ignore

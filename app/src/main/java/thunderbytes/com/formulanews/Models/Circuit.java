@@ -24,7 +24,8 @@ public class Circuit implements Serializable {
     @ColumnInfo
     private String circuitName;
 
-    @ColumnInfo
+
+    @ColumnInfo(index = true)
     public int locationId;
 
     @Ignore

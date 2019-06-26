@@ -21,13 +21,13 @@ public class FastestLap {
     @ColumnInfo
     private int lap;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int timeId;
 
     @Ignore
     public Time Time;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int averageSpeedId;
 
     @Ignore

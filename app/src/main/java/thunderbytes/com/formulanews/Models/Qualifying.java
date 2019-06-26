@@ -15,16 +15,16 @@ public class Qualifying {
     @PrimaryKey(autoGenerate = true)
     public int qualifyingId;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String driverId;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int raceId;
 
     @Ignore
     public Driver Driver;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String constructorId;
 
     @Ignore

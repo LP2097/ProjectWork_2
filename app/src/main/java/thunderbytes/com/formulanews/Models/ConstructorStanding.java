@@ -17,7 +17,7 @@ public class ConstructorStanding implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int constructorStandingId;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public int standingId;
 
     @ColumnInfo
@@ -32,7 +32,7 @@ public class ConstructorStanding implements Serializable {
     @ColumnInfo
     private int wins;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String constructorId;
 
     @Ignore

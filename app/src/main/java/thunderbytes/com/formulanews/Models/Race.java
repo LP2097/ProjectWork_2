@@ -28,7 +28,7 @@ public class Race implements Serializable {
     @PrimaryKey
     private int Id;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     private int season;
 
     @ColumnInfo
@@ -40,7 +40,7 @@ public class Race implements Serializable {
     @ColumnInfo
     private String raceName;
 
-    @ColumnInfo
+    @ColumnInfo(index = true)
     public String circuitId;
 
     @Ignore
