@@ -2,9 +2,12 @@ package thunderbytes.com.formulanews.Activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import thunderbytes.com.formulanews.Broadcast.InternetReceiver;
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentDate;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentRasult;
@@ -23,8 +27,7 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
 
 public class DetailRace extends AppCompatActivity {
-
-
+    private BroadcastReceiver InternetReceiver = null;
     private static final String FRAGMENT_TAG = "FRAGMENT_INFO";
     private static final String SHARED_PREF_NOTIFICATION = "notification";
     private String KEY_NOTIFICATION;
@@ -37,7 +40,8 @@ public class DetailRace extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_layout);
-
+        InternetReceiver = new InternetReceiver();
+        broadcastIntent();
         TextView mTitle = findViewById(R.id.title_detailActivity);
         ImageView mCircuit = findViewById(R.id.circuitRace);
         ImageButton mNotification = findViewById(R.id.buttonNotification);
@@ -159,6 +163,14 @@ public class DetailRace extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(InternetReceiver);
+    }
+
+
     private void enableNotification(){
         NotificationManager.setReminder(this, NotificationPublisher.class,DetailRace.class,vRace);
         Toast.makeText(this, "Notifica Attivata", Toast.LENGTH_SHORT).show();
@@ -276,5 +288,8 @@ public class DetailRace extends AppCompatActivity {
     }
 
 
+    public void broadcastIntent() {
+        registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
 }
 
