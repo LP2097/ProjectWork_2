@@ -1,5 +1,7 @@
 package thunderbytes.com.formulanews.Adapter;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,12 @@ import thunderbytes.com.formulanews.R;
 
 public class AdapterQualifying extends BaseAdapter {
     private ArrayList<Qualifying> dataList;
+    private int qualifing;
 
-    public AdapterQualifying(ArrayList<Qualifying> data){
+    public AdapterQualifying(ArrayList<Qualifying> data, int qualifing){
         this.dataList = data;
+        this.qualifing = qualifing;
+
     }
 
     @Override
@@ -44,8 +49,6 @@ public class AdapterQualifying extends BaseAdapter {
             viewHolder.txt_id = cellView.findViewById(R.id.labelPosition2);
             viewHolder.txt_name = cellView.findViewById(R.id.labelNamePilot2);
             viewHolder.txt_Q1 = cellView.findViewById(R.id.labelQ1);
-            viewHolder.txt_Q2 = cellView.findViewById(R.id.labelQ2);
-            viewHolder.txt_Q3 = cellView.findViewById(R.id.labelQ3);
 
             cellView.setTag(viewHolder);
 
@@ -53,13 +56,36 @@ public class AdapterQualifying extends BaseAdapter {
             cellView = convertView;
         }
 
+
         ViewHolder vHolder = (ViewHolder) cellView.getTag();
 
         vHolder.txt_id.setText(""+(position+1));
-        vHolder.txt_name.setText(getItem(position).Driver.familyName);
-        vHolder.txt_Q1.setText(getItem(position).Q1);
-        vHolder.txt_Q2.setText(getItem(position).Q2);
-        vHolder.txt_Q3.setText(getItem(position).Q3);
+
+        //formattazione nome pilota
+        String driver = getItem(position).Driver.familyName;
+        String driverNameFormat = driver.substring(0, Math.min(driver.length(), 3)).toUpperCase();
+
+        vHolder.txt_name.setText(driverNameFormat);
+
+        if (getItem(position).getPosition() % 2 == 0) {
+            int background = Color.parseColor("#F0F3F4");
+            cellView.setBackgroundColor(background);
+        }
+        else
+        {
+            cellView.setBackgroundColor(Color.WHITE);
+        }
+
+        if(qualifing == 1) {
+            vHolder.txt_Q1.setText(getItem(position).Q1);
+        }
+        else if(qualifing == 2) {
+            vHolder.txt_Q1.setText(getItem(position).Q2);
+        }
+        else
+        {
+            vHolder.txt_Q1.setText(getItem(position).Q3);
+        }
 
 
         return cellView;
@@ -70,8 +96,7 @@ public class AdapterQualifying extends BaseAdapter {
         public TextView txt_id;
         public TextView txt_name;
         public TextView txt_Q1;
-        public TextView txt_Q2;
-        public TextView txt_Q3;
+
 
     }
 }

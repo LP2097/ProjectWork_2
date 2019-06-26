@@ -57,14 +57,17 @@ public class AdapterResult extends BaseAdapter {
         vHolder.txt_id.setText(""+getItem(position).getPositionText());
         vHolder.txt_name.setText(getItem(position).Driver.familyName);
 
-        if(getItem(position).getPositionText().equals("R")){
+
+        if(getItem(position).getPositionText().equals("1")){
+            vHolder.txt_time.setText(""+getItem(position).getTime().getTime());
+            vHolder.txt_gap.setText("");
+        }else
+        {
             vHolder.txt_time.setText("");
             vHolder.txt_gap.setText("");
-        }else if (getItem(position).getStatus().equals("Finished") && position == 0){
-            vHolder.txt_time.setText(getItem(position).Time.getTime()+"");
-        }else if(getItem(position).getStatus().equals("Finished") && position > 0){
-            vHolder.txt_gap.setText(getItem(position).Time.getTime());
         }
+
+
 
         vHolder.txt_pts.setText(getItem(position).getPoints()+"");
 

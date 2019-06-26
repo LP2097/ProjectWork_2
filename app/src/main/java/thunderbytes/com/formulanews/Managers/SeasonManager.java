@@ -3,7 +3,8 @@ package thunderbytes.com.formulanews.Managers;
 import android.content.Context;
 import android.util.Log;
 
-import thunderbytes.com.formulanews.Fragments.DetailFragmentRasult;
+import thunderbytes.com.formulanews.Fragments.DetailFragmentQualification;
+import thunderbytes.com.formulanews.Fragments.DetailFragmentRace;
 import thunderbytes.com.formulanews.Helpers.Constants;
 import thunderbytes.com.formulanews.Interfaces.IDataWrapper;
 import thunderbytes.com.formulanews.Models.Season;
@@ -36,7 +37,17 @@ public class SeasonManager implements HttpGetTask.OnPostExecution {
         }
     }
 
-    public SeasonManager(int year, int race, RaceType type, DetailFragmentRasult context){
+    public SeasonManager(int year, int race, RaceType type, DetailFragmentRace context){
+        if (context instanceof OnSeasonFetched) {
+            listener = (OnSeasonFetched) context;
+            season.setSeasonYear(year);
+            HttpGetTask http = (HttpGetTask) new HttpGetTask(this, new RaceDataWrapper()).execute(Constants.baseUrl + year + "/"+race+"/"+type);
+            Log.d("URL-",Constants.baseUrl + year + "/"+race+"/"+type );
+        }
+    }
+
+
+    public SeasonManager(int year, int race, RaceType type, DetailFragmentQualification context){
         if (context instanceof OnSeasonFetched) {
             listener = (OnSeasonFetched) context;
             season.setSeasonYear(year);

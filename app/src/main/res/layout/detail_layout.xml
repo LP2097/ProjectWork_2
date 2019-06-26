@@ -51,69 +51,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_clock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_style1"
-            android:fontFamily="@font/formula1_regular_web_0"
-            android:text="Orari"
-            android:textColor="@color/cardview_light_background" />
-
-        <Button
-            android:id="@+id/btn_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_style1"
-            android:fontFamily="@font/formula1_regular_web_0"
-            android:text="Risultati"
-            android:textColor="@color/cardview_light_background" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="0sp"
         android:layout_weight="10"
         android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@color/red"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextColor="@color/white"
+            android:fontFamily="@font/formula1_regular_web_0"
+            app:tabGravity="fill"
+            app:tabMinWidth="100dp"
+            app:tabMode="scrollable" />
 
-            <Button
-                android:id="@+id/btn_qualif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/btn_style1"
-                android:fontFamily="@font/formula1_regular_web_0"
-                android:text="Qualifiche"
-                android:textColor="@color/cardview_light_background" />
-
-            <Button
-                android:id="@+id/btn_race"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/btn_style1"
-                android:fontFamily="@font/formula1_regular_web_0"
-                android:text="GARA"
-                android:textColor="@color/cardview_light_background" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/fragmentItem"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
     </LinearLayout>
 </LinearLayout>

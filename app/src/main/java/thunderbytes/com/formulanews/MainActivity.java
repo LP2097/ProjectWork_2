@@ -280,8 +280,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         Intent vIntent = new Intent(this, DetailRace.class);
         //2) aggiungo un bundle per passare il valore della gara selezionata
         Bundle vBundle = new Bundle();
-        vBundle.putSerializable("ITEM_RACE", aRace);
-        vBundle.putInt("RACE_NUMBER", position);
+        vBundle.putSerializable(DetailRace.ITEM_RACE, aRace);
+        vBundle.putInt(DetailRace.RACE_NUMBER, position);
         vIntent.putExtras(vBundle);
         //3) faccio partire l'activity
         startActivity(vIntent);

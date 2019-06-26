@@ -1,7 +1,8 @@
 package thunderbytes.com.formulanews.Fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,19 @@ import thunderbytes.com.formulanews.R;
 
 public class DetailFragmentDate extends Fragment {
 
-    public static DetailFragmentDate newIstance(){
-        return new DetailFragmentDate();
+    private static DetailFragmentDate detailFragmentDate;
+    private static final String ITEM_RACE = "race";
+
+
+    public static DetailFragmentDate newInstance(Race race) {
+
+        if (detailFragmentDate == null){
+            detailFragmentDate = new DetailFragmentDate();
+        }
+        Bundle args = new Bundle();
+        args.putSerializable(ITEM_RACE, race);
+        detailFragmentDate.setArguments(args);
+        return detailFragmentDate;
     }
 
     private Race vRace;
@@ -43,13 +55,14 @@ public class DetailFragmentDate extends Fragment {
         mDateQualifing = vView.findViewById(R.id.txt_Qualifing);
         mDateRace = vView.findViewById(R.id.txt_Race);
 
+
         Bundle vBundle =  getArguments();
         if (vBundle != null) {
-            vRace = (Race) vBundle.getSerializable("ITEM_RACE");
+            vRace = (Race) vBundle.getSerializable(ITEM_RACE);
 
-            mDateFP1.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-2)) + ", --:--");
-            mDateFP2.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-2)) + ", --:--");
-            mDateFP3.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-1)) + ", --:--");
+            mDateFP1.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-2)));
+            mDateFP2.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-2)));
+            mDateFP3.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-1)));
             mDateQualifing.setText(android.text.format.DateFormat.format("dd.MM.yyyy", calculateDate(-1)) + ", --:--");
             mDateRace.setText(android.text.format.DateFormat.format("dd.MM.yyyy", vRace.getDate()) + ", " + calculateTime(vRace.getTime()));
         }
