@@ -2,6 +2,7 @@ package thunderbytes.com.formulanews.Models;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class Standings implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int standingId;
+    public int standingId;
 
     @ColumnInfo
     private int season;
@@ -19,7 +20,10 @@ public class Standings implements Serializable {
     @ColumnInfo
     public int round;
 
+    @Ignore
     public ArrayList<DriverStanding> DriverStandings;
+
+    @Ignore
     public ArrayList<ConstructorStanding> ConstructorStandings;
 
     public int getSeason() {

@@ -3,21 +3,22 @@ package thunderbytes.com.formulanews.Models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
 @Entity(foreignKeys = {
         @ForeignKey(entity = Standings.class, parentColumns = "standingId", childColumns = "standingId"),
-        @ForeignKey(entity = Constructor.class, parentColumns = "constructId", childColumns = "constructId")
+        @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId")
 })
 public class ConstructorStanding implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int constructorStandingId;
+    public int constructorStandingId;
 
     @ColumnInfo
-    private int standingId;
+    public int standingId;
 
     @ColumnInfo
     private int position;
@@ -33,6 +34,8 @@ public class ConstructorStanding implements Serializable {
 
     @ColumnInfo
     public String constructorId;
+
+    @Ignore
     public Constructor Constructor;
 
     public int getPosition() {

@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews.Models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(foreignKeys = {
@@ -34,10 +35,14 @@ public class Results {
 
     @ColumnInfo
     public String driverId;
+
+    @Ignore
     public Driver Driver;
 
     @ColumnInfo
     public String constructorId;
+
+    @Ignore
     public Constructor Constructor;
 
     @ColumnInfo
@@ -51,10 +56,14 @@ public class Results {
 
     @ColumnInfo
     public int timeId;
+
+    @Ignore
     public Time Time;
 
     @ColumnInfo
     public int fastestLapId;
+
+    @Ignore
     public FastestLap FastestLap;
 
     public int getNumber() {

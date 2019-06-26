@@ -3,10 +3,13 @@ package thunderbytes.com.formulanews.Models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import thunderbytes.com.formulanews.RoomDataConverters.DateConverter;
 
 @Entity
 public class Driver implements Serializable {
@@ -29,6 +32,7 @@ public class Driver implements Serializable {
     @ColumnInfo
     public String familyName;
 
+    @TypeConverters(DateConverter.class)
     @ColumnInfo
     public Date dateOfBirth;
 

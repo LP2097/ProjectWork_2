@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews.Models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -25,6 +26,8 @@ public class Circuit implements Serializable {
 
     @ColumnInfo
     public int locationId;
+
+    @Ignore
     public Location location;
 
     public String getCircuitId() {

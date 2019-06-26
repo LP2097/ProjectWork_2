@@ -1,6 +1,7 @@
 package thunderbytes.com.formulanews.Models;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ public class Season implements Serializable {
     @PrimaryKey
     private int seasonYear;
 
+    @Ignore
     public ArrayList<Race> races;
 
     public int getSeasonYear() {

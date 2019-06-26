@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews.Models;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -18,6 +19,9 @@ public class DriverStanding implements Serializable {
     public int driverStandingId;
 
     @ColumnInfo
+    public int standingId;
+
+    @ColumnInfo
     private int position;
 
     @ColumnInfo
@@ -31,8 +35,11 @@ public class DriverStanding implements Serializable {
 
     @ColumnInfo
     public String driverId;
+
+    @Ignore
     public Driver Driver;
 
+    @Ignore
     public ArrayList<Constructor> Constructors;
 
     public int getPosition() {

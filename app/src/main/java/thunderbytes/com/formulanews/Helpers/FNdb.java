@@ -2,6 +2,7 @@ package thunderbytes.com.formulanews.Helpers;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 
 import thunderbytes.com.formulanews.Daos.AverageSpeedDao;
 import thunderbytes.com.formulanews.Daos.CircuitDao;
@@ -17,12 +18,31 @@ import thunderbytes.com.formulanews.Daos.ResultsDao;
 import thunderbytes.com.formulanews.Daos.SeasonDao;
 import thunderbytes.com.formulanews.Daos.StandingsDao;
 import thunderbytes.com.formulanews.Daos.TimeDao;
+import thunderbytes.com.formulanews.Models.AverageSpeed;
+import thunderbytes.com.formulanews.Models.Circuit;
 import thunderbytes.com.formulanews.Models.Constructor;
+import thunderbytes.com.formulanews.Models.ConstructorStanding;
 import thunderbytes.com.formulanews.Models.Driver;
+import thunderbytes.com.formulanews.Models.DriverStanding;
+import thunderbytes.com.formulanews.Models.FastestLap;
+import thunderbytes.com.formulanews.Models.Location;
+import thunderbytes.com.formulanews.Models.Qualifying;
+import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Models.Results;
+import thunderbytes.com.formulanews.Models.Season;
+import thunderbytes.com.formulanews.Models.Standings;
+import thunderbytes.com.formulanews.Models.Time;
+import thunderbytes.com.formulanews.RoomDataConverters.DateConverter;
 
 
+@Database(entities = {
+    AverageSpeed.class, Circuit.class, Constructor.class, ConstructorStanding.class,
+    Driver.class, DriverStanding.class, FastestLap.class, Location.class, Qualifying.class,
+    Race.class, Results.class, Season.class, Standings.class, Time.class
+}, version = 1)
 
-@Database(entities = {Constructor.class, Driver.class}, version = 1)
+@TypeConverters({DateConverter.class})
+
 public abstract class FNdb extends RoomDatabase {
     public static final String DATABASE_NAME = "FNDB";
 
