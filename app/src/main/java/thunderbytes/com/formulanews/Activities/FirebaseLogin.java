@@ -1,6 +1,8 @@
 package thunderbytes.com.formulanews.Activities;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,20 +28,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Arrays;
 import java.util.List;
-
 import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.R;
 
 public class FirebaseLogin extends AppCompatActivity {
-
     private static final int RC_SIGN_IN = 123;
     private static final String TAG = "EMAIL_PASSWORD";
-
     private FirebaseAuth mAuth;
-
     EditText emailText, passwordText;
     GoogleApiClient mGoogleApiClient;
     GoogleSignInClient mGoogleSignInClient;
@@ -49,13 +46,15 @@ public class FirebaseLogin extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in_layout);
-
         mAuth = FirebaseAuth.getInstance();
-
         emailText=findViewById(R.id.rEmailLabel);
         passwordText=findViewById(R.id.rPswdLabel);
-
         Button login = findViewById(R.id.signInBtn);
+
+        //Check connessione internet
+        checkConnection();
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +169,26 @@ public class FirebaseLogin extends AppCompatActivity {
             Log.d("GOOGLE", "Error during sign in "+e.getStatusCode());
         }
 
+    }
+
+
+    public void checkConnection(){
+        if(isOnline()){
+            Toast.makeText(FirebaseLogin.this, "Connesso!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(FirebaseLogin.this, "Non connesso!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
