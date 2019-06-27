@@ -1,5 +1,6 @@
 package thunderbytes.com.formulanews.Activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -27,7 +28,6 @@ public class DetailRace extends AppCompatActivity {
     //costanti condivise nella main acitivity per passare dati
     public static final String ITEM_RACE = "item race";
     public static final String RACE_NUMBER = "race number";
-
     private static final String SHARED_PREF_NOTIFICATION = "notification";
 
     //variabili di classe
@@ -35,13 +35,18 @@ public class DetailRace extends AppCompatActivity {
     private Race vRace;
     private int vRaceNumber;
     private boolean notify = false;
+    private BroadcastReceiver InternetReceiver = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //- SEZIONE: INIZIALIZZAZIONE PAGINA
+        //- SEZIONE CHECK CONNESSIONE INTERNET
+        InternetReceiver = new InternetReceiver();
+        broadcastIntent();
+
+        //- SEZIONE INIZIALIZZAZIONE PAGINA
         setContentView(R.layout.detail_layout);
         TextView mTitle = findViewById(R.id.title_detailActivity);
         ImageView mCircuit = findViewById(R.id.circuitRace);
@@ -160,7 +165,7 @@ public class DetailRace extends AppCompatActivity {
 
 
     public void broadcastIntent() {
-        //registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 }
 
