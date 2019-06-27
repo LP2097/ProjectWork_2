@@ -102,7 +102,7 @@ public class DetailRace extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(InternetReceiver);
+        //unregisterReceiver(InternetReceiver);
     }
 
 
@@ -160,7 +160,7 @@ public class DetailRace extends AppCompatActivity {
 
 
     public void broadcastIntent() {
-        registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        //registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 }
 
