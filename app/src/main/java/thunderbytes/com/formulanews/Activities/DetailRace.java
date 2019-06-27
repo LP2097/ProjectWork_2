@@ -107,7 +107,7 @@ public class DetailRace extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //unregisterReceiver(InternetReceiver);
+        unregisterReceiver(InternetReceiver);
     }
 
 
