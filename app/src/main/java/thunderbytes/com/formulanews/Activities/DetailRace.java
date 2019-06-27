@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class DetailRace extends AppCompatActivity {
     private Race vRace;
     private int vRaceNumber;
     private boolean notify = false;
+    private Toolbar toolbar;
 
 
     @Override
@@ -42,10 +44,12 @@ public class DetailRace extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //- SEZIONE: INIZIALIZZAZIONE PAGINA
-        setContentView(R.layout.detail_layout);
-        TextView mTitle = findViewById(R.id.title_detailActivity);
-        ImageView mCircuit = findViewById(R.id.circuitRace);
+        setContentView(R.layout.detail_paralax_layout);
+        //TextView mTitle = findViewById(R.id.title_detailActivity);
+        ImageView mCircuit = findViewById(R.id.htab_header);
         ImageButton mNotification = findViewById(R.id.buttonNotification);
+       toolbar = findViewById(R.id.htab_toolbar);
+
 
         //- SEZIONE RECUPERO DATI
         Bundle vBundle =  getIntent().getExtras();
@@ -53,21 +57,22 @@ public class DetailRace extends AppCompatActivity {
             vRace = (Race) vBundle.getSerializable(ITEM_RACE);
             vRaceNumber = vBundle.getInt(RACE_NUMBER);
 
-            mTitle.setText(vRace.getRaceName());
+            //mTitle.setText(vRace.getRaceName());
+            toolbar.setTitle(vRace.getRaceName());
             int id = getResources().getIdentifier("thunderbytes.com.formulanews:drawable/" + vRace.getCircuit().getLocation().getCountry().toString().toLowerCase(), null, null);
             mCircuit.setImageResource(id);
         }
 
         //- SEZIONE INIZIALIZZAZIONE VIE PAGE CON I SCROLL TAB (AdapterDetailFragmentPager se ne occupa della gestione)
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         AdapterDetailFragmentPager adapter = new AdapterDetailFragmentPager(getSupportFragmentManager(), vRaceNumber,vRace);
         viewPager.setAdapter(adapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
 
         //- SEZIONE GESTIONE NOTIFICHE
-        notificationSavingkey = vRace.getRaceName();
+        /*notificationSavingkey = vRace.getRaceName();
 
         mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +98,7 @@ public class DetailRace extends AppCompatActivity {
         if(vRace.isNotify())
         {
             mNotification.setImageResource(R.drawable.bell_select);
-        }
+        }*/
 
 
     }

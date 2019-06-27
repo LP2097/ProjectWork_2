@@ -18,9 +18,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:background="@color/grey"
             android:text="POS"
             android:textAlignment="center"
@@ -29,11 +29,11 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="75sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/grey"
-            android:text="PILOTA"
+            android:text="PILOT."
             android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
             android:textSize="18sp"
@@ -41,19 +41,19 @@
 
         <TextView
             android:id="@+id/txt_cell_three"
-            android:layout_width="75sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/grey"
             android:text="TEMPO"
-            android:textAlignment="textEnd"
+            android:textAlignment="center"
             android:textColor="@color/cardview_light_background"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txt_cell_four"
-            android:layout_width="75sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/grey"
@@ -65,9 +65,9 @@
 
         <TextView
             android:id="@+id/txt_cell_five"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:background="@color/grey"
             android:text="PTS"
             android:textAlignment="center"
@@ -76,7 +76,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/listViewResult"
         android:layout_width="0dp"
         android:layout_height="0dp"

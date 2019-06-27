@@ -1,6 +1,8 @@
 package thunderbytes.com.formulanews.Adapter;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,7 @@ import thunderbytes.com.formulanews.Models.Qualifying;
 import thunderbytes.com.formulanews.Models.Results;
 import thunderbytes.com.formulanews.R;
 
-public class AdapterQualifying extends BaseAdapter {
+public class AdapterQualifying extends RecyclerView.Adapter {
     private ArrayList<Qualifying> dataList;
     private int qualifing;
 
@@ -24,79 +26,73 @@ public class AdapterQualifying extends BaseAdapter {
 
     }
 
+
+    @NonNull
     @Override
-    public int getCount() {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_qualifying_cell_layout, viewGroup, false);
+
+        ViewHolder viewHolder = new ViewHolder(view);
+
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+        ViewHolder viewHold = (ViewHolder) viewHolder;
+
+        //GESTIONE BACKGROUND
+        if(i % 2 == 0){
+            viewHold.itemView.setBackgroundColor(Color.WHITE);
+        }else{
+            viewHold.itemView.setBackgroundColor(Color.parseColor("#F0F3F4"));
+        }
+
+        //GESTIONE INIZIALIZZAIZONE CELLE
+        viewHold.txt_id.setText(""+(i+1));
+
+        String driver = dataList.get(i).Driver.familyName;
+        String driverNameFormat = driver.substring(0, Math.min(driver.length(), 3)).toUpperCase();
+
+        viewHold.txt_name.setText(""+driverNameFormat);
+
+        if(qualifing == 1) {
+            viewHold.txt_Q1.setText(dataList.get(i).Q1);
+        }
+        else if(qualifing == 2) {
+            viewHold.txt_Q1.setText(dataList.get(i).Q2);
+        }
+        else
+        {
+            viewHold.txt_Q1.setText(dataList.get(i).Q3);
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
         return dataList.size();
     }
 
     @Override
-    public Qualifying getItem(int position) { return dataList.get(position); }
-
-    @Override
     public long getItemId(int position) { return dataList.get(position).getPosition(); }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
 
-        View cellView;
-
-        if(convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-            cellView = inflater.inflate(R.layout.adapter_qualifying_cell_layout, parent, false);
-
-            ViewHolder viewHolder = new ViewHolder();
-
-            viewHolder.txt_id = cellView.findViewById(R.id.labelPosition2);
-            viewHolder.txt_name = cellView.findViewById(R.id.labelNamePilot2);
-            viewHolder.txt_Q1 = cellView.findViewById(R.id.labelQ1);
-
-            cellView.setTag(viewHolder);
-
-        }else{
-            cellView = convertView;
-        }
-
-
-        ViewHolder vHolder = (ViewHolder) cellView.getTag();
-
-        vHolder.txt_id.setText(""+(position+1));
-
-        //formattazione nome pilota
-        String driver = getItem(position).Driver.familyName;
-        String driverNameFormat = driver.substring(0, Math.min(driver.length(), 3)).toUpperCase();
-
-        vHolder.txt_name.setText(driverNameFormat);
-
-        if (getItem(position).getPosition() % 2 == 0) {
-            int background = Color.parseColor("#F0F3F4");
-            cellView.setBackgroundColor(background);
-        }
-        else
-        {
-            cellView.setBackgroundColor(Color.WHITE);
-        }
-
-        if(qualifing == 1) {
-            vHolder.txt_Q1.setText(getItem(position).Q1);
-        }
-        else if(qualifing == 2) {
-            vHolder.txt_Q1.setText(getItem(position).Q2);
-        }
-        else
-        {
-            vHolder.txt_Q1.setText(getItem(position).Q3);
-        }
-
-
-        return cellView;
-    }
-
-    private class ViewHolder{
+    private class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txt_id;
         public TextView txt_name;
         public TextView txt_Q1;
 
 
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txt_id = itemView.findViewById(R.id.labelPosition2);
+            txt_name = itemView.findViewById(R.id.labelNamePilot2);
+            txt_Q1 = itemView.findViewById(R.id.labelQ1);
+
+        }
     }
 }

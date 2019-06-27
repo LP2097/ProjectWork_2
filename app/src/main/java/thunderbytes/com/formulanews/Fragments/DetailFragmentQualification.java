@@ -2,6 +2,8 @@ package thunderbytes.com.formulanews.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +40,7 @@ public class DetailFragmentQualification extends Fragment implements SeasonManag
 
 
     private String mTypeRace;
-    private ListView listView;
+    private RecyclerView listView;
     private ProgressBar pgsBar;
     private TextView loading;
     private TextView cell_three;
@@ -61,6 +63,11 @@ public class DetailFragmentQualification extends Fragment implements SeasonManag
 
         loading.setVisibility(View.VISIBLE);
         pgsBar.setVisibility(View.VISIBLE);
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+        listView.setLayoutManager(linearLayoutManager);
+        listView.setHasFixedSize(true);
 
 
 
