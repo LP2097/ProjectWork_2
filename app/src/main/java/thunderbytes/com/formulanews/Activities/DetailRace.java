@@ -49,13 +49,7 @@ public class DetailRace extends AppCompatActivity {
         setContentView(R.layout.detail_paralax_layout);
         //TextView mTitle = findViewById(R.id.title_detailActivity);
         ImageView mCircuit = findViewById(R.id.htab_header);
-        //- SEZIONE CHECK CONNESSIONE INTERNET
-        InternetReceiver = new InternetReceiver();
-        broadcastIntent();
-
-        //- SEZIONE INIZIALIZZAZIONE PAGINA
-        setContentView(R.layout.detail_layout);
-        TextView mTitle = findViewById(R.id.title_detailActivity);ImageButton mNotification = findViewById(R.id.buttonNotification);
+        ImageButton mNotification = findViewById(R.id.buttonNotification);
         toolbar = findViewById(R.id.htab_toolbar);
 
 
@@ -115,7 +109,7 @@ public class DetailRace extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(InternetReceiver);
+      //  unregisterReceiver(InternetReceiver);
     }
 
 
