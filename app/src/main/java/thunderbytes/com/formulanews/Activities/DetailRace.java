@@ -1,5 +1,6 @@
 package thunderbytes.com.formulanews.Activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ public class DetailRace extends AppCompatActivity {
     private Race vRace;
     private int vRaceNumber;
     private boolean notify = false;
+    private BroadcastReceiver InternetReceiver = null;
     private Toolbar toolbar;
 
 
@@ -47,8 +49,14 @@ public class DetailRace extends AppCompatActivity {
         setContentView(R.layout.detail_paralax_layout);
         //TextView mTitle = findViewById(R.id.title_detailActivity);
         ImageView mCircuit = findViewById(R.id.htab_header);
-        ImageButton mNotification = findViewById(R.id.buttonNotification);
-       toolbar = findViewById(R.id.htab_toolbar);
+        //- SEZIONE CHECK CONNESSIONE INTERNET
+        InternetReceiver = new InternetReceiver();
+        broadcastIntent();
+
+        //- SEZIONE INIZIALIZZAZIONE PAGINA
+        setContentView(R.layout.detail_layout);
+        TextView mTitle = findViewById(R.id.title_detailActivity);ImageButton mNotification = findViewById(R.id.buttonNotification);
+        toolbar = findViewById(R.id.htab_toolbar);
 
 
         //- SEZIONE RECUPERO DATI
@@ -107,7 +115,7 @@ public class DetailRace extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //unregisterReceiver(InternetReceiver);
+        unregisterReceiver(InternetReceiver);
     }
 
 
@@ -165,7 +173,7 @@ public class DetailRace extends AppCompatActivity {
 
 
     public void broadcastIntent() {
-        //registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 }
 
