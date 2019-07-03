@@ -24,7 +24,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_constructor"
+                android:id="@+id/img_driver"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
@@ -34,12 +34,12 @@
                 android:id="@+id/txt_name_driver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/img_constructor"
+                android:layout_alignTop="@id/img_driver"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@id/img_constructor"
-                android:layout_toRightOf="@id/img_constructor"
+                android:layout_toEndOf="@id/img_driver"
+                android:layout_toRightOf="@id/img_driver"
                 android:fontFamily="@font/formula1_regular_web_0"
                 android:text="Lewis Hamilton"
                 android:textColor="@color/white"
@@ -169,8 +169,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-
-        <!-- request button -->
 
     </LinearLayout>
 

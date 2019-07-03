@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import thunderbytes.com.formulanews.Models.DriverStanding;
@@ -19,8 +18,6 @@ import thunderbytes.com.formulanews.R;
 
 public class AdpterDriver extends BaseAdapter {
 
-    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
-    private View.OnClickListener defaultRequestBtnClickListener;
     private View cellView;
 
     private ArrayList<DriverStanding> vDataDrivers;
@@ -65,7 +62,7 @@ public class AdpterDriver extends BaseAdapter {
             viewHolder.txt_nationality_driver = cellView.findViewById(R.id.txt_nationality_driver);
             viewHolder.txt_points_driver = cellView.findViewById(R.id.txt_points_driver);
             viewHolder.txt_birthday_driver = cellView.findViewById(R.id.txt_birthday_driver);
-            viewHolder.img_driver = cellView.findViewById(R.id.img_constructor);
+            viewHolder.img_driver = cellView.findViewById(R.id.img_driver);
 
             cellView.setTag(viewHolder);
 
@@ -80,6 +77,8 @@ public class AdpterDriver extends BaseAdapter {
         vHolder.txt_name.setText("" + vDataDrivers.get(position).Driver.givenName);
         vHolder.txt_surname.setText("" + vDataDrivers.get(position).Driver.familyName);
         vHolder.txt_point.setText("" + vDataDrivers.get(position).getPoints() + " PTS");
+
+        vHolder.vw_color_team.setBackgroundColor(vColorTeam.get(vDataDrivers.get(position).Constructors.get(0).name));
 
 
         (cellView.findViewById(R.id.folding_cell)).setOnClickListener(new View.OnClickListener() {
@@ -101,8 +100,6 @@ public class AdpterDriver extends BaseAdapter {
 
             }
         });
-
-        vHolder.vw_color_team.setBackgroundColor(vColorTeam.get(vDataDrivers.get(position).Constructors.get(0).name));
 
 
         return cellView;

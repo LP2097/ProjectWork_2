@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.util.Date;
+
 import thunderbytes.com.formulanews.Fragments.DetailFragmentDate;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentQualification;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentRace;
@@ -55,6 +57,11 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
+        Date date = new Date();
+
+        if(date.getTime() < race.getDate().getTime())
+            return 1;
+
         return 5;
     }
 

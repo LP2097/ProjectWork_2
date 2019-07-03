@@ -23,49 +23,31 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_constructor"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/kevin" />
-
             <TextView
-                android:id="@+id/txt_name_driver"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_name_constructor"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/img_constructor"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@id/img_constructor"
-                android:layout_toRightOf="@id/img_constructor"
                 android:fontFamily="@font/formula1_regular_web_0"
-                android:text="Lewis Hamilton"
+                android:text="Mercedes"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txt_number_driver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_name_driver"
-                android:layout_alignLeft="@id/txt_name_driver"
-                android:text="44"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/img_constructor"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/txt_name_constructor"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/mercedes" />
 
         </RelativeLayout>
-
-        <!-- divider line -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginBottom="6dp"
-            android:src="@color/contentDividerLine" />
 
         <!-- addresses part -->
         <LinearLayout
@@ -89,7 +71,7 @@
                     android:text="Cuntry" />
 
                 <TextView
-                    android:id="@+id/txt_nationality_driver"
+                    android:id="@+id/txt_nationality_constructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_from_badge"
@@ -114,16 +96,16 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
-                    android:text="Date of birthday" />
+                    android:text="Points" />
 
                 <TextView
-                    android:id="@+id/txt_birthday_driver"
+                    android:id="@+id/txt_points_constructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_to_badge"
                     android:layout_alignStart="@id/content_to_badge"
                     android:layout_alignLeft="@id/content_to_badge"
-                    android:text="07/01/1985"
+                    android:text="123"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -131,46 +113,6 @@
             </RelativeLayout>
 
         </LinearLayout>
-
-
-        <!-- dates part -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/content_deadline_badge"
-                    style="@style/ContentMainBadgeTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:text="Points" />
-
-                <TextView
-                    android:id="@+id/txt_points_driver"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/content_deadline_badge"
-                    android:layout_alignStart="@id/content_deadline_badge"
-                    android:layout_alignLeft="@id/content_deadline_badge"
-                    android:text="187"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <!-- request button -->
 
     </LinearLayout>
 

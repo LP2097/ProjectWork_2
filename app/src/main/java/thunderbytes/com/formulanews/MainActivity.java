@@ -205,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(InternetReceiver);
     }
 
     public void setBundleId() {
@@ -220,6 +219,11 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
         item.setTitle(text);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(InternetReceiver);
+    }
 
     //GESTIONE RISPOSTE CHIAMATE ASINCRONE
     @Override

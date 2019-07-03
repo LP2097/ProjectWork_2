@@ -6,10 +6,10 @@
     android:layout_height="100dp"
     android:minHeight="75dp"
     folding-cell:additionalFlipsCount="1"
-    folding-cell:animationDuration="1500"
+    folding-cell:animationDuration="1200"
     folding-cell:backSideColor="@color/white">
 
-    <include layout="@layout/cell_content_layout_constractor" />
+    <include layout="@layout/cell_content_layout_constractor"/>
 
     <include layout="@layout/cell_title_layout" />
 
