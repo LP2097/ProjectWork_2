@@ -74,7 +74,7 @@ public class DetailRace extends AppCompatActivity {
 
 
         //- SEZIONE GESTIONE NOTIFICHE
-        /*notificationSavingkey = vRace.getRaceName();
+        notificationSavingkey = vRace.getRaceName();
 
         mNotification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +100,7 @@ public class DetailRace extends AppCompatActivity {
         if(vRace.isNotify())
         {
             mNotification.setImageResource(R.drawable.bell_select);
-        }*/
+        }
 
 
     }

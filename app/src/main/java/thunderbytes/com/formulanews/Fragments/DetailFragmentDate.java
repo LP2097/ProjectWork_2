@@ -57,6 +57,7 @@ public class DetailFragmentDate extends Fragment {
 
 
         Bundle vBundle =  getArguments();
+
         if (vBundle != null) {
             vRace = (Race) vBundle.getSerializable(ITEM_RACE);
 

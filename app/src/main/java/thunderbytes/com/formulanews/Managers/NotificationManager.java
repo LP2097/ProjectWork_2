@@ -39,7 +39,7 @@ public class NotificationManager {
 
         Intent intent = new Intent(context, DetailRace.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("ITEM_RACE", race);
+        intent.putExtra(DetailRace.ITEM_RACE, race);
 
         PendingIntent pendingIntentOpenClass = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
