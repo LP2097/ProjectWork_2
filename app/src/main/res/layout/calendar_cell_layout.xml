@@ -59,35 +59,29 @@
             android:orientation="vertical" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
-            android:paddingRight="5sp"
-            android:paddingLeft="10sp"
             android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10sp"
+            android:paddingRight="5sp">
 
             <TextView
                 android:id="@+id/textRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="132dp"
+                android:layout_height="60sp"
                 android:layout_weight="2"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="Canada"
+                android:text="Canada Grand Prix"
                 android:textColor="@android:color/background_dark"
                 android:textSize="22sp" />
 
-            <TextView
-                android:id="@+id/textRight2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="Formula 1 ecc"
-                android:textColor="@android:color/background_dark"
-                android:textSize="12sp" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/flagImage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
 
         <ImageView
             android:layout_width="wrap_content"
