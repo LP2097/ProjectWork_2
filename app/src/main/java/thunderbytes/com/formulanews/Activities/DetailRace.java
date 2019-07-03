@@ -10,21 +10,23 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Observable;
+import java.util.Observer;
+import thunderbytes.com.formulanews.Broadcast.InternetReceiver;
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.Adapter.AdapterDetailFragmentPager;
 import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Managers.NotificationManager;
 import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Observable.InternetObservable;
 import thunderbytes.com.formulanews.R;
 
-public class DetailRace extends AppCompatActivity {
+public class DetailRace extends AppCompatActivity implements Observer{
 
     //costanti condivise nella main acitivity per passare dati
     public static final String ITEM_RACE = "item race";
@@ -52,6 +54,9 @@ public class DetailRace extends AppCompatActivity {
         ImageButton mNotification = findViewById(R.id.buttonNotification);
         toolbar = findViewById(R.id.htab_toolbar);
 
+        InternetReceiver = new InternetReceiver();
+        broadcastIntent();
+        InternetObservable.getInstance().addObserver(this);
 
         //- SEZIONE RECUPERO DATI
         Bundle vBundle =  getIntent().getExtras();
@@ -101,15 +106,13 @@ public class DetailRace extends AppCompatActivity {
         {
             mNotification.setImageResource(R.drawable.bell_select);
         }
-
-
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-      //  unregisterReceiver(InternetReceiver);
+        unregisterReceiver(InternetReceiver);
     }
 
 
@@ -168,6 +171,12 @@ public class DetailRace extends AppCompatActivity {
 
     public void broadcastIntent() {
         registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Toast.makeText(DetailRace.this, "" + arg, Toast.LENGTH_SHORT).show();
     }
 }
 

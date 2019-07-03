@@ -1,6 +1,5 @@
 package thunderbytes.com.formulanews;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -15,12 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -29,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import thunderbytes.com.formulanews.Activities.DetailRace;
 import thunderbytes.com.formulanews.Activities.FirebaseLogin;
 import thunderbytes.com.formulanews.Broadcast.InternetReceiver;
@@ -40,8 +40,9 @@ import thunderbytes.com.formulanews.Managers.StandingManager;
 import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Models.Standings;
+import thunderbytes.com.formulanews.Observable.InternetObservable;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched, LogoutDialogue.OnLogoutDialogueListener {
+public class MainActivity extends AppCompatActivity implements Observer, ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched, LogoutDialogue.OnLogoutDialogueListener {
     Fragment fragment;
     Bundle bundle = new Bundle();
     thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
     GoogleSignInClient mGoogleSignInClient;
     private static final String FRAGMENT = "fragment";
     private BroadcastReceiver InternetReceiver = null;
+    private boolean connectionLocked = false;
 
 
     @Override
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
         InternetReceiver = new InternetReceiver();
         broadcastIntent();
+        InternetObservable.getInstance().addObserver(this);
 
         pgsBar = (ProgressBar) findViewById(R.id.pBar);
         textLoading = findViewById(R.id.loading);
@@ -309,5 +312,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
     public void broadcastIntent() {
         registerReceiver(InternetReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Toast.makeText(MainActivity.this, "" + arg, Toast.LENGTH_SHORT).show();
     }
 }
