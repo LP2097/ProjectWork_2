@@ -41,6 +41,7 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Models.Standings;
 import thunderbytes.com.formulanews.Observable.InternetObservable;
+import com.bugfender.sdk.Bugfender;
 
 public class MainActivity extends AppCompatActivity implements Observer, ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched, LogoutDialogue.OnLogoutDialogueListener {
     Fragment fragment;
@@ -61,6 +62,13 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //BugFender
+        Bugfender.init(this, "6C5tVgdDQp58HHDwALr6wRs1LAWth45e", BuildConfig.DEBUG);
+        Bugfender.enableCrashReporting();
+        Bugfender.enableUIEventLogging(this.getApplication());
+        Bugfender.enableLogcatLogging();
+
         setContentView(R.layout.activity_main);
         Logger.addLogAdapter(new AndroidLogAdapter());
 
