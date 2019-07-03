@@ -1,19 +1,16 @@
 package thunderbytes.com.formulanews.Adapter;
 
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Models.Qualifying;
-import thunderbytes.com.formulanews.Models.Results;
 import thunderbytes.com.formulanews.R;
 
 public class AdapterQualifying extends RecyclerView.Adapter {
@@ -27,9 +24,8 @@ public class AdapterQualifying extends RecyclerView.Adapter {
     }
 
 
-    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_qualifying_cell_layout, viewGroup, false);
 
         ViewHolder viewHolder = new ViewHolder(view);
@@ -38,7 +34,7 @@ public class AdapterQualifying extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
 
 
         ViewHolder viewHold = (ViewHolder) viewHolder;
@@ -87,7 +83,7 @@ public class AdapterQualifying extends RecyclerView.Adapter {
         public TextView txt_Q1;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             txt_id = itemView.findViewById(R.id.labelPosition2);
             txt_name = itemView.findViewById(R.id.labelNamePilot2);

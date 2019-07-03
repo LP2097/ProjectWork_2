@@ -1,10 +1,10 @@
 package thunderbytes.com.formulanews.Adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import thunderbytes.com.formulanews.Fragments.DetailFragmentDate;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentQualification;
@@ -58,7 +58,6 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
         return 5;
     }
 
-    @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
 

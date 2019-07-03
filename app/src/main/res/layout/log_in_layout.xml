@@ -59,7 +59,7 @@
         android:background="@color/colorPrimary"/>
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/googleSignInBtn"
+        android:id="@+id/googleSignInBt"
         android:layout_width="163sp"
         android:layout_height="60sp"
         android:layout_gravity="center"

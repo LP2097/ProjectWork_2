@@ -1,13 +1,12 @@
 package thunderbytes.com.formulanews.Fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +15,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import thunderbytes.com.formulanews.Models.Race;
-import thunderbytes.com.formulanews.Models.Time;
 import thunderbytes.com.formulanews.R;
 
 
