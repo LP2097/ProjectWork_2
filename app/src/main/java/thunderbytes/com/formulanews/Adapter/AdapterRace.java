@@ -63,7 +63,7 @@ public class AdapterRace extends BaseAdapter {
         mCalendar.add(Calendar.DATE, -2);
 
         vHolder.txt_RaceName.setText(race.getRaceName());
-        vHolder.txt_Date.setText(android.text.format.DateFormat.format("dd", race.getDate()) + " - " + android.text.format.DateFormat.format("dd", mCalendar.getTime()));
+        vHolder.txt_Date.setText(android.text.format.DateFormat.format("dd", mCalendar.getTime()) + " - " + android.text.format.DateFormat.format("dd", race.getDate()));
         vHolder.txt_Month.setText(android.text.format.DateFormat.format("MMM", race.getDate()));
 
         String nation = race.getCircuit().location.getCountry();
