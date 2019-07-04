@@ -100,12 +100,14 @@ public class ListFragment extends Fragment {
                 case 1:
                     ArrayList<DriverStanding> vDriver = (ArrayList<DriverStanding>) vBundle.getSerializable(ITEM);
                     mAdapterDriver = new AdpterDriver(vDriver, colorTeams);
+                    title.setText("Classifica piloti");
                     listView.setAdapter(mAdapterDriver);
                     break;
 
                 case 2:
                     ArrayList<ConstructorStanding> vConstructors =(ArrayList<ConstructorStanding>) vBundle.getSerializable(ITEM);
                     mAdapterConstractor = new AdapterConstructor(vConstructors, colorTeams);
+                    title.setText("Classifica costruttori");
                     listView.setAdapter(mAdapterConstractor);
                     break;
             }
