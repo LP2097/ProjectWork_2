@@ -81,7 +81,9 @@
             android:id="@+id/flagImage"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:background="@drawable/image_border"
+            android:src="@drawable/australian_flag" />
 
         <ImageView
             android:layout_width="wrap_content"
