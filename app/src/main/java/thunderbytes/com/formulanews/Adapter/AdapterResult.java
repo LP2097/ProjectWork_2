@@ -1,6 +1,7 @@
 package thunderbytes.com.formulanews.Adapter;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +56,19 @@ public class AdapterResult extends RecyclerView.Adapter {
             viewHold.txt_gap.setText("");
         }else
         {
+            viewHold.txt_gap.setText("R");
+
+            if (dataList.get(i).getTime() != null)
+            {
+                viewHold.txt_gap.setText(""+ dataList.get(i).getTime().getTime());
+            }
+
+            if(dataList.get(i).getStatus().toLowerCase().contains("lap"))
+            {
+                viewHold.txt_gap.setText(""+dataList.get(i).getStatus());
+            }
+
             viewHold.txt_time.setText("");
-            viewHold.txt_gap.setText("");
         }
 
         viewHold.txt_pts.setText(dataList.get(i).getPoints()+"");
