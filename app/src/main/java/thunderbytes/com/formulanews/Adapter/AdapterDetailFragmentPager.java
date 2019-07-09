@@ -1,16 +1,20 @@
 package thunderbytes.com.formulanews.Adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Date;
 
 import thunderbytes.com.formulanews.Fragments.DetailFragmentDate;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentQualification;
 import thunderbytes.com.formulanews.Fragments.DetailFragmentRace;
+import thunderbytes.com.formulanews.Fragments.TimerFragment;
 import thunderbytes.com.formulanews.Models.Race;
 
 public class AdapterDetailFragmentPager extends FragmentPagerAdapter {

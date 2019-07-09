@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Inizio:"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Giorni:"
+        android:textAlignment="textEnd"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/daysLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Ore:"
+        android:textAlignment="textEnd"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/hoursLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Minuti:"
+        android:textAlignment="textEnd"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/minutesLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Secondi:"
+        android:textAlignment="textEnd"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/secondsLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+</LinearLayout>

@@ -1,11 +1,13 @@
 package thunderbytes.com.formulanews.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +18,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import thunderbytes.com.formulanews.Adapter.AdapterClock;
 import thunderbytes.com.formulanews.Models.Race;
+import thunderbytes.com.formulanews.Models.Time;
 import thunderbytes.com.formulanews.R;
 
 
@@ -26,7 +30,8 @@ public class DetailFragmentDate extends Fragment {
 
     private static DetailFragmentDate detailFragmentDate;
     private static final String ITEM_RACE = "race";
-
+    private TimerFragment timerFragment;
+    Date mDate;
 
     public static DetailFragmentDate newInstance(Race race) {
 
@@ -64,6 +69,20 @@ public class DetailFragmentDate extends Fragment {
 
             AdapterClock adapterRace = new AdapterClock(date);
             listView.setAdapter(adapterRace);
+        }
+
+        //ottengo la differenza in millisecondi tra le due date e la passo al fragment
+        mDate = new Date();
+
+        Long timeDiff =  vRace.getDate().getTime() - mDate.getTime();
+        if (timeDiff>0){
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            timerFragment = new TimerFragment();
+            Bundle bundle = new Bundle();
+            bundle.putLong("Date", timeDiff);
+            timerFragment.setArguments(bundle);
+            ft.add(R.id.startRaceTimerFrag,timerFragment,"FRAGMENT");
+            ft.commit();
         }
 
         return vView;
