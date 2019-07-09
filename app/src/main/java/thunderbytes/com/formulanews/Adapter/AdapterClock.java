@@ -37,7 +37,7 @@ public class AdapterClock extends RecyclerView.Adapter  {
         ViewHolder mViewHold = (ViewHolder) viewHolder;
 
         //GESTIONE BACKGROUND
-        if(i % 2 == 0){
+        if(i % 2 != 0){
             mViewHold.itemView.setBackgroundColor(Color.WHITE);
         }else{
             mViewHold.itemView.setBackgroundColor(Color.parseColor("#F0F3F4"));

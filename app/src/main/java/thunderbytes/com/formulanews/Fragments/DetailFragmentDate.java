@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,12 +29,13 @@ import thunderbytes.com.formulanews.R;
 
 public class DetailFragmentDate extends Fragment {
 
-    private static DetailFragmentDate detailFragmentDate;
+    private static DetailFragmentDate detailFragmentDate = new DetailFragmentDate();
     private static final String ITEM_RACE = "race";
+    private static final String SAVE = "save";
     private TimerFragment timerFragment;
     Date mDate;
 
-    public static DetailFragmentDate newInstance(Race race) {
+    public static DetailFragmentDate getInstance(Race race) {
 
         if (detailFragmentDate == null){
             detailFragmentDate = new DetailFragmentDate();
@@ -47,6 +49,12 @@ public class DetailFragmentDate extends Fragment {
 
     private Race vRace;
     private ArrayList<ArrayList> date = new ArrayList<ArrayList>();
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,16 +84,27 @@ public class DetailFragmentDate extends Fragment {
 
         Long timeDiff =  vRace.getDate().getTime() - mDate.getTime();
         if (timeDiff>0){
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            timerFragment = new TimerFragment();
-            Bundle bundle = new Bundle();
-            bundle.putLong("Date", timeDiff);
-            timerFragment.setArguments(bundle);
-            ft.add(R.id.startRaceTimerFrag,timerFragment,"FRAGMENT");
-            ft.commit();
+            timerFragment = (TimerFragment) getFragmentManager().findFragmentByTag(SAVE);
+            if(timerFragment == null)
+            {
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                timerFragment = new TimerFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("Date", timeDiff);
+                timerFragment.setArguments(bundle);
+                ft.add(R.id.startRaceTimerFrag,timerFragment,SAVE);
+                ft.commit();
+
+            }
+
         }
 
         return vView;
+    }
+
+    public void startTimer()
+    {
+        timerFragment.startTimer();
     }
 
     private Date calculateDate(int amount){
@@ -94,6 +113,11 @@ public class DetailFragmentDate extends Fragment {
         mCalendar.add(Calendar.DATE, amount);
 
         return mCalendar.getTime();
+    }
+
+    public void stopTimer()
+    {
+        timerFragment.stopTimer();
     }
 
 
@@ -157,5 +181,13 @@ public class DetailFragmentDate extends Fragment {
         date.add(3, mFP2);
         date.add(4, mFP1);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        date.clear();
+    }
+
+
 
 }

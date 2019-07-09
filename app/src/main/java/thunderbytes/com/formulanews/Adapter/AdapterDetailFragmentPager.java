@@ -3,7 +3,9 @@ package thunderbytes.com.formulanews.Adapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -23,6 +25,8 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
     private int qualificationNubmer;
     private Race race;
 
+    private DetailFragmentDate fragmentDate;
+
     public AdapterDetailFragmentPager(FragmentManager fm, int racePosition, Race race) {
         super(fm);
         this.racePosition = racePosition;
@@ -35,7 +39,7 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
 
         if(i == 0)
         {
-            DetailFragmentDate fragmentDate = DetailFragmentDate.newInstance(race);
+            fragmentDate = DetailFragmentDate.getInstance(race);
             return fragmentDate;
         }
         else if ( i == 4)
@@ -57,6 +61,18 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
 
         return super.getItemId(position);
 
+    }
+
+    public void stopTimer()
+    {
+        fragmentDate = DetailFragmentDate.getInstance(race);
+        fragmentDate.stopTimer();
+    }
+
+    public void startTimer()
+    {
+        fragmentDate = DetailFragmentDate.getInstance(race);
+        fragmentDate.startTimer();
     }
 
     @Override
@@ -91,4 +107,6 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
         qualificationNubmer = position;
         return super.getPageWidth(position);
     }
+
+
 }

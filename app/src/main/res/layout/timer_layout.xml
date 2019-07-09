@@ -1,79 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Inizio:"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Giorni:"
-        android:textAlignment="textEnd"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/daysLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Ore:"
-        android:textAlignment="textEnd"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/hoursLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="2"
+        android:fontFamily="@font/formula1_regular_web_0"
+        android:text="INIZIO GARA TRA:"
         android:textAlignment="center"
-        android:textSize="12sp" />
+        android:textColor="@color/fui_bgEmail"
+        android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20sp"
         android:layout_weight="1"
-        android:text="Minuti:"
-        android:textAlignment="textEnd"
-        android:textSize="12sp" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/minutesLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="10sp"
+            android:paddingRight="20sp">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Secondi:"
-        android:textAlignment="textEnd"
-        android:textSize="12sp" />
+            <TextView
+                android:id="@+id/daysLable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula1_regular_web_0"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/secondsLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="12sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:backgroundTint="@color/grey_light"
+                android:fontFamily="@font/titillium_web_light"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="D"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#7C6F6F"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="5sp"
+            android:layout_height="50sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="0"
+            android:background="@drawable/dashed_vertical_line"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp">
+
+            <TextView
+                android:id="@+id/hoursLable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula1_regular_web_0"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:backgroundTint="@color/grey_light"
+                android:fontFamily="@font/titillium_web_light"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="H"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#7C6F6F"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="5sp"
+            android:layout_height="50sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="0"
+            android:background="@drawable/dashed_vertical_line"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp">
+
+            <TextView
+                android:id="@+id/minutesLable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula1_regular_web_0"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:backgroundTint="@color/grey_light"
+                android:fontFamily="@font/titillium_web_light"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="M"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#7C6F6F"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="5sp"
+            android:layout_height="50sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="0"
+            android:background="@drawable/dashed_vertical_line"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="10sp"
+            android:paddingRight="20sp">
+
+            <TextView
+                android:id="@+id/secondsLable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/formula1_regular_web_0"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_dark"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:backgroundTint="@color/grey_light"
+                android:fontFamily="@font/titillium_web_light"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="S"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#7C6F6F"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

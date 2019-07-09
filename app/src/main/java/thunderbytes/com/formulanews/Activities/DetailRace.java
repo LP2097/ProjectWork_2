@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Observable;
@@ -20,13 +22,14 @@ import java.util.Observer;
 import thunderbytes.com.formulanews.Broadcast.InternetReceiver;
 import thunderbytes.com.formulanews.Broadcast.NotificationPublisher;
 import thunderbytes.com.formulanews.Adapter.AdapterDetailFragmentPager;
+import thunderbytes.com.formulanews.Fragments.TimerFragment;
 import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Managers.NotificationManager;
 import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Observable.InternetObservable;
 import thunderbytes.com.formulanews.R;
 
-public class DetailRace extends AppCompatActivity implements Observer{
+public class DetailRace extends AppCompatActivity implements Observer, TimerFragment.ITimerFragment {
 
     //costanti condivise nella main acitivity per passare dati
     public static final String ITEM_RACE = "item race";
@@ -41,6 +44,8 @@ public class DetailRace extends AppCompatActivity implements Observer{
     private boolean notify = false;
     private BroadcastReceiver InternetReceiver = null;
     private Toolbar toolbar;
+    private   AdapterDetailFragmentPager adapter;
+
 
 
     @Override
@@ -72,10 +77,12 @@ public class DetailRace extends AppCompatActivity implements Observer{
 
         //- SEZIONE INIZIALIZZAZIONE VIE PAGE CON I SCROLL TAB (AdapterDetailFragmentPager se ne occupa della gestione)
         ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
-        AdapterDetailFragmentPager adapter = new AdapterDetailFragmentPager(getSupportFragmentManager(), vRaceNumber,vRace);
+        adapter = new AdapterDetailFragmentPager(getSupportFragmentManager(), vRaceNumber,vRace);
         viewPager.setAdapter(adapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+
 
 
         //- SEZIONE GESTIONE NOTIFICHE
@@ -143,6 +150,9 @@ public class DetailRace extends AppCompatActivity implements Observer{
         } else {
             super.onBackPressed();
         }
+
+        adapter.stopTimer();
+
     }
 
 
@@ -177,6 +187,11 @@ public class DetailRace extends AppCompatActivity implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         Toast.makeText(DetailRace.this, "" + arg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startTimer() {
+        adapter.startTimer();
     }
 }
 

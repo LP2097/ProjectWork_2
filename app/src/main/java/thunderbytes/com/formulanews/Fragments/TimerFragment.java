@@ -3,6 +3,7 @@ package thunderbytes.com.formulanews.Fragments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,17 @@ import thunderbytes.com.formulanews.R;
 
 public class TimerFragment extends Fragment {
 
+     public interface ITimerFragment
+    {
+        void startTimer();
+    }
+
     private static final String FRAGMET = "timerFrag";
+    private static final String SAVE_TIME = "timerFrag";
 
     TimerAsync mTimer;
     TextView mSeconds, mMinutes, mHours, mDays;
+    ITimerFragment listener;
 
     public long timeDiff;
     public long seconds, minutes, hours, days;
@@ -32,7 +40,11 @@ public class TimerFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
+        if(context instanceof ITimerFragment) {
+            listener = (ITimerFragment) context;
+            if (mTimer != null)
+                mTimer.setListener(this);
+        }
     }
 
     @Nullable
@@ -40,16 +52,17 @@ public class TimerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View vView = inflater.inflate(R.layout.timer_layout, container, false);
-        mDays=vView.findViewById(R.id.daysLabel);
-        mHours=vView.findViewById(R.id.hoursLabel);
-        mMinutes=vView.findViewById(R.id.minutesLabel);
-        mSeconds=vView.findViewById(R.id.secondsLabel);
+        mDays=vView.findViewById(R.id.daysLable);
+        mHours=vView.findViewById(R.id.hoursLable);
+        mMinutes=vView.findViewById(R.id.minutesLable);
+        mSeconds=vView.findViewById(R.id.secondsLable);
 
         Bundle bundle = this.getArguments();
 
         //gli passo i millisecondi e li suddivido per ora, minuti ecc..
         if(bundle != null)
             timeDiff = bundle.getLong("Date");
+
             days = TimeUnit.MILLISECONDS
                     .toDays(timeDiff);
             timeDiff -= TimeUnit.DAYS.toMillis(days);
@@ -67,8 +80,7 @@ public class TimerFragment extends Fragment {
 
             mDays.setText(""+days);
             mHours.setText(""+hours);
-
-        startTimer();
+            listener.startTimer();
 
         return vView;
     }
@@ -82,19 +94,27 @@ public class TimerFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mTimer=null;
+        listener = null;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mTimer.cancel(true);
     }
 
     public void startTimer(){
         if (mTimer==null){
             mTimer = new TimerAsync(this);
             mTimer.execute();
+        }
+    }
+
+    public void stopTimer()
+    {
+        if(mTimer != null)
+        {
+            mTimer.cancel(true);
+            mTimer = null;
         }
     }
 
@@ -109,14 +129,20 @@ public class TimerFragment extends Fragment {
             mUpdater = new WeakReference<>(aListener);
         }
 
+        public void setListener(TimerFragment aListener){
+            mUpdater = new WeakReference<>(aListener);
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
             secondsCounter=(int)mUpdater.get().seconds;
             minutesCounter=(int)mUpdater.get().minutes;
             hourCounter=(int)mUpdater.get().hours;
+
             while (!isCancelled()){
                 publishProgress(secondsCounter);
                 secondsCounter--;
+                Log.d("FRAGMENT", "il fragment sta andando");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -146,5 +172,6 @@ public class TimerFragment extends Fragment {
         }
 
     }
+
 
 }
