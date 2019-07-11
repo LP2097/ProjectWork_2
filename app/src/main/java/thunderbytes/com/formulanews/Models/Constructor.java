@@ -2,13 +2,14 @@ package thunderbytes.com.formulanews.Models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.annotation.NonNull;
 import java.io.Serializable;
 
-@Entity
+@Entity(tableName = "Constructor")
 public class Constructor implements Serializable {
-    //Modificato
+
     @PrimaryKey @NonNull
     public String constructorId;
 

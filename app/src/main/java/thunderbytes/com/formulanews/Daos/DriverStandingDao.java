@@ -25,4 +25,7 @@ public interface DriverStandingDao {
 
     @Delete
     void delete(DriverStanding driverStanding);
+
+    @Query("DELETE FROM DriverStanding")
+    void deleteAll();
 }

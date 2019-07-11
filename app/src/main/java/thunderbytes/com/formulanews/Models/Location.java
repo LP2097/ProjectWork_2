@@ -3,6 +3,8 @@ package thunderbytes.com.formulanews.Models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -10,10 +12,14 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.io.Serializable;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(
+        tableName = "Location"
+)
 public class Location implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int locationId;
 
     @ColumnInfo

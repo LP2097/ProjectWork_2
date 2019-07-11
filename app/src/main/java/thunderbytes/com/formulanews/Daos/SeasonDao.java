@@ -13,7 +13,6 @@ public interface SeasonDao {
     @Query("SELECT * FROM Season")
     List<Season> getAll();
 
-
     @Query("SELECT * FROM Season WHERE seasonYear = :id")
     Season getById(String id);
 
@@ -25,4 +24,7 @@ public interface SeasonDao {
 
     @Delete
     void delete(Season season);
+
+    @Query("DELETE FROM Season")
+    void deleteAll();
 }

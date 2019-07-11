@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -19,16 +20,34 @@ import thunderbytes.com.formulanews.RoomDataConverters.DateConverter;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = {
-    @ForeignKey(entity = Circuit.class, parentColumns = "circuitId", childColumns = "circuitId", onDelete = CASCADE),
-    @ForeignKey(entity = Season.class, parentColumns = "seasonYear", childColumns = "season")
-})
+@Entity(
+    tableName = "Race",
+    foreignKeys = {
+        @ForeignKey(
+                entity = Season.class,
+                parentColumns = "seasonYear",
+                childColumns = "season",
+                onDelete = CASCADE
+        ),
+        @ForeignKey(
+                entity = Circuit.class,
+                parentColumns = "circuitId",
+                childColumns = "circuitId",
+                onDelete = CASCADE
+        )
+    },
+    indices = {
+        @Index("season"),
+        @Index("circuitId")
+    }
+)
+
 public class Race implements Serializable {
 
     @PrimaryKey
     private int Id;
 
-    @ColumnInfo(index = true)
+    @ColumnInfo
     private int season;
 
     @ColumnInfo
@@ -40,7 +59,7 @@ public class Race implements Serializable {
     @ColumnInfo
     private String raceName;
 
-    @ColumnInfo(index = true)
+    @ColumnInfo
     public String circuitId;
 
     @Ignore
@@ -85,6 +104,8 @@ public class Race implements Serializable {
     public void setSeason(int season) {
         this.season = season;
     }
+
+    public void setCircuitId(String circuitId){ this.circuitId = circuitId; }
 
     public int getRound() {
         return round;

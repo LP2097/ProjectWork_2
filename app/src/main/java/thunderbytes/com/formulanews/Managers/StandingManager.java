@@ -1,7 +1,5 @@
 package thunderbytes.com.formulanews.Managers;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Helpers.Constants;
@@ -39,7 +37,6 @@ public class StandingManager implements HttpGetTask.OnPostExecution {
         if(jsonObject != null){
             StandingsMRDataWrapper data = ((StandingsDataWrapper)jsonObject).getMRData();
             standings = data.getStandingsTable().getStandingsLists();
-            //season.setRaces(data.getRaceTable().getRaces());
         }else{
             standings = new ArrayList<>();
         }

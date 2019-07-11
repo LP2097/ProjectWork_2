@@ -25,4 +25,7 @@ public interface DriverDao {
 
     @Delete
     void delete(Driver driver);
+
+    @Query("DELETE FROM Driver")
+    void deleteAll();
 }

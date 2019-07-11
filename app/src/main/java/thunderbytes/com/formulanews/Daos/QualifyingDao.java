@@ -25,4 +25,7 @@ public interface QualifyingDao {
 
     @Delete
     void delete(Qualifying qualifying);
+
+    @Query("DELETE FROM Qualifying")
+    void deleteAll();
 }

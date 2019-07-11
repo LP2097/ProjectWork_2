@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey;
         @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId")
 })
 public class Qualifying {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int qualifyingId;
 
     @ColumnInfo(index = true)

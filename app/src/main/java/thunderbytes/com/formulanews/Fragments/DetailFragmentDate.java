@@ -1,14 +1,11 @@
 package thunderbytes.com.formulanews.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import thunderbytes.com.formulanews.Adapter.AdapterClock;
 import thunderbytes.com.formulanews.Models.Race;
@@ -29,13 +25,14 @@ import thunderbytes.com.formulanews.R;
 
 public class DetailFragmentDate extends Fragment {
 
-    private static DetailFragmentDate detailFragmentDate = new DetailFragmentDate();
+    private static DetailFragmentDate detailFragmentDate;
     private static final String ITEM_RACE = "race";
     private static final String SAVE = "save";
     private TimerFragment timerFragment;
     Date mDate;
 
-    public static DetailFragmentDate getInstance(Race race) {
+
+    public static DetailFragmentDate newInstance(Race race) {
 
         if (detailFragmentDate == null){
             detailFragmentDate = new DetailFragmentDate();

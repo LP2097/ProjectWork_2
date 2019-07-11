@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@Entity
+@Entity(tableName = "Standings")
 public class Standings implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int standingId;
 
     @ColumnInfo

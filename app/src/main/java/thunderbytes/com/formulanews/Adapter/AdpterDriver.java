@@ -78,7 +78,8 @@ public class AdpterDriver extends BaseAdapter {
         vHolder.txt_surname.setText("" + vDataDrivers.get(position).Driver.familyName);
         vHolder.txt_point.setText("" + vDataDrivers.get(position).getPoints() + " PTS");
 
-        vHolder.vw_color_team.setBackgroundColor(vColorTeam.get(vDataDrivers.get(position).Constructors.get(0).name));
+
+        vHolder.vw_color_team.setBackgroundColor(vColorTeam.get(vDataDrivers.get(position).Constructors.get(position).name));
 
 
         (cellView.findViewById(R.id.folding_cell)).setOnClickListener(new View.OnClickListener() {

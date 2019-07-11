@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -26,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -41,9 +43,11 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.Models.Standings;
 import thunderbytes.com.formulanews.Observable.InternetObservable;
+import thunderbytes.com.formulanews.Service.NetworkUtil;
+
 import com.bugfender.sdk.Bugfender;
 
-public class MainActivity extends AppCompatActivity implements Observer, ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched, LogoutDialogue.OnLogoutDialogueListener {
+public class MainActivity extends AppCompatActivity implements CacheManager.ICacheManagerStandings , CacheManager.ICacheManagerRace , Observer, ListFragment.OnItemClicked, SeasonManager.OnSeasonFetched, StandingManager.OnStandingsFetched, LogoutDialogue.OnLogoutDialogueListener {
     Fragment fragment;
     Bundle bundle = new Bundle();
     thunderbytes.com.formulanews.Models.Fragment fragmentModel = new thunderbytes.com.formulanews.Models.Fragment();
@@ -52,11 +56,10 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
     private ProgressBar pgsBar;
     TextView textLoading, loadingView;
     BottomNavigationView bottomNavigationView;
-    Race race;
     GoogleSignInClient mGoogleSignInClient;
     private static final String FRAGMENT = "fragment";
     private BroadcastReceiver InternetReceiver = null;
-    private boolean connectionLocked = false;
+    private NetworkUtil mConnection = new NetworkUtil();
 
 
     @Override
@@ -90,12 +93,18 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
 
         //0) istanzio la chace dove salvero le gare, i piloti e i costruttori,
         // trovandosi nel main persistera per tutta la durata del ciclo di vita dell'activity
-        mChache = new CacheManager();
+        mChache =  CacheManager.getInstance(this);
 
 
         if (savedInstanceState == null) {
             fragment = new ListFragment();
-            new SeasonManager(2019, MainActivity.this);
+
+            if(!mConnection.getConnection()) {
+                mChache.setRaces(null, MainActivity.this);
+            }else{
+                new SeasonManager(2019, MainActivity.this);
+            }
+
             fragmentModel.fragmentId = 0;
             setBundleId();
             bottomNavigationView.setVisibility(View.GONE);
@@ -112,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
-            public boolean onNavigationItemSelected( MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 fragment = new ListFragment();
                 if(lastSelected != null){
                     setTitleBottomMenuColor(lastSelected, Color.BLACK);
@@ -131,10 +140,11 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
                         fragmentModel.fragmentId = 0;
 
                         //1) verifico se la cache ha qualche dato salvato
-                        if(mChache.getRaces() != null) {
+                        if(!mConnection.getConnection()) {
+                            mChache.setRaces(null, MainActivity.this);
                             //2.1) passo nel bundle i dati presenti gia nella cache senza dover fare altre chiamate
-                            bundle.putSerializable(ListFragment.ITEM, mChache.getRaces());
-                            setFragmentTransaction();
+                            /*bundle.putSerializable(ListFragment.ITEM, mChache.setRaces(null, this));
+                            setFragmentTransaction();*/
 
                         }
                         else {
@@ -148,11 +158,13 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
                     case R.id.action_favorites:
 
                         //Classifica piloti
-                        if(mChache.getDrivers() != null) {
-                            bundle.putSerializable(ListFragment.ITEM, mChache.getDrivers());
-                            setFragmentTransaction();
-                        }
-                        else {
+                        if(!mConnection.getConnection()) {
+                            ArrayList<Standings> x = new ArrayList<>();
+                            mChache.setDrivers(x);
+                            /*bundle.putSerializable(ListFragment.ITEM, mChache.setDrivers(null));
+                            setFragmentTransaction();*/
+
+                        }else{
                             loadingView.setVisibility(View.VISIBLE);
                             pgsBar.setVisibility(View.VISIBLE);
                             textLoading.setVisibility(View.VISIBLE);
@@ -166,9 +178,11 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
                     case R.id.action_nearby:
 
                         //Classifica costruttori
-                        if(mChache.getConstructors() != null) {
-                            bundle.putSerializable(ListFragment.ITEM, mChache.getConstructors());
-                            setFragmentTransaction();
+                        if(!mConnection.getConnection()) {
+                            ArrayList<Standings> x = new ArrayList<>();
+                            mChache.setConstructors(x);
+                           /* bundle.putSerializable(ListFragment.ITEM, mChache.setConstructors(null));
+                            setFragmentTransaction();*/
 
                         }
                         else {
@@ -183,16 +197,16 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
                         break;
 
                     default:
-                        if(mChache.getRaces() != null) {
+                        /*if(mChache.getRaces() != null) {
                             //2.1) passo nel bundle i dati presenti gia nella cache senza dover fare altre chiamate
                             bundle.putSerializable(ListFragment.ITEM, mChache.getRaces());
                             setFragmentTransaction();
 
                         }
-                        else {
+                        else {*/
                             //2.2) non ci sono dati presenti, faccio la chiamata asincrona per ricevere i dati
                             new SeasonManager(2019, MainActivity.this);
-                        }
+                        //}
                         setBundleId();
                         break;
                 }
@@ -229,23 +243,16 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
     @Override
     public void onSeasonRetrievedSuccessfully(Season season) {
         try{
-            //1) inserisco nel bundle che passero nel listfragment l'array di corse ricevute dalla chiamata
-            bundle.putSerializable(ListFragment.ITEM, season.getRaces());
+
             Logger.d(season.getRaces());
-            for (int i = 0; i<season.getRaces().size(); i++)
-            {
+            for (int i = 0; i < season.getRaces().size(); i++) {
                 season.getRaces().get(i).setId(i);
             }
-            //2) salvo nella chache l'array, utile poi
-            // nell onNavigationItemSelected dove controllero se la cache ha dati salvati o meno
-            mChache.setRaces(season.getRaces());
-            //3) carico il fragment di mio interesse
-            pgsBar.setVisibility(View.GONE);
-            textLoading.setVisibility(View.GONE);
-            bottomNavigationView.setVisibility(View.VISIBLE);
-            setFragmentTransaction();
 
-            //4) controllo che l'app non sia stata aperta da notifica
+            Log.d("ASYNC", "STEP 1");
+
+            mChache.setRaces(season, this);
+
         }
         catch (Exception ex)
         {
@@ -254,25 +261,25 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
     }
 
     @Override
-    public void onStandingsRetrievedSuccessfully(ArrayList<Standings> standings) {
+    public void onStandingsRetrievedSuccessfully(ArrayList<Standings> aStandings) {
         try{
-            //1) PREMESSA, questo metodo gestisce sia l'array di costruttori che di piloti
+            //1) PREMESSA, questo metodo gestisce sia il database di costruttori che di piloti
 
             //2) devo verificare quale elementi mi ritorna la chiamata e assegnare gli elementi nel modo giusto
-            if (standings.get(0).ConstructorStandings != null) {
+            if (aStandings.get(0).ConstructorStandings != null) {
 
-                //3)  salvo nella chache l'array
-                mChache.setConstructors(standings.get(0).ConstructorStandings);
-                bundle.putSerializable(ListFragment.ITEM, standings.get(0).ConstructorStandings);
+                Log.d("ASYNC - STANDINGS", "STEP 1 - CONSTRUCTOR");
+
+                //3)  salvo nel db i costruttori
+                mChache.setConstructors(aStandings);
             }
-            else if (standings.get(0).DriverStandings != null)
+            else if (aStandings.get(0).DriverStandings != null)
             {
-                //3)  salvo nella chache l'array
-                mChache.setDrivers(standings.get(0).DriverStandings);
-                bundle.putSerializable(ListFragment.ITEM, standings.get(0).DriverStandings);
+                Log.d("ASYNC - STANDINGS", "STEP 1 - DRIVER");
+
+                //3)  salvo nel db i piloti
+                mChache.setDrivers(aStandings);
             }
-            //4) carico il fragment di mio interesse
-            setFragmentTransaction();
         }
         catch (Exception ex){
 
@@ -330,5 +337,32 @@ public class MainActivity extends AppCompatActivity implements Observer, ListFra
     @Override
     public void update(Observable o, Object arg) {
         Toast.makeText(MainActivity.this, "" + arg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getRaceList(Season season) {
+        Log.d("ASYNC - RACE", " STEP 5 ");
+
+        bundle.putSerializable(ListFragment.ITEM, season.getRaces());
+
+        //3) carico il fragment di mio interesse
+        pgsBar.setVisibility(View.GONE);
+        textLoading.setVisibility(View.GONE);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        setFragmentTransaction();
+    }
+
+    @Override
+    public void getStandingsList(Standings standings) {
+        Log.d("ASYNC - STANDINGS", " STEP 5 ");
+
+        if(lastSelected.getItemId() == R.id.action_favorites){
+            bundle.putSerializable(ListFragment.ITEM, standings.DriverStandings);
+        }else{
+            bundle.putSerializable(ListFragment.ITEM, standings.ConstructorStandings);
+        }
+
+        //4) carico il fragment di mio interesse
+        setFragmentTransaction();
     }
 }

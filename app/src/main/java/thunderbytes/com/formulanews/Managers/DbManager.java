@@ -6,6 +6,6 @@ import thunderbytes.com.formulanews.Helpers.FNdb;
 
 public class DbManager {
     public static FNdb createDb(Context context){
-        return Room.databaseBuilder(context, FNdb.class, FNdb.DATABASE_NAME).build();
-    };
+        return Room.databaseBuilder(context, FNdb.class, FNdb.DATABASE_NAME).fallbackToDestructiveMigration().build();
+    }
 }

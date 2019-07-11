@@ -17,16 +17,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import thunderbytes.com.formulanews.Adapter.AdapterQualifying;
+import thunderbytes.com.formulanews.CacheManager.CacheManager;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Models.Qualifying;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.R;
+import thunderbytes.com.formulanews.Service.NetworkUtil;
 
 public class DetailFragmentQualification extends Fragment implements SeasonManager.OnSeasonFetched{
 
     private final static String RACE_POSITION = "position";
     private final static String QUALIFICATION = "qualification";
     private static DetailFragmentQualification detailFragmentQualification;
+
+    private NetworkUtil mConnection = new NetworkUtil();
 
     public static DetailFragmentQualification newInstance(int racePosition, int qualificationNumber) {
 
@@ -49,6 +53,7 @@ public class DetailFragmentQualification extends Fragment implements SeasonManag
     private LinearLayout mSuperTable;
     private int qualificationNumber;
     private ArrayList<Qualifying> qualifyingArrayList;
+    private CacheManager mChache;
 
 
     @Override
@@ -60,6 +65,7 @@ public class DetailFragmentQualification extends Fragment implements SeasonManag
         pgsBar = vView.findViewById(R.id.pBar3);
         loading = vView.findViewById(R.id.loading3);
 
+        mChache = CacheManager.getInstance(getContext());
 
         loading.setVisibility(View.VISIBLE);
         pgsBar.setVisibility(View.VISIBLE);
@@ -69,13 +75,12 @@ public class DetailFragmentQualification extends Fragment implements SeasonManag
         listView.setLayoutManager(linearLayoutManager);
         listView.setHasFixedSize(true);
 
-
-
         Bundle vBundle =  getArguments();
         if (vBundle != null){
             int mRaceNumber = vBundle.getInt(RACE_POSITION);
             qualificationNumber = vBundle.getInt(QUALIFICATION);
-            new SeasonManager(2019, mRaceNumber+1, SeasonManager.RaceType.qualifying, DetailFragmentQualification.this);
+
+            new SeasonManager(2019, mRaceNumber + 1, SeasonManager.RaceType.qualifying, DetailFragmentQualification.this);
         }
 
         return vView;
@@ -85,16 +90,23 @@ public class DetailFragmentQualification extends Fragment implements SeasonManag
     public void onSeasonRetrievedSuccessfully(Season season) {
 
         try {
+            Log.d("ASYNC - QUALIFYING", "STEP 1");
+
             pgsBar.setVisibility(View.GONE);
             loading.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
 
-            if(season.races.isEmpty()){
-                Toast.makeText(getActivity(), "Non ci sono dati", Toast.LENGTH_LONG).show();
-            }else {
+            if(mConnection.getConnection()) {
+                if(season.races.isEmpty()){
+                    Toast.makeText(getActivity(), "Non ci sono dati", Toast.LENGTH_LONG).show();
+                }else {
+
                     qualifyingArrayList = season.getRaces().get(0).QualifyingResults;
-                  AdapterQualifying adapter = new AdapterQualifying(qualifyingArrayList, qualificationNumber);
-                  listView.setAdapter(adapter);
+                    AdapterQualifying adapter = new AdapterQualifying(qualifyingArrayList, qualificationNumber);
+                    listView.setAdapter(adapter);
+                }
+            }else{
+                Toast.makeText(getActivity(), "Devi esser conesso ad internet", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {

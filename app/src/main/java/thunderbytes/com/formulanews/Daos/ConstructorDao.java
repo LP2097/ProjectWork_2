@@ -24,4 +24,7 @@ public interface ConstructorDao {
 
     @Delete
     void delete(Constructor constructor);
+
+    @Query("DELETE FROM Constructor")
+    void deleteAll();
 }

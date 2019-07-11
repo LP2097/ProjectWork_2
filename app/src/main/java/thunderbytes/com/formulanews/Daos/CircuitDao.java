@@ -8,23 +8,26 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import thunderbytes.com.formulanews.Models.Circuit;
 import thunderbytes.com.formulanews.Models.Location;
 
 @Dao
 public interface CircuitDao {
-    @Query("SELECT * FROM Location")
-    List<Location> getAll();
+    @Query("SELECT * FROM Circuit")
+    List<Circuit> getAll();
 
+    @Query("DELETE FROM Circuit")
+    void deleteAll();
 
-    @Query("SELECT * FROM Location WHERE locationId = :id")
-    Location getById(String id);
+    @Query("SELECT * FROM Circuit WHERE circuitId = :id")
+    Circuit getById(String id);
 
     @Insert
-    void insertAll(Location ...locations);
+    void insertAll(Circuit... circuit);
 
     @Insert
-    void insert(Location location);
+    void insert(Circuit circuit);
 
     @Delete
-    void delete(Location location);
+    void delete(Circuit circuit);
 }

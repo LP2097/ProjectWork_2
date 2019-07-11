@@ -8,13 +8,15 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(foreignKeys = {
-        @ForeignKey(entity = Standings.class, parentColumns = "standingId", childColumns = "standingId"),
-        @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "ConstructorStanding", foreignKeys = {
+        @ForeignKey(entity = Standings.class, parentColumns = "standingId", childColumns = "standingId", onDelete = CASCADE),
+        @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId", onDelete = CASCADE)
 })
 public class ConstructorStanding implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int constructorStandingId;
 
     @ColumnInfo(index = true)
@@ -70,11 +72,11 @@ public class ConstructorStanding implements Serializable {
         this.wins = wins;
     }
 
-    public thunderbytes.com.formulanews.Models.Constructor getConstructor() {
+    public Constructor getConstructor() {
         return Constructor;
     }
 
-    public void setConstructor(thunderbytes.com.formulanews.Models.Constructor constructor) {
+    public void setConstructor(Constructor constructor) {
         Constructor = constructor;
     }
 }

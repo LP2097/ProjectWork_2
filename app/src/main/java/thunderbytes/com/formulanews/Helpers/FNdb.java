@@ -40,7 +40,7 @@ import thunderbytes.com.formulanews.RoomDataConverters.DateConverter;
     AverageSpeed.class, Circuit.class, Constructor.class, ConstructorStanding.class,
     Driver.class, DriverStanding.class, FastestLap.class, Location.class, Qualifying.class,
     Race.class, Results.class, Season.class, Standings.class, Time.class
-}, version = 1, exportSchema = false)
+}, version = 11, exportSchema = false)
 
 @TypeConverters({DateConverter.class})
 

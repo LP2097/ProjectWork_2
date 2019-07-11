@@ -11,7 +11,7 @@ import java.util.Date;
 
 import thunderbytes.com.formulanews.RoomDataConverters.DateConverter;
 
-@Entity
+@Entity(tableName = "Driver")
 public class Driver implements Serializable {
 
     @PrimaryKey

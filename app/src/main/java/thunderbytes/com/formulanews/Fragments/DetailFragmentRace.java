@@ -15,9 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import thunderbytes.com.formulanews.Adapter.AdapterResult;
+import thunderbytes.com.formulanews.CacheManager.CacheManager;
+import thunderbytes.com.formulanews.MainActivity;
 import thunderbytes.com.formulanews.Managers.SeasonManager;
 import thunderbytes.com.formulanews.Models.Season;
 import thunderbytes.com.formulanews.R;
+import thunderbytes.com.formulanews.Service.NetworkUtil;
 
 public class DetailFragmentRace extends Fragment implements SeasonManager.OnSeasonFetched{
 
@@ -25,6 +28,8 @@ public class DetailFragmentRace extends Fragment implements SeasonManager.OnSeas
     //SEZIONE SIGLETON DI CLASSE
     private static final String RACE_POSITION = "positionDetail";
     private static DetailFragmentRace detailFragmentRace;
+
+    private NetworkUtil mConnection = new NetworkUtil();
 
     public static DetailFragmentRace newInstance(int racePosition) {
 
@@ -75,7 +80,7 @@ public class DetailFragmentRace extends Fragment implements SeasonManager.OnSeas
         Bundle vBundle =  getArguments();
         if (vBundle != null){
             int mRaceNumber = vBundle.getInt(RACE_POSITION);
-            new SeasonManager(2019, mRaceNumber+1, SeasonManager.RaceType.results, DetailFragmentRace.this);
+            new SeasonManager(2019, mRaceNumber + 1, SeasonManager.RaceType.results, DetailFragmentRace.this);
         }
 
         return vView;
@@ -91,14 +96,17 @@ public class DetailFragmentRace extends Fragment implements SeasonManager.OnSeas
             listView.setVisibility(View.VISIBLE);
             mSuperTable.setVisibility(View.VISIBLE);
 
-            if(season.races.isEmpty()){
-                Toast.makeText(getActivity(), "Non ci sono dati", Toast.LENGTH_LONG).show();
-            }
-            else {
+            if(mConnection.getConnection()) {
+                if(season.races.isEmpty()){
+                    Toast.makeText(getActivity(), "Non ci sono dati", Toast.LENGTH_LONG).show();
+                }
+                else {
+                   AdapterResult adapter = new AdapterResult(season.getRaces().get(0).Results);
+                   listView.setAdapter(adapter);
 
-               AdapterResult adapter = new AdapterResult(season.getRaces().get(0).Results);
-               listView.setAdapter(adapter);
-
+                }
+            }else{
+                Toast.makeText(getActivity(), "Devi esser conesso ad internet", Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {

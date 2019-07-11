@@ -6,6 +6,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -13,7 +14,22 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.io.Serializable;
 
-@Entity(foreignKeys = @ForeignKey(entity = Location.class, parentColumns = "locationId", childColumns = "locationId"))
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(
+        tableName = "Circuit",
+        foreignKeys = {
+                @ForeignKey(
+                        entity = Location.class,
+                        parentColumns = "locationId",
+                        childColumns = "locationId",
+                        onDelete = CASCADE
+                )
+        },
+        indices = {
+                @Index("locationId")
+        }
+)
 public class Circuit implements Serializable {
 
     @PrimaryKey
@@ -27,7 +43,7 @@ public class Circuit implements Serializable {
     private String circuitName;
 
 
-    @ColumnInfo(index = true)
+    @ColumnInfo
     public int locationId;
 
     @Ignore

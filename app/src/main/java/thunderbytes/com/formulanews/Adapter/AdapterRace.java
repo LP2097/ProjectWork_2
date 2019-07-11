@@ -19,14 +19,14 @@ public class AdapterRace extends BaseAdapter {
 
         private ArrayList<Race> vDataRaces;
 
-    public AdapterRace(ArrayList<Race> data){
-        this.vDataRaces = data;
-    }
+        public AdapterRace(ArrayList<Race> data){
+            this.vDataRaces = data;
+        }
 
         @Override
         public int getCount() {
-        return vDataRaces.size();
-    }
+            return vDataRaces.size();
+        }
 
         @Override
         public Race getItem(int position) { return vDataRaces.get(position); }

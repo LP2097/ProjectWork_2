@@ -8,8 +8,9 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@Entity
+@Entity(tableName = "Season")
 public class Season implements Serializable {
+
 
     @PrimaryKey
     private int seasonYear;
@@ -25,9 +26,7 @@ public class Season implements Serializable {
         this.seasonYear = seasonYear;
     }
 
-    public ArrayList<Race> getRaces() {
-        return races;
-    }
+    public ArrayList<Race> getRaces() { return races; }
 
     public void setRaces(ArrayList<Race> races) {
         this.races = races;

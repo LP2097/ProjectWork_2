@@ -9,14 +9,20 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@Entity(foreignKeys = {
-        @ForeignKey(entity = Standings.class, parentColumns = "standingId", childColumns = "standingId"),
-        @ForeignKey(entity = Driver.class, parentColumns = "driverId", childColumns = "driverId")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "DriverStanding", foreignKeys = {
+        @ForeignKey(entity = Standings.class, parentColumns = "standingId", childColumns = "standingId", onDelete = CASCADE),
+        @ForeignKey(entity = Driver.class, parentColumns = "driverId", childColumns = "driverId", onDelete = CASCADE),
+        @ForeignKey(entity = Constructor.class, parentColumns = "constructorId", childColumns = "constructorId", onDelete = CASCADE)
 })
 public class DriverStanding implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public int driverStandingId;
+
+    @ColumnInfo(index = true)
+    public String constructorId;
 
     @ColumnInfo(index = true)
     public int standingId;

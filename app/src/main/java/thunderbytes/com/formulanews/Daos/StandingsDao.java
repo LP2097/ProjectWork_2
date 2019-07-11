@@ -25,4 +25,7 @@ public interface StandingsDao {
 
     @Delete
     void delete(Standings standings);
+
+    @Query("DELETE FROM Standings")
+    void deleteAll();
 }

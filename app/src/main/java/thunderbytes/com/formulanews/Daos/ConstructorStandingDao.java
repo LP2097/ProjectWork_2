@@ -25,4 +25,7 @@ public interface ConstructorStandingDao {
 
     @Delete
     void delete(ConstructorStanding constructorStanding);
+
+    @Query("DELETE FROM ConstructorStanding")
+    void deleteAll();
 }
