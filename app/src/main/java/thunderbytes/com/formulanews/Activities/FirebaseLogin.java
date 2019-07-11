@@ -143,7 +143,10 @@ public class FirebaseLogin extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(InternetReceiver);
+        if (InternetReceiver!=null){
+            unregisterReceiver(InternetReceiver);
+            InternetReceiver=null;
+        }
     }
 
     @Override
