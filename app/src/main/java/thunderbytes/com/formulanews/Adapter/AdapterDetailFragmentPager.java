@@ -39,8 +39,10 @@ public class AdapterDetailFragmentPager extends FragmentPagerAdapter {
 
         if(i == 0)
         {
-            fragmentDate = DetailFragmentDate.getInstance(race);
-            return fragmentDate;
+            if(fragmentDate == null)
+                fragmentDate = DetailFragmentDate.getInstance(race);
+
+                return fragmentDate;
         }
         else if ( i == 4)
         {

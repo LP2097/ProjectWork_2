@@ -1,5 +1,7 @@
 package thunderbytes.com.formulanews.Fragments;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.willowtreeapps.spruce.Spruce;
+import com.willowtreeapps.spruce.animation.DefaultAnimations;
+import com.willowtreeapps.spruce.sort.DefaultSort;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -29,8 +34,10 @@ import thunderbytes.com.formulanews.Models.Race;
 import thunderbytes.com.formulanews.R;
 
 public class ListFragment extends Fragment {
+
     public static final String ID = "id";
     public static final String ITEM = "item";
+
     private int fragmentId;
     ListView listView;
     TextView title;
@@ -40,8 +47,8 @@ public class ListFragment extends Fragment {
     AdapterConstructor mAdapterConstractor;
     public ListFragment() { }
     ImageView logoutView;
-    //private Animator spruceAnimator;
-
+    private Animator spruceAnimator;
+    private Boolean test;
 
     private LinkedHashMap<String, Integer> colorTeams = new LinkedHashMap<>();
 
@@ -66,7 +73,9 @@ public class ListFragment extends Fragment {
         listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                //initSpruce();
+                if(test == true){
+                    initSpruce();
+                }
             }
         });
 
@@ -90,6 +99,7 @@ public class ListFragment extends Fragment {
         Bundle vBundle =  getArguments();
 
         if (vBundle != null){
+
             switch (fragmentId){
                 case 0:
                     vRaces =(ArrayList<Race>) vBundle.getSerializable(ITEM);
@@ -98,6 +108,7 @@ public class ListFragment extends Fragment {
                     break;
 
                 case 1:
+                    test = false;
                     ArrayList<DriverStanding> vDriver = (ArrayList<DriverStanding>) vBundle.getSerializable(ITEM);
                     mAdapterDriver = new AdpterDriver(vDriver, colorTeams);
                     title.setText("Classifica piloti");
@@ -105,6 +116,7 @@ public class ListFragment extends Fragment {
                     break;
 
                 case 2:
+                    test = false;
                     ArrayList<ConstructorStanding> vConstructors =(ArrayList<ConstructorStanding>) vBundle.getSerializable(ITEM);
                     mAdapterConstractor = new AdapterConstructor(vConstructors, colorTeams);
                     title.setText("Classifica costruttori");
@@ -154,6 +166,7 @@ public class ListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Logger.addLogAdapter(new AndroidLogAdapter());
         Logger.d("creazione Fragment");
+        test = true;
     }
 
 
@@ -164,11 +177,11 @@ public class ListFragment extends Fragment {
     }
 
 
-    /*private void initSpruce() {
+    private void initSpruce() {
         spruceAnimator = new Spruce.SpruceBuilder(listView)
                 .sortWith(new DefaultSort(100))
                 .animateWith(DefaultAnimations.fadeInAnimator(listView, 800),
                         ObjectAnimator.ofFloat(listView, "translationY", +listView.getWidth(), 0f).setDuration(800))
                 .start();
-    }*/
+    }
 }

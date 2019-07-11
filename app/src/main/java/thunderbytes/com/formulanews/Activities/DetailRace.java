@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 import thunderbytes.com.formulanews.Broadcast.InternetReceiver;
@@ -87,31 +89,40 @@ public class DetailRace extends AppCompatActivity implements Observer, TimerFrag
 
         //- SEZIONE GESTIONE NOTIFICHE
         notificationSavingkey = vRace.getRaceName();
+        Log.d("TAG","nome corsa"+vRace.getRaceName());
+        Log.d("TAG","id corsa"+vRace.getId());
+        Date date = new Date();
 
-        mNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(vRace.getDate().getTime() > date.getTime() || vRace.getId() == 0) {
 
-                if(!vRace.isNotify())
-                {
-                    vRace.setNotify(true);
-                    enableNotification();
-                    mNotification.setImageResource(R.drawable.bell_select);
+            mNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (!vRace.isNotify()) {
+                        vRace.setNotify(true);
+                        enableNotification();
+                        mNotification.setImageResource(R.drawable.bell_select);
+                    } else {
+                        vRace.setNotify(false);
+                        disableNotification();
+                        mNotification.setImageResource(R.drawable.bell);
+                    }
+
                 }
-                else {
-                    vRace.setNotify(false);
-                    disableNotification();
-                    mNotification.setImageResource(R.drawable.bell);
-                }
+            });
 
+
+            vRace.setNotify(getNotification());
+
+            if (vRace.isNotify()) {
+                mNotification.setImageResource(R.drawable.bell_select);
             }
-        });
 
-        vRace.setNotify(getNotification());
-
-        if(vRace.isNotify())
+        }
+        else
         {
-            mNotification.setImageResource(R.drawable.bell_select);
+            mNotification.setVisibility(View.GONE);
         }
     }
 

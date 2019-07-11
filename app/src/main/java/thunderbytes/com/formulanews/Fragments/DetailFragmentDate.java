@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,18 +26,17 @@ import thunderbytes.com.formulanews.R;
 
 public class DetailFragmentDate extends Fragment {
 
-    private static DetailFragmentDate detailFragmentDate;
+    private static DetailFragmentDate detailFragmentDate = new DetailFragmentDate();
     private static final String ITEM_RACE = "race";
     private static final String SAVE = "save";
     private TimerFragment timerFragment;
     Date mDate;
 
 
-    public static DetailFragmentDate newInstance(Race race) {
+    public static DetailFragmentDate getInstance(Race race) {
 
-        if (detailFragmentDate == null){
-            detailFragmentDate = new DetailFragmentDate();
-        }
+        if(detailFragmentDate.getArguments() != null)
+            detailFragmentDate.getArguments().clear();
 
         Bundle args = new Bundle();
         args.putSerializable(ITEM_RACE, race);
@@ -48,7 +48,7 @@ public class DetailFragmentDate extends Fragment {
     private ArrayList<ArrayList> date = new ArrayList<ArrayList>();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
     }
@@ -101,7 +101,8 @@ public class DetailFragmentDate extends Fragment {
 
     public void startTimer()
     {
-        timerFragment.startTimer();
+        if(timerFragment != null)
+            timerFragment.startTimer();
     }
 
     private Date calculateDate(int amount){
@@ -114,7 +115,8 @@ public class DetailFragmentDate extends Fragment {
 
     public void stopTimer()
     {
-        timerFragment.stopTimer();
+        if(timerFragment != null)
+            timerFragment.stopTimer();
     }
 
 
@@ -185,6 +187,8 @@ public class DetailFragmentDate extends Fragment {
         date.clear();
     }
 
-
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }
